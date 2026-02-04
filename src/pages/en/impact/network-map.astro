@@ -1,5 +1,7 @@
 ---
 import Page from '../../../layouts/Page.astro';
+import { Globe } from '../../../components/globe/Globe';
+import { MetricCard } from '../../../components/ui/AnimatedCounter';
 const lang = 'en';
 ---
 
@@ -10,34 +12,17 @@ const lang = 'en';
       <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-tight mb-8">Live <em>Network</em></h1>
       <p class="text-xl text-white/70 max-w-3xl mb-12">Real-time view of TrueLeap deployments worldwide.</p>
       
-      <!-- Globe placeholder - will be replaced with Three.js component -->
-      <div class="aspect-video bg-charcoal/50 rounded-2xl border border-white/10 flex items-center justify-center">
-        <div class="text-center">
-          <div class="w-32 h-32 mx-auto mb-4 rounded-full bg-indigo/20 flex items-center justify-center">
-            <span class="text-4xl">🌍</span>
-          </div>
-          <p class="text-white/60 font-mono text-sm">Interactive Globe Loading...</p>
-        </div>
+      <!-- Interactive 3D Globe -->
+      <div class="rounded-2xl border border-white/10 p-8">
+        <Globe client:visible />
       </div>
 
       <!-- Stats -->
       <div class="grid md:grid-cols-4 gap-8 mt-16">
-        <div class="text-center">
-          <p class="font-display text-5xl text-indigo mb-2">47</p>
-          <p class="text-white/60">Countries</p>
-        </div>
-        <div class="text-center">
-          <p class="font-display text-5xl text-indigo mb-2">2.3M</p>
-          <p class="text-white/60">People Connected</p>
-        </div>
-        <div class="text-center">
-          <p class="font-display text-5xl text-indigo mb-2">1,200+</p>
-          <p class="text-white/60">Edge Nodes</p>
-        </div>
-        <div class="text-center">
-          <p class="font-display text-5xl text-indigo mb-2">99.7%</p>
-          <p class="text-white/60">Uptime</p>
-        </div>
+        <MetricCard client:visible value={47} label="Countries" />
+        <MetricCard client:visible value={2300000} label="People Connected" />
+        <MetricCard client:visible value={1200} label="Edge Nodes" suffix="+" />
+        <MetricCard client:visible value={99.7} label="Uptime" suffix="%" />
       </div>
     </div>
   </section>
