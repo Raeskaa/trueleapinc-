@@ -1,50 +1,211 @@
 ---
 import Page from '../../../layouts/Page.astro';
+
 const lang = 'en';
+
+const values = [
+  {
+    title: 'Sovereignty',
+    description: 'Communities and nations should control their own digital infrastructure. We build technology that enables ownership, not dependency.',
+    icon: 'flag'
+  },
+  {
+    title: 'Sustainability',
+    description: 'Technology must work within environmental and economic constraints. Our platform runs on solar power and costs less than traditional alternatives.',
+    icon: 'leaf'
+  },
+  {
+    title: 'Accessibility',
+    description: 'Digital services should be available to everyone, regardless of location or connectivity. We design for the last mile first.',
+    icon: 'globe'
+  },
+  {
+    title: 'Impact',
+    description: 'We measure success by the real-world outcomes we enable — jobs created, students educated, services delivered.',
+    icon: 'chart'
+  },
+];
+
+const milestones = [
+  { year: '2019', title: 'Founded', description: 'TrueLeap founded with the mission to bridge the digital divide through sovereign infrastructure.' },
+  { year: '2020', title: 'First Deployment', description: 'Pilot deployment in rural Rwanda connects 50 schools to digital learning resources.' },
+  { year: '2021', title: 'Series Seed', description: '$4M seed round led by development-focused impact investors.' },
+  { year: '2022', title: 'Scale', description: 'Expanded to 15 countries, deployed 500+ edge nodes, connected 2M people.' },
+  { year: '2023', title: 'Product Launch', description: 'Launched Leapspace, Digital Twin, and Leapcast as integrated platform.' },
+  { year: '2024', title: 'Series A', description: '$18M Series A to accelerate deployment across Africa and Southeast Asia.' },
+];
+
+const team = [
+  { name: 'Dr. Amara Osei', role: 'CEO & Co-founder', bio: 'Former infrastructure lead at Google X, PhD in distributed systems from MIT.' },
+  { name: 'James Chen', role: 'CTO & Co-founder', bio: 'Built mesh networking protocols at Cisco, 15 years in edge computing.' },
+  { name: 'Sarah Mwangi', role: 'COO', bio: 'Former UNICEF innovation director, 20 years in development technology.' },
+];
 ---
 
 <Page title="Mission & Vision" lang={lang}>
-  <section class="pt-32 pb-20 bg-cream">
-    <div class="max-w-7xl mx-auto px-6">
-      <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Company / Mission</p>
-      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-tight text-charcoal mb-8">Mission & <em>Vision</em></h1>
+  <!-- Hero -->
+  <section class="pt-32 pb-20 bg-cream relative overflow-hidden">
+    <div class="absolute inset-0">
+      <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-indigo-light/30 rounded-full blur-[100px]"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      <span class="text-caption text-indigo mb-4 block">Company / Mission</span>
+      <h1 class="text-display-xl text-charcoal mb-8">
+        Mission & <span class="display-serif">Vision</span>
+      </h1>
+      <p class="text-body-lg text-muted max-w-3xl">
+        We believe connectivity is not a luxury — it's infrastructure. Like roads, 
+        electricity, and clean water, digital access is fundamental to human 
+        opportunity in the 21st century.
+      </p>
     </div>
   </section>
 
-  <section class="py-20 bg-white">
-    <div class="max-w-4xl mx-auto px-6">
-      <div class="mb-16">
-        <h2 class="font-display text-3xl mb-6">Our Mission</h2>
-        <p class="text-xl text-charcoal/70 leading-relaxed">
-          To bridge the digital divide by building sovereign, sustainable infrastructure that connects underserved communities to opportunity.
-        </p>
-      </div>
-      <div class="mb-16">
-        <h2 class="font-display text-3xl mb-6">Our Vision</h2>
-        <p class="text-xl text-charcoal/70 leading-relaxed">
-          A world where connectivity is universal, where every community controls its own digital destiny, and where technology serves human flourishing.
-        </p>
-      </div>
-      <div>
-        <h2 class="font-display text-3xl mb-6">Our Values</h2>
-        <div class="grid md:grid-cols-2 gap-8">
-          <div>
-            <h3 class="font-display text-xl mb-2">Sovereignty</h3>
-            <p class="text-charcoal/70">Communities and nations should control their own digital infrastructure.</p>
-          </div>
-          <div>
-            <h3 class="font-display text-xl mb-2">Sustainability</h3>
-            <p class="text-charcoal/70">Technology must work within environmental and economic constraints.</p>
-          </div>
-          <div>
-            <h3 class="font-display text-xl mb-2">Accessibility</h3>
-            <p class="text-charcoal/70">Digital services should be available to everyone, regardless of location.</p>
-          </div>
-          <div>
-            <h3 class="font-display text-xl mb-2">Impact</h3>
-            <p class="text-charcoal/70">We measure success by the real-world outcomes we enable.</p>
-          </div>
+  <!-- Mission & Vision -->
+  <section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-16">
+        <div class="p-8 rounded-2xl bg-cream border border-border">
+          <span class="text-caption text-indigo mb-4 block">Our Mission</span>
+          <h2 class="text-display-md text-charcoal mb-6">
+            Bridge the digital divide through sovereign, sustainable infrastructure
+          </h2>
+          <p class="text-body-lg text-muted">
+            3.7 billion people lack reliable internet access. Traditional approaches fail 
+            because they assume connectivity, depend on external cloud services, and 
+            require infrastructure that doesn't exist. We build a different way — 
+            offline-first, solar-powered, and locally owned.
+          </p>
         </div>
+        
+        <div class="p-8 rounded-2xl bg-charcoal text-white">
+          <span class="text-caption text-indigo-light mb-4 block">Our Vision</span>
+          <h2 class="text-display-md text-white mb-6">
+            A world where geography is no longer destiny
+          </h2>
+          <p class="text-body-lg text-white/70">
+            We envision a world where every community has access to the digital tools 
+            that can transform their lives. Where a student in rural Rwanda has the 
+            same learning resources as one in San Francisco. Where local economies can 
+            participate in the global digital economy.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Manifesto Quote -->
+  <section class="py-24 bg-charcoal text-white">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <blockquote class="text-display-md text-white mb-8 display-serif italic">
+        "The digital divide is not a technology problem. It's an infrastructure problem. 
+        And infrastructure problems require infrastructure solutions."
+      </blockquote>
+      <p class="text-white/60">— From the TrueLeap Manifesto</p>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="py-24 bg-cream">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-caption text-indigo mb-4 block">Our Values</span>
+        <h2 class="text-display-lg text-charcoal">What We Stand For</h2>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-8">
+        {values.map((value) => (
+          <div class="card">
+            <div class="w-12 h-12 rounded-xl bg-indigo-light/50 flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-indigo" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-medium text-charcoal mb-2">{value.title}</h3>
+            <p class="text-muted">{value.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-caption text-indigo mb-4 block">Our Journey</span>
+        <h2 class="text-display-lg text-charcoal">Building the Future</h2>
+      </div>
+      
+      <div class="relative">
+        <!-- Timeline line -->
+        <div class="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-border"></div>
+        
+        <div class="space-y-12">
+          {milestones.map((milestone, i) => (
+            <div class={`relative grid md:grid-cols-2 gap-8 ${i % 2 === 0 ? '' : 'md:flex-row-reverse'}`}>
+              <div class={`${i % 2 === 0 ? 'md:text-right md:pr-16' : 'md:col-start-2 md:pl-16'}`}>
+                <span class="text-2xl font-medium text-indigo">{milestone.year}</span>
+                <h3 class="text-xl font-medium text-charcoal mt-1 mb-2">{milestone.title}</h3>
+                <p class="text-muted">{milestone.description}</p>
+              </div>
+              
+              <!-- Timeline dot -->
+              <div class="absolute left-8 md:left-1/2 top-2 w-4 h-4 -translate-x-1/2 rounded-full bg-indigo border-4 border-white"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leadership Preview -->
+  <section class="py-24 bg-cream">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16">
+        <div class="max-w-2xl">
+          <span class="text-caption text-indigo mb-4 block">Leadership</span>
+          <h2 class="text-display-lg text-charcoal">The Team</h2>
+        </div>
+        <a href="/en/company/leadership" class="link-arrow font-medium text-charcoal">
+          View full team
+        </a>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        {team.map((member) => (
+          <div class="card text-center">
+            <div class="w-24 h-24 rounded-full bg-gradient-to-br from-indigo-light to-violet-100 mx-auto mb-4 flex items-center justify-center">
+              <span class="text-2xl font-display italic text-indigo">
+                {member.name.split(' ').map(n => n[0]).join('')}
+              </span>
+            </div>
+            <h3 class="text-lg font-medium text-charcoal">{member.name}</h3>
+            <p class="text-sm text-indigo mb-2">{member.role}</p>
+            <p class="text-sm text-muted">{member.bio}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 bg-charcoal text-white">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <h2 class="text-display-md text-white mb-6">
+        Join us in bridging the divide
+      </h2>
+      <p class="text-body-lg text-white/70 mb-8">
+        We're building a team of mission-driven engineers, designers, and operators. 
+        If you believe technology should serve everyone, we want to hear from you.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="/en/company/careers" class="btn bg-white text-charcoal hover:bg-white/90">
+          View Open Roles
+        </a>
+        <a href="/en/company/partners" class="btn bg-white/10 text-white border border-white/20 hover:bg-white/20">
+          Become a Partner
+        </a>
       </div>
     </div>
   </section>

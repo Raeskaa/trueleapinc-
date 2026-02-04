@@ -2,56 +2,164 @@
 import Page from '../../../layouts/Page.astro';
 
 const lang = 'en';
+
+const industries = [
+  {
+    title: 'Governments',
+    description: 'Digital sovereignty infrastructure for national transformation. Data stays within borders.',
+    href: '/en/solutions/industry/governments',
+    features: ['National ID systems', 'e-Government services', 'Emergency communications'],
+  },
+  {
+    title: 'Education',
+    description: 'Connected learning platforms that work without internet. World-class content, offline.',
+    href: '/en/solutions/industry/education',
+    features: ['Offline classrooms', 'Content libraries', 'Progress tracking'],
+  },
+  {
+    title: 'NGOs',
+    description: 'Humanitarian connectivity for crisis response and long-term development programs.',
+    href: '/en/solutions/industry/ngos',
+    features: ['Rapid deployment', 'Field coordination', 'Impact measurement'],
+  },
+  {
+    title: 'Enterprise',
+    description: 'Edge computing solutions for distributed operations in remote locations.',
+    href: '/en/solutions/industry/enterprise',
+    features: ['Remote operations', 'Asset tracking', 'Field services'],
+  },
+];
+
+const outcomes = [
+  {
+    title: 'Digital Sovereignty',
+    description: 'Complete control over your data and infrastructure. No external dependencies.',
+    href: '/en/solutions/outcome/digital-sovereignty',
+    icon: 'shield'
+  },
+  {
+    title: 'Rural Connectivity',
+    description: 'Reach the last mile where traditional infrastructure cannot go.',
+    href: '/en/solutions/outcome/rural-connectivity',
+    icon: 'signal'
+  },
+  {
+    title: 'Workforce Readiness',
+    description: 'Digital skills training that works without reliable internet.',
+    href: '/en/solutions/outcome/workforce-readiness',
+    icon: 'users'
+  },
+];
 ---
 
 <Page title="Solutions" lang={lang}>
-  <section class="pt-32 pb-20 bg-cream">
-    <div class="max-w-7xl mx-auto px-6">
-      <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Solutions</p>
-      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-tight text-charcoal mb-8">
-        Built for <em>Impact</em>
+  <!-- Hero -->
+  <section class="pt-32 pb-20 bg-cream relative overflow-hidden">
+    <div class="absolute inset-0">
+      <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-indigo-light/30 rounded-full blur-[100px]"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      <span class="text-caption text-indigo mb-4 block">Solutions</span>
+      <h1 class="text-display-xl text-charcoal mb-8">
+        Built for <span class="display-serif">Impact</span>
       </h1>
-      <p class="text-xl text-charcoal/70 max-w-3xl">
-        Tailored solutions for your industry and desired outcomes.
+      <p class="text-body-lg text-muted max-w-3xl">
+        Whether you're a government seeking digital sovereignty, an NGO responding 
+        to crisis, or an enterprise expanding into remote areas — TrueLeap provides 
+        the infrastructure you need.
       </p>
     </div>
   </section>
 
-  <section class="py-20 bg-white">
+  <!-- By Industry -->
+  <section class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-6">
-      <h2 class="font-display text-3xl mb-8">By Industry</h2>
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-        <a href="/en/solutions/industry/governments" class="p-6 border border-border rounded-xl hover:border-indigo hover:shadow-lg transition-all">
-          <h3 class="font-display text-xl mb-2">Governments</h3>
-          <p class="text-sm text-charcoal/60">Digital sovereignty and citizen services</p>
-        </a>
-        <a href="/en/solutions/industry/education" class="p-6 border border-border rounded-xl hover:border-indigo hover:shadow-lg transition-all">
-          <h3 class="font-display text-xl mb-2">Education</h3>
-          <p class="text-sm text-charcoal/60">Connected learning for all</p>
-        </a>
-        <a href="/en/solutions/industry/ngos" class="p-6 border border-border rounded-xl hover:border-indigo hover:shadow-lg transition-all">
-          <h3 class="font-display text-xl mb-2">NGOs</h3>
-          <p class="text-sm text-charcoal/60">Humanitarian connectivity</p>
-        </a>
-        <a href="/en/solutions/industry/enterprise" class="p-6 border border-border rounded-xl hover:border-indigo hover:shadow-lg transition-all">
-          <h3 class="font-display text-xl mb-2">Enterprise</h3>
-          <p class="text-sm text-charcoal/60">Edge computing at scale</p>
-        </a>
+      <div class="mb-16">
+        <span class="text-caption text-indigo mb-4 block">By Industry</span>
+        <h2 class="text-display-lg text-charcoal">Solutions for Your Sector</h2>
       </div>
+      
+      <div class="grid md:grid-cols-2 gap-8">
+        {industries.map((industry) => (
+          <a href={industry.href} class="group">
+            <div class="h-full p-8 rounded-2xl bg-cream border border-border hover:border-indigo transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo/10">
+              <h3 class="text-2xl font-medium text-charcoal mb-3 group-hover:text-indigo transition-colors">
+                {industry.title}
+              </h3>
+              <p class="text-muted mb-6">{industry.description}</p>
+              
+              <ul class="space-y-2 mb-6">
+                {industry.features.map((feature) => (
+                  <li class="flex items-center gap-2 text-sm text-charcoal">
+                    <svg class="w-4 h-4 text-indigo flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              
+              <span class="inline-flex items-center gap-2 text-indigo font-medium group-hover:gap-3 transition-all">
+                Learn more
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
 
-      <h2 class="font-display text-3xl mb-8">By Outcome</h2>
-      <div class="grid md:grid-cols-3 gap-6">
-        <a href="/en/solutions/outcome/digital-sovereignty" class="p-6 border border-border rounded-xl hover:border-indigo hover:shadow-lg transition-all">
-          <h3 class="font-display text-xl mb-2">Digital Sovereignty</h3>
-          <p class="text-sm text-charcoal/60">Control your data and infrastructure</p>
+  <!-- By Outcome -->
+  <section class="py-24 bg-charcoal text-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="mb-16">
+        <span class="text-caption text-indigo-light mb-4 block">By Outcome</span>
+        <h2 class="text-display-lg text-white">What You Want to Achieve</h2>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        {outcomes.map((outcome) => (
+          <a href={outcome.href} class="group">
+            <div class="h-full p-8 rounded-2xl bg-charcoal-light border border-border-dark hover:border-indigo transition-all">
+              <div class="w-12 h-12 rounded-xl bg-indigo/20 flex items-center justify-center mb-4">
+                <svg class="w-6 h-6 text-indigo-light" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-medium text-white mb-2">{outcome.title}</h3>
+              <p class="text-white/60 mb-4">{outcome.description}</p>
+              <span class="inline-flex items-center gap-2 text-indigo-light text-sm font-medium group-hover:gap-3 transition-all">
+                Explore
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 bg-cream">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <h2 class="text-display-md text-charcoal mb-6">
+        Not sure which solution fits?
+      </h2>
+      <p class="text-body-lg text-muted mb-8">
+        Our team can help you identify the right approach for your specific 
+        needs, whether you're deploying across a nation or a single village.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="mailto:hello@trueleapinc.com" class="btn btn-primary">
+          Talk to Our Team
         </a>
-        <a href="/en/solutions/outcome/workforce-readiness" class="p-6 border border-border rounded-xl hover:border-indigo hover:shadow-lg transition-all">
-          <h3 class="font-display text-xl mb-2">Workforce Readiness</h3>
-          <p class="text-sm text-charcoal/60">Skills development and training</p>
-        </a>
-        <a href="/en/solutions/outcome/rural-connectivity" class="p-6 border border-border rounded-xl hover:border-indigo hover:shadow-lg transition-all">
-          <h3 class="font-display text-xl mb-2">Rural Connectivity</h3>
-          <p class="text-sm text-charcoal/60">Last-mile infrastructure</p>
+        <a href="/en/resources/docs" class="btn btn-secondary">
+          Read Documentation
         </a>
       </div>
     </div>

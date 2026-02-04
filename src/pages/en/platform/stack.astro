@@ -2,44 +2,248 @@
 import Page from '../../../layouts/Page.astro';
 
 const lang = 'en';
+
+const layers = [
+  {
+    number: '04',
+    name: 'Applications',
+    tagline: 'User-facing software',
+    description: 'Three integrated applications that provide the user interface to the TrueLeap platform. Built offline-first, they sync when connectivity is available.',
+    products: [
+      { name: 'Leapspace', desc: 'Collaboration workspace with documents, messaging, and video' },
+      { name: 'Digital Twin', desc: 'Real-time monitoring and visualization of infrastructure' },
+      { name: 'Leapcast', desc: 'One-to-many content broadcasting and streaming' },
+    ],
+    color: 'indigo'
+  },
+  {
+    number: '03',
+    name: 'Edge AI Engine',
+    tagline: 'On-device intelligence',
+    description: 'Machine learning models that run locally on edge nodes. Process data, make decisions, and learn patterns without cloud connectivity.',
+    products: [
+      { name: 'Local Inference', desc: 'Run ML models on-device with sub-100ms latency' },
+      { name: 'Federated Learning', desc: 'Train models across nodes without sharing raw data' },
+      { name: 'Custom Models', desc: 'Deploy organization-specific AI capabilities' },
+    ],
+    color: 'violet'
+  },
+  {
+    number: '02',
+    name: 'Network Layer',
+    tagline: 'Connectivity fabric',
+    description: 'Self-healing mesh networks that route data efficiently between nodes. Integrate with satellite backhaul for global connectivity when needed.',
+    products: [
+      { name: 'Mesh Protocol', desc: 'Dynamic routing that adapts to network conditions' },
+      { name: 'Satellite Backhaul', desc: 'LEO satellite integration for global reach' },
+      { name: 'Hybrid Connectivity', desc: 'Seamless failover between connection types' },
+    ],
+    color: 'indigo'
+  },
+  {
+    number: '01',
+    name: 'Physical Infrastructure',
+    tagline: 'Hardware foundation',
+    description: 'Ruggedized edge nodes powered by solar energy. Designed to operate in extreme temperatures, humidity, and dust conditions.',
+    products: [
+      { name: 'Edge Node', desc: 'ARM-based compute with 1TB storage, < 2W power draw' },
+      { name: 'Solar Kit', desc: '50W panel with 72hr battery backup' },
+      { name: 'Weatherproofing', desc: 'IP67 enclosure rated for -20°C to 60°C' },
+    ],
+    color: 'violet'
+  },
+];
+
+const principles = [
+  {
+    title: 'Offline-First',
+    description: 'Every component is designed to work without internet connectivity. Sync when available, function always.',
+    icon: 'wifi-off'
+  },
+  {
+    title: 'Sovereign by Default',
+    description: 'Data stays local unless explicitly shared. No cloud dependencies, no external data flows.',
+    icon: 'shield'
+  },
+  {
+    title: 'Solar-Powered',
+    description: 'Designed for < 2W average power consumption. Run indefinitely on small solar panels.',
+    icon: 'sun'
+  },
+  {
+    title: 'Self-Healing',
+    description: 'Mesh networks automatically route around failures. No single point of failure.',
+    icon: 'refresh'
+  },
+];
 ---
 
 <Page title="The TrueLeap Stack" lang={lang}>
-  <section class="pt-32 pb-20 bg-cream">
-    <div class="max-w-7xl mx-auto px-6">
-      <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Platform / Stack</p>
-      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-tight text-charcoal mb-8">
-        The Complete <em>Stack</em>
+  <!-- Hero -->
+  <section class="pt-32 pb-20 bg-charcoal text-white relative overflow-hidden">
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo/20 rounded-full blur-[100px]"></div>
+      <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-violet/20 rounded-full blur-[100px]"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      <span class="text-caption text-indigo-light mb-4 block">Platform / Stack</span>
+      <h1 class="text-display-xl text-white mb-8">
+        The Complete <span class="display-serif">Stack</span>
       </h1>
-      <p class="text-xl text-charcoal/70 max-w-3xl">
-        How physical infrastructure, digital systems, and edge AI integrate into a unified platform.
+      <p class="text-body-lg text-white/70 max-w-3xl">
+        Four integrated layers that work together to create a complete, 
+        sovereign digital infrastructure. Each layer builds on the one 
+        below, creating a unified platform that works anywhere.
       </p>
     </div>
   </section>
 
-  <section class="py-20 bg-white">
+  <!-- Stack Visualization -->
+  <section class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-6">
       <div class="space-y-8">
-        <div class="p-8 bg-indigo/5 border-l-4 border-indigo rounded-r-2xl">
-          <p class="font-mono uppercase tracking-[0.3em] text-xs text-indigo mb-2">Layer 4</p>
-          <h3 class="font-display text-2xl mb-2">Applications</h3>
-          <p class="text-charcoal/70">Leapspace, Digital Twin, Leapcast, and custom applications</p>
+        {layers.map((layer) => (
+          <div class="group">
+            <div class="grid lg:grid-cols-12 gap-8 items-start p-8 rounded-2xl bg-cream border border-border hover:border-indigo transition-colors">
+              <!-- Layer number -->
+              <div class="lg:col-span-1">
+                <span class="text-5xl font-medium text-charcoal/10 group-hover:text-indigo/20 transition-colors">
+                  {layer.number}
+                </span>
+              </div>
+              
+              <!-- Layer info -->
+              <div class="lg:col-span-4">
+                <p class="text-xs uppercase tracking-wider text-indigo mb-1">{layer.tagline}</p>
+                <h2 class="text-2xl font-medium text-charcoal mb-3">{layer.name}</h2>
+                <p class="text-muted">{layer.description}</p>
+              </div>
+              
+              <!-- Components -->
+              <div class="lg:col-span-7">
+                <div class="grid md:grid-cols-3 gap-4">
+                  {layer.products.map((product) => (
+                    <div class="p-4 rounded-xl bg-white border border-border">
+                      <h3 class="font-medium text-charcoal mb-1">{product.name}</h3>
+                      <p class="text-sm text-muted">{product.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Design Principles -->
+  <section class="py-24 bg-charcoal text-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-caption text-indigo-light mb-4 block">Philosophy</span>
+        <h2 class="text-display-lg text-white mb-6">Design Principles</h2>
+        <p class="text-body-lg text-white/70">
+          Every architectural decision is guided by four core principles 
+          that ensure the stack works in the most challenging environments.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {principles.map((principle) => (
+          <div class="p-6 rounded-xl bg-charcoal-light border border-border-dark text-center">
+            <div class="w-12 h-12 rounded-full bg-indigo/20 flex items-center justify-center mx-auto mb-4">
+              <svg class="w-6 h-6 text-indigo-light" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-medium text-white mb-2">{principle.title}</h3>
+            <p class="text-sm text-white/60">{principle.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="py-24 bg-cream">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <span class="text-caption text-indigo mb-4 block">Integration</span>
+          <h2 class="text-display-md text-charcoal mb-6">How the Layers Work Together</h2>
+          <div class="space-y-6 text-muted">
+            <p>
+              <strong class="text-charcoal">Layer 1</strong> provides the physical foundation — 
+              ruggedized hardware that operates on minimal power in extreme conditions.
+            </p>
+            <p>
+              <strong class="text-charcoal">Layer 2</strong> creates the connectivity fabric, 
+              enabling nodes to communicate via mesh networking and satellite backhaul.
+            </p>
+            <p>
+              <strong class="text-charcoal">Layer 3</strong> adds intelligence, with ML models 
+              that run locally and learn across the network through federated learning.
+            </p>
+            <p>
+              <strong class="text-charcoal">Layer 4</strong> delivers the user experience 
+              through three integrated applications designed for offline-first operation.
+            </p>
+          </div>
         </div>
-        <div class="p-8 bg-indigo/5 border-l-4 border-indigo rounded-r-2xl">
-          <p class="font-mono uppercase tracking-[0.3em] text-xs text-indigo mb-2">Layer 3</p>
-          <h3 class="font-display text-2xl mb-2">Edge AI Engine</h3>
-          <p class="text-charcoal/70">Local processing, federated learning, offline intelligence</p>
+        
+        <div class="relative">
+          <!-- Stack diagram -->
+          <div class="aspect-square rounded-2xl bg-white border border-border overflow-hidden p-8">
+            <div class="h-full flex flex-col justify-between">
+              <div class="flex-1 flex items-center justify-center border-b border-dashed border-border pb-4">
+                <div class="text-center">
+                  <p class="text-xs text-muted mb-1">L4: Applications</p>
+                  <p class="font-medium text-charcoal">User Interface</p>
+                </div>
+              </div>
+              <div class="flex-1 flex items-center justify-center border-b border-dashed border-border py-4">
+                <div class="text-center">
+                  <p class="text-xs text-muted mb-1">L3: Edge AI</p>
+                  <p class="font-medium text-charcoal">Intelligence</p>
+                </div>
+              </div>
+              <div class="flex-1 flex items-center justify-center border-b border-dashed border-border py-4">
+                <div class="text-center">
+                  <p class="text-xs text-muted mb-1">L2: Network</p>
+                  <p class="font-medium text-charcoal">Connectivity</p>
+                </div>
+              </div>
+              <div class="flex-1 flex items-center justify-center pt-4">
+                <div class="text-center">
+                  <p class="text-xs text-muted mb-1">L1: Physical</p>
+                  <p class="font-medium text-charcoal">Hardware</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="p-8 bg-indigo/5 border-l-4 border-indigo rounded-r-2xl">
-          <p class="font-mono uppercase tracking-[0.3em] text-xs text-indigo mb-2">Layer 2</p>
-          <h3 class="font-display text-2xl mb-2">Network Layer</h3>
-          <p class="text-charcoal/70">Mesh networking, satellite backhaul, hybrid connectivity</p>
-        </div>
-        <div class="p-8 bg-indigo/5 border-l-4 border-indigo rounded-r-2xl">
-          <p class="font-mono uppercase tracking-[0.3em] text-xs text-indigo mb-2">Layer 1</p>
-          <h3 class="font-display text-2xl mb-2">Physical Infrastructure</h3>
-          <p class="text-charcoal/70">Edge nodes, solar power, ruggedized hardware</p>
-        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 bg-white border-t border-border">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <h2 class="text-display-md text-charcoal mb-6">
+        Dive deeper into each layer
+      </h2>
+      <p class="text-body-lg text-muted mb-8">
+        Explore the technical details of each component in our documentation, 
+        or contact our team for a detailed architecture discussion.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="/en/resources/docs" class="btn btn-primary">
+          Technical Documentation
+        </a>
+        <a href="/en/platform/infrastructure" class="btn btn-secondary">
+          Start with Layer 1
+        </a>
       </div>
     </div>
   </section>

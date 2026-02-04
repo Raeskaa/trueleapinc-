@@ -2,51 +2,199 @@
 import Page from '../../../layouts/Page.astro';
 
 const lang = 'en';
+
+const platformAreas = [
+  {
+    title: 'Physical Infrastructure',
+    description: 'Solar-powered edge nodes, mesh networking, and ruggedized hardware designed for the harshest environments on Earth.',
+    href: '/en/platform/infrastructure',
+    features: ['Solar-powered operation', 'IP67 weatherproofing', 'Mesh networking', '5+ year lifespan'],
+    metric: '< 2W',
+    metricLabel: 'Average power draw'
+  },
+  {
+    title: 'Digital Systems',
+    description: 'Three integrated applications - Leapspace for collaboration, Digital Twin for monitoring, and Leapcast for broadcasting.',
+    href: '/en/platform/digital-systems',
+    features: ['Offline-first sync', 'P2P communication', 'Content caching', 'Real-time dashboards'],
+    metric: '< 50ms',
+    metricLabel: 'Local latency'
+  },
+  {
+    title: 'Edge AI Engine',
+    description: 'On-device machine learning that processes data locally. No cloud required, no data leaves the community.',
+    href: '/en/platform/edge-ai',
+    features: ['Local inference', 'Federated learning', 'Custom models', 'Privacy-preserving'],
+    metric: '100%',
+    metricLabel: 'Data sovereignty'
+  },
+];
+
+const specs = [
+  { label: 'Power Consumption', value: '< 2W average', detail: 'Solar-powered with 72hr battery backup' },
+  { label: 'Operating Temperature', value: '-20°C to 60°C', detail: 'Tested in desert and arctic conditions' },
+  { label: 'Network Range', value: 'Up to 10km', detail: 'Point-to-point mesh connectivity' },
+  { label: 'Storage Capacity', value: '1TB local', detail: 'Expandable via distributed nodes' },
+  { label: 'Concurrent Users', value: '500+ per node', detail: 'Scales with mesh density' },
+  { label: 'Deployment Time', value: '< 4 hours', detail: 'Plug-and-play installation' },
+];
 ---
 
 <Page title="Platform" lang={lang}>
-  <section class="pt-32 pb-20 bg-cream">
-    <div class="max-w-7xl mx-auto px-6">
-      <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Platform</p>
-      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-tight text-charcoal mb-8">
-        The TrueLeap <em>Stack</em>
+  <!-- Hero -->
+  <section class="pt-32 pb-20 bg-cream relative overflow-hidden">
+    <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-indigo-light/20 to-transparent"></div>
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      <span class="text-caption text-indigo mb-4 block">Platform</span>
+      <h1 class="text-display-xl text-charcoal mb-8">
+        The TrueLeap <span class="display-serif">Stack</span>
       </h1>
-      <p class="text-xl text-charcoal/70 max-w-3xl">
-        A complete, vertically-integrated platform for digital sovereignty. From physical infrastructure to AI-powered applications.
+      <p class="text-body-lg text-muted max-w-3xl mb-8">
+        A complete, vertically-integrated platform for digital sovereignty. From 
+        physical infrastructure to AI-powered applications — everything you need 
+        to build a self-sufficient digital ecosystem.
       </p>
+      <div class="flex flex-wrap gap-4">
+        <a href="/en/platform/stack" class="btn btn-primary">
+          View Full Architecture
+        </a>
+        <a href="/en/resources/docs" class="btn btn-secondary">
+          Technical Documentation
+        </a>
+      </div>
     </div>
   </section>
 
-  <section class="py-20 bg-white">
+  <!-- Platform Areas -->
+  <section class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-6">
-      <div class="grid md:grid-cols-2 gap-12">
-        <a href="/en/platform/infrastructure" class="group">
-          <div class="aspect-video bg-cream rounded-2xl mb-6 flex items-center justify-center">
-            <span class="text-6xl">🏗️</span>
+      <div class="space-y-16">
+        {platformAreas.map((area, index) => (
+          <div class={`grid lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? '' : ''}`}>
+            <div class={index % 2 === 1 ? 'lg:order-2' : ''}>
+              <span class="text-caption text-indigo mb-4 block">0{index + 1}</span>
+              <h2 class="text-display-md text-charcoal mb-4">{area.title}</h2>
+              <p class="text-body-lg text-muted mb-6">{area.description}</p>
+              
+              <ul class="grid grid-cols-2 gap-3 mb-8">
+                {area.features.map((feature) => (
+                  <li class="flex items-center gap-2 text-sm text-charcoal">
+                    <svg class="w-4 h-4 text-indigo flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              
+              <a href={area.href} class="link-arrow font-medium text-charcoal">
+                Learn more about {area.title}
+              </a>
+            </div>
+            
+            <div class={index % 2 === 1 ? 'lg:order-1' : ''}>
+              <div class="aspect-[4/3] rounded-2xl bg-gradient-to-br from-cream to-white border border-border overflow-hidden">
+                <div class="w-full h-full flex flex-col items-center justify-center p-8">
+                  <div class="w-24 h-24 rounded-2xl bg-indigo-light/50 flex items-center justify-center mb-4">
+                    <span class="text-4xl font-display italic text-indigo">0{index + 1}</span>
+                  </div>
+                  <p class="text-charcoal font-medium text-center mb-1">{area.title}</p>
+                  <div class="mt-4 text-center">
+                    <p class="text-3xl font-medium text-indigo">{area.metric}</p>
+                    <p class="text-xs text-muted">{area.metricLabel}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <h2 class="font-display text-3xl mb-3 group-hover:text-indigo transition-colors">Physical Infrastructure</h2>
-          <p class="text-charcoal/70">Solar-powered edge nodes, mesh networking, and ruggedized hardware for any environment.</p>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Specs Section -->
+  <section class="py-24 bg-charcoal text-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-caption text-indigo-light mb-4 block">Specifications</span>
+        <h2 class="text-display-lg text-white mb-6">Built for the Real World</h2>
+        <p class="text-body-lg text-white/70">
+          Every specification is designed for deployment in challenging environments 
+          where traditional infrastructure fails.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {specs.map((spec) => (
+          <div class="p-6 rounded-xl bg-charcoal-light border border-border-dark">
+            <p class="text-sm text-white/50 mb-1">{spec.label}</p>
+            <p class="text-2xl font-medium text-white mb-2">{spec.value}</p>
+            <p class="text-sm text-white/60">{spec.detail}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Architecture Preview -->
+  <section class="py-24 bg-cream">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <span class="text-caption text-indigo mb-4 block">Architecture</span>
+          <h2 class="text-display-md text-charcoal mb-6">Four Integrated Layers</h2>
+          <p class="text-body-lg text-muted mb-8">
+            The TrueLeap stack is designed as four integrated layers, each building 
+            on the one below. This architecture enables complete sovereignty while 
+            maintaining flexibility for different deployment scenarios.
+          </p>
+          <a href="/en/platform/stack" class="btn btn-primary">
+            Explore the Architecture
+          </a>
+        </div>
+        
+        <div class="space-y-4">
+          <div class="p-6 rounded-xl bg-white border border-border border-l-4 border-l-indigo">
+            <p class="text-xs uppercase tracking-wider text-indigo mb-1">Layer 4</p>
+            <h3 class="text-lg font-medium text-charcoal mb-1">Applications</h3>
+            <p class="text-sm text-muted">Leapspace, Digital Twin, Leapcast</p>
+          </div>
+          <div class="p-6 rounded-xl bg-white border border-border border-l-4 border-l-indigo/80">
+            <p class="text-xs uppercase tracking-wider text-indigo mb-1">Layer 3</p>
+            <h3 class="text-lg font-medium text-charcoal mb-1">Edge AI Engine</h3>
+            <p class="text-sm text-muted">Local ML, federated learning, inference</p>
+          </div>
+          <div class="p-6 rounded-xl bg-white border border-border border-l-4 border-l-indigo/60">
+            <p class="text-xs uppercase tracking-wider text-indigo mb-1">Layer 2</p>
+            <h3 class="text-lg font-medium text-charcoal mb-1">Network Layer</h3>
+            <p class="text-sm text-muted">Mesh networking, satellite backhaul</p>
+          </div>
+          <div class="p-6 rounded-xl bg-white border border-border border-l-4 border-l-indigo/40">
+            <p class="text-xs uppercase tracking-wider text-indigo mb-1">Layer 1</p>
+            <h3 class="text-lg font-medium text-charcoal mb-1">Physical Infrastructure</h3>
+            <p class="text-sm text-muted">Edge nodes, solar power, hardware</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 bg-white border-t border-border">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <h2 class="text-display-md text-charcoal mb-6">
+        Ready to deploy?
+      </h2>
+      <p class="text-body-lg text-muted mb-8">
+        Get in touch to discuss your requirements and see how the TrueLeap 
+        platform can work for your organization.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="/en/resources/docs" class="btn btn-primary">
+          Read the Docs
         </a>
-        <a href="/en/platform/digital-systems" class="group">
-          <div class="aspect-video bg-cream rounded-2xl mb-6 flex items-center justify-center">
-            <span class="text-6xl">💻</span>
-          </div>
-          <h2 class="font-display text-3xl mb-3 group-hover:text-indigo transition-colors">Digital Systems</h2>
-          <p class="text-charcoal/70">Leapspace collaboration platform, Digital Twin monitoring, and Leapcast content delivery.</p>
-        </a>
-        <a href="/en/platform/edge-ai" class="group">
-          <div class="aspect-video bg-cream rounded-2xl mb-6 flex items-center justify-center">
-            <span class="text-6xl">🧠</span>
-          </div>
-          <h2 class="font-display text-3xl mb-3 group-hover:text-indigo transition-colors">Edge AI Engine</h2>
-          <p class="text-charcoal/70">On-device intelligence for offline-first applications and local data processing.</p>
-        </a>
-        <a href="/en/platform/stack" class="group">
-          <div class="aspect-video bg-cream rounded-2xl mb-6 flex items-center justify-center">
-            <span class="text-6xl">📊</span>
-          </div>
-          <h2 class="font-display text-3xl mb-3 group-hover:text-indigo transition-colors">The Complete Stack</h2>
-          <p class="text-charcoal/70">How all components integrate into a unified, sovereign digital ecosystem.</p>
+        <a href="mailto:hello@trueleapinc.com" class="btn btn-secondary">
+          Contact Sales
         </a>
       </div>
     </div>

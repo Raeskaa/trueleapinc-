@@ -2,27 +2,188 @@
 import Page from '../../../layouts/Page.astro';
 import { Globe } from '../../../components/globe/Globe';
 import { MetricCard } from '../../../components/ui/AnimatedCounter';
+
 const lang = 'en';
+
+const regions = [
+  { name: 'Sub-Saharan Africa', nodes: 1420, countries: 23, growth: '+34%' },
+  { name: 'Southeast Asia', nodes: 512, countries: 8, growth: '+28%' },
+  { name: 'South Asia', nodes: 298, countries: 4, growth: '+45%' },
+  { name: 'Latin America', nodes: 187, countries: 7, growth: '+22%' },
+  { name: 'Pacific Islands', nodes: 89, countries: 5, growth: '+18%' },
+];
+
+const recentDeployments = [
+  { location: 'Kigali, Rwanda', type: 'Education Cluster', nodes: 45, date: '2 days ago' },
+  { location: 'Cebu, Philippines', type: 'Healthcare Network', nodes: 28, date: '1 week ago' },
+  { location: 'Kumasi, Ghana', type: 'Agricultural Hub', nodes: 62, date: '2 weeks ago' },
+  { location: 'Bihar, India', type: 'Government Services', nodes: 120, date: '3 weeks ago' },
+];
 ---
 
 <Page title="Live Network Map" lang={lang}>
-  <section class="pt-32 pb-20 bg-charcoal text-white min-h-screen">
-    <div class="max-w-7xl mx-auto px-6">
-      <p class="font-mono uppercase tracking-[0.3em] text-xs text-white/60 mb-4">Impact / Network</p>
-      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-tight mb-8">Live <em>Network</em></h1>
-      <p class="text-xl text-white/70 max-w-3xl mb-12">Real-time view of TrueLeap deployments worldwide.</p>
+  <!-- Hero with Globe -->
+  <section class="pt-32 pb-12 bg-charcoal text-white min-h-[80vh] relative overflow-hidden">
+    <!-- Background glow -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-indigo/20 rounded-full blur-[120px]"></div>
+      <div class="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-violet/15 rounded-full blur-[100px]"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="relative flex h-3 w-3">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-3 w-3 bg-green-400"></span>
+        </span>
+        <span class="text-caption text-green-400">Live Network Status</span>
+      </div>
+      
+      <h1 class="text-display-xl text-white mb-4">
+        Global <span class="display-serif">Network</span>
+      </h1>
+      <p class="text-body-lg text-white/70 max-w-2xl mb-8">
+        Real-time view of TrueLeap deployments worldwide. Every dot represents 
+        a community with access to sovereign digital infrastructure.
+      </p>
+      
+      <!-- Live Stats Bar -->
+      <div class="flex flex-wrap gap-8 mb-12">
+        <div>
+          <p class="text-3xl font-medium text-white">2,847</p>
+          <p class="text-sm text-white/50">Nodes Online</p>
+        </div>
+        <div>
+          <p class="text-3xl font-medium text-white">47</p>
+          <p class="text-sm text-white/50">Countries</p>
+        </div>
+        <div>
+          <p class="text-3xl font-medium text-white">99.7%</p>
+          <p class="text-sm text-white/50">Uptime (30d)</p>
+        </div>
+        <div>
+          <p class="text-3xl font-medium text-white">1.8W</p>
+          <p class="text-sm text-white/50">Avg Power</p>
+        </div>
+      </div>
       
       <!-- Interactive 3D Globe -->
-      <div class="rounded-2xl border border-white/10 p-8">
-        <Globe client:visible />
+      <div class="rounded-2xl border border-white/10 bg-charcoal-light/50 backdrop-blur overflow-hidden">
+        <div class="aspect-[16/9] lg:aspect-[21/9]">
+          <Globe client:visible />
+        </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Stats -->
-      <div class="grid md:grid-cols-4 gap-8 mt-16">
-        <MetricCard client:visible value={47} label="Countries" />
-        <MetricCard client:visible value={2300000} label="People Connected" />
-        <MetricCard client:visible value={1200} label="Edge Nodes" suffix="+" />
-        <MetricCard client:visible value={99.7} label="Uptime" suffix="%" />
+  <!-- Metrics Cards -->
+  <section class="py-16 bg-charcoal border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-6">
+        <div class="p-6 rounded-xl bg-charcoal-light border border-border-dark text-center">
+          <MetricCard client:visible value={47} label="Countries" />
+        </div>
+        <div class="p-6 rounded-xl bg-charcoal-light border border-border-dark text-center">
+          <MetricCard client:visible value={12000000} label="People Connected" />
+        </div>
+        <div class="p-6 rounded-xl bg-charcoal-light border border-border-dark text-center">
+          <MetricCard client:visible value={2847} label="Edge Nodes" suffix="+" />
+        </div>
+        <div class="p-6 rounded-xl bg-charcoal-light border border-border-dark text-center">
+          <MetricCard client:visible value={99.7} label="Uptime" suffix="%" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Regional Breakdown -->
+  <section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12">
+        <div>
+          <span class="text-caption text-indigo mb-4 block">Regional Distribution</span>
+          <h2 class="text-display-md text-charcoal">Deployments by Region</h2>
+        </div>
+        <p class="text-muted max-w-md">
+          Our network spans 6 continents, with the highest concentration in 
+          Sub-Saharan Africa where the need is greatest.
+        </p>
+      </div>
+      
+      <div class="space-y-4">
+        {regions.map((region) => (
+          <div class="card !p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="flex-1">
+              <h3 class="text-lg font-medium text-charcoal">{region.name}</h3>
+              <p class="text-sm text-muted">{region.countries} countries</p>
+            </div>
+            <div class="flex items-center gap-8">
+              <div class="text-right">
+                <p class="text-2xl font-medium text-charcoal">{region.nodes.toLocaleString()}</p>
+                <p class="text-xs text-muted">active nodes</p>
+              </div>
+              <div class="w-16 text-right">
+                <span class="inline-block px-2 py-1 rounded bg-green-100 text-green-700 text-sm font-medium">
+                  {region.growth}
+                </span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Deployments -->
+  <section class="py-24 bg-cream">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12">
+        <div>
+          <span class="text-caption text-indigo mb-4 block">Activity</span>
+          <h2 class="text-display-md text-charcoal">Recent Deployments</h2>
+        </div>
+        <a href="/en/impact/case-studies" class="link-arrow font-medium text-charcoal">
+          View all case studies
+        </a>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-6">
+        {recentDeployments.map((deployment) => (
+          <div class="card">
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <h3 class="text-lg font-medium text-charcoal">{deployment.location}</h3>
+                <p class="text-sm text-muted">{deployment.type}</p>
+              </div>
+              <span class="text-xs text-muted">{deployment.date}</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-green-500"></span>
+              <span class="text-sm text-charcoal">{deployment.nodes} nodes deployed</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 bg-charcoal text-white">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <h2 class="text-display-md text-white mb-6">
+        Want to be on the map?
+      </h2>
+      <p class="text-body-lg text-white/70 mb-8">
+        Let's discuss how TrueLeap can bring sovereign digital infrastructure 
+        to your community, organization, or country.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="mailto:hello@trueleapinc.com" class="btn bg-white text-charcoal hover:bg-white/90">
+          Contact Us
+        </a>
+        <a href="/en/resources/docs" class="btn bg-white/10 text-white border border-white/20 hover:bg-white/20">
+          Read Documentation
+        </a>
       </div>
     </div>
   </section>
