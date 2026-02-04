@@ -46,11 +46,9 @@ const contentPartners = [
 <Page title="Education Solutions" lang={lang}>
   <!-- Hero -->
   <section class="pt-32 pb-20 bg-cream relative overflow-hidden">
-    <div class="absolute inset-0">
-      <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-indigo-light/20 to-transparent"></div>
-    </div>
+    <div class="absolute inset-0 grid-lines opacity-40"></div>
     <div class="max-w-7xl mx-auto px-6 relative z-10">
-      <span class="text-caption text-indigo mb-4 block">Solutions / Industry</span>
+      <span class="text-caption text-primary mb-4 block">Solutions / Industry</span>
       <h1 class="text-display-xl text-charcoal mb-8">
         Connected Learning <span class="display-serif">Everywhere</span>
       </h1>
@@ -90,7 +88,7 @@ const contentPartners = [
     <div class="max-w-7xl mx-auto px-6">
       <div class="grid lg:grid-cols-2 gap-16 items-center">
         <div>
-          <span class="text-caption text-indigo mb-4 block">Platform Features</span>
+          <span class="text-caption text-primary mb-4 block">Platform Features</span>
           <h2 class="text-display-md text-charcoal mb-6">
             Education Without Barriers
           </h2>
@@ -102,8 +100,8 @@ const contentPartners = [
           <div class="space-y-6">
             {features.map((feature) => (
               <div class="flex gap-4">
-                <div class="w-10 h-10 rounded-lg bg-indigo-light/50 flex items-center justify-center flex-shrink-0">
-                  <svg class="w-5 h-5 text-indigo" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="w-10 h-10 rounded-lg bg-primary-lighter/50 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                   </svg>
                 </div>
@@ -119,8 +117,8 @@ const contentPartners = [
         <!-- Screenshot placeholder -->
         <div class="aspect-[4/3] rounded-2xl bg-gradient-to-br from-cream to-white border border-border overflow-hidden">
           <div class="w-full h-full flex flex-col items-center justify-center p-8">
-            <div class="w-24 h-24 rounded-2xl bg-indigo-light/50 flex items-center justify-center mb-4">
-              <svg class="w-12 h-12 text-indigo" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="w-24 h-24 rounded-2xl bg-primary-lighter/50 flex items-center justify-center mb-4">
+              <svg class="w-12 h-12 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 14l9-5-9-5-9 5 9 5z" />
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
               </svg>
@@ -137,7 +135,7 @@ const contentPartners = [
   <section class="py-24 bg-cream">
     <div class="max-w-7xl mx-auto px-6">
       <div class="text-center max-w-3xl mx-auto mb-16">
-        <span class="text-caption text-indigo mb-4 block">Content Library</span>
+        <span class="text-caption text-primary mb-4 block">Content Library</span>
         <h2 class="text-display-md text-charcoal mb-6">World-Class Content, Pre-Loaded</h2>
         <p class="text-body-lg text-muted">
           Every TrueLeap education deployment comes pre-loaded with educational 
@@ -159,14 +157,14 @@ const contentPartners = [
   <section class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-6">
       <div class="text-center max-w-3xl mx-auto mb-16">
-        <span class="text-caption text-indigo mb-4 block">Deployment</span>
+        <span class="text-caption text-primary mb-4 block">Deployment</span>
         <h2 class="text-display-md text-charcoal mb-6">How It Works</h2>
       </div>
       
       <div class="grid md:grid-cols-3 gap-8">
         <div class="text-center">
-          <div class="w-16 h-16 rounded-full bg-indigo-light flex items-center justify-center mx-auto mb-4">
-            <span class="text-2xl font-medium text-indigo">1</span>
+          <div class="w-16 h-16 rounded-full bg-primary-lighter flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl font-medium text-primary">1</span>
           </div>
           <h3 class="text-lg font-medium text-charcoal mb-2">Deploy Node</h3>
           <p class="text-muted">
@@ -175,8 +173,8 @@ const contentPartners = [
           </p>
         </div>
         <div class="text-center">
-          <div class="w-16 h-16 rounded-full bg-indigo-light flex items-center justify-center mx-auto mb-4">
-            <span class="text-2xl font-medium text-indigo">2</span>
+          <div class="w-16 h-16 rounded-full bg-primary-lighter flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl font-medium text-primary">2</span>
           </div>
           <h3 class="text-lg font-medium text-charcoal mb-2">Connect Devices</h3>
           <p class="text-muted">
@@ -185,8 +183,8 @@ const contentPartners = [
           </p>
         </div>
         <div class="text-center">
-          <div class="w-16 h-16 rounded-full bg-indigo-light flex items-center justify-center mx-auto mb-4">
-            <span class="text-2xl font-medium text-indigo">3</span>
+          <div class="w-16 h-16 rounded-full bg-primary-lighter flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl font-medium text-primary">3</span>
           </div>
           <h3 class="text-lg font-medium text-charcoal mb-2">Start Learning</h3>
           <p class="text-muted">

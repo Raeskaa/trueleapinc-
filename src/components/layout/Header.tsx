@@ -21,13 +21,13 @@ const navigation: NavItem[] = [
     label: 'Solutions',
     href: '/solutions',
     children: [
-      { label: 'Governments', href: '/solutions/governments' },
-      { label: 'Education', href: '/solutions/education' },
-      { label: 'NGOs', href: '/solutions/ngos' },
-      { label: 'Enterprise', href: '/solutions/enterprise' },
-      { label: 'Digital Sovereignty', href: '/solutions/digital-sovereignty' },
-      { label: 'Workforce Readiness', href: '/solutions/workforce-readiness' },
-      { label: 'Rural Connectivity', href: '/solutions/rural-connectivity' },
+      { label: 'Governments', href: '/solutions/industry/governments' },
+      { label: 'Education', href: '/solutions/industry/education' },
+      { label: 'NGOs', href: '/solutions/industry/ngos' },
+      { label: 'Enterprise', href: '/solutions/industry/enterprise' },
+      { label: 'Digital Sovereignty', href: '/solutions/outcome/digital-sovereignty' },
+      { label: 'Workforce Readiness', href: '/solutions/outcome/workforce-readiness' },
+      { label: 'Rural Connectivity', href: '/solutions/outcome/rural-connectivity' },
     ],
   },
   {
@@ -107,9 +107,10 @@ export function Header({ lang = 'en', variant = 'transparent' }: HeaderProps) {
 
   const isTransparent = variant === 'transparent' && !scrolled;
   const textColor = isTransparent ? 'text-charcoal' : 'text-charcoal';
+  // Glassmorphic background - always has frosted glass effect, more prominent when scrolled
   const bgClass = scrolled 
-    ? 'bg-cream/90 backdrop-blur-lg border-b border-border/50' 
-    : 'bg-transparent';
+    ? 'bg-cream/80 backdrop-blur-xl border-b border-white/30 shadow-sm' 
+    : 'bg-cream/40 backdrop-blur-md';
 
   return (
     <header 
@@ -120,10 +121,13 @@ export function Header({ lang = 'en', variant = 'transparent' }: HeaderProps) {
         {/* Logo */}
         <a 
           href={`/${lang}`} 
-          className={`text-2xl font-medium tracking-tight ${textColor} transition-colors duration-300`}
+          className="transition-opacity duration-300 hover:opacity-80"
         >
-          <span className="font-display italic">True</span>
-          <span>Leap</span>
+          <img 
+            src="/trueleap-logo.svg" 
+            alt="TrueLeap" 
+            className="h-12 w-auto"
+          />
         </a>
 
         {/* Desktop Nav */}
@@ -139,9 +143,10 @@ export function Header({ lang = 'en', variant = 'transparent' }: HeaderProps) {
                 href={`/${lang}${item.href}`}
                 className={`
                   px-4 py-2 text-[0.9375rem] font-medium ${textColor}
-                  transition-colors duration-300 rounded-full
-                  hover:bg-charcoal/5 relative group inline-flex items-center gap-1
+                  transition-colors relative group inline-flex items-center gap-1
+                  hover:text-primary
                 `}
+                style={{ transitionDuration: 'var(--duration-normal)' }}
               >
                 {item.label}
                 {item.children && (
@@ -168,7 +173,7 @@ export function Header({ lang = 'en', variant = 'transparent' }: HeaderProps) {
                   `}
                   style={{ transitionTimingFunction: 'var(--ease-premium)' }}
                 >
-                  <ul className="bg-white rounded-2xl shadow-xl shadow-charcoal/10 py-3 min-w-[240px] border border-border/50">
+                  <ul className="bg-white py-3 min-w-[240px] border border-border/50 rounded-lg shadow-md">
                     {item.children.map((child, index) => (
                       <li key={child.label}>
                         <a
@@ -176,10 +181,10 @@ export function Header({ lang = 'en', variant = 'transparent' }: HeaderProps) {
                           className="
                             block px-5 py-2.5 text-[0.9375rem] text-charcoal/80
                             hover:text-charcoal hover:bg-cream/80
-                            transition-colors duration-200
+                            transition-colors
                           "
                           style={{ 
-                            transitionDelay: `${index * 20}ms`,
+                            transitionDuration: 'var(--duration-fast)',
                           }}
                         >
                           {child.label}
@@ -197,26 +202,23 @@ export function Header({ lang = 'en', variant = 'transparent' }: HeaderProps) {
         <div className="hidden lg:flex items-center gap-4">
           <a
             href={`/${lang}/company/careers`}
-            className={`text-[0.9375rem] font-medium ${textColor} hover:text-indigo transition-colors duration-300`}
+            className={`text-[0.9375rem] font-medium ${textColor} hover:text-primary transition-colors`}
+            style={{ transitionDuration: 'var(--duration-normal)' }}
           >
             Careers
           </a>
           <a
-            href={`/${lang}/impact/network-map`}
+            href={`/${lang}/company/contact`}
             className="
-              inline-flex items-center gap-2 px-5 py-2.5
+              inline-flex items-center gap-2 px-5 py-2.5 rounded-lg
               text-[0.9375rem] font-medium text-white
-              bg-charcoal rounded-full
-              hover:bg-charcoal-light transition-all duration-300
-              hover:-translate-y-0.5 hover:shadow-lg hover:shadow-charcoal/20
+              bg-primary border border-primary shadow-sm
+              hover:bg-primary-light hover:border-primary-light hover:shadow-md
+              transition-all
             "
-            style={{ transitionTimingFunction: 'var(--ease-premium)' }}
+            style={{ transitionDuration: 'var(--duration-normal)', transitionTimingFunction: 'var(--ease-premium)' }}
           >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400"></span>
-            </span>
-            Live Map
+            Contact Us
           </a>
         </div>
 
@@ -310,18 +312,14 @@ export function Header({ lang = 'en', variant = 'transparent' }: HeaderProps) {
           }}
         >
           <a
-            href={`/${lang}/impact/network-map`}
+            href={`/${lang}/company/contact`}
             className="
-              w-full inline-flex items-center justify-center gap-2 px-6 py-4
+              w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-lg
               text-lg font-medium text-white
-              bg-charcoal rounded-full
+              bg-primary border border-primary shadow-sm
             "
           >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400"></span>
-            </span>
-            View Live Network
+            Contact Us
           </a>
         </div>
       </div>

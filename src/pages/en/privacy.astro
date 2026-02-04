@@ -1,0 +1,140 @@
+---
+import Page from '../../layouts/Page.astro';
+const lang = 'en';
+const lastUpdated = 'January 15, 2026';
+---
+
+<Page title="Privacy Policy" lang={lang}>
+  <!-- Hero -->
+  <section class="pt-32 pb-16 bg-cream relative overflow-hidden">
+    <div class="absolute inset-0 grid-lines opacity-40"></div>
+    <div class="max-w-4xl mx-auto px-6 relative z-10">
+      <span class="text-caption text-muted mb-4 block">Legal</span>
+      <h1 class="text-display-lg text-charcoal mb-6">Privacy Policy</h1>
+      <p class="text-body-lg text-muted">
+        Last updated: {lastUpdated}
+      </p>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="prose max-w-none">
+        <p class="text-body-lg text-muted mb-8">
+          TrueLeap Inc. ("TrueLeap," "we," "us," or "our") is committed to protecting your privacy. 
+          This Privacy Policy explains how we collect, use, disclose, and safeguard your information 
+          when you visit our website or use our services.
+        </p>
+
+        <h2>Information We Collect</h2>
+        <p>
+          We collect information that you provide directly to us, including:
+        </p>
+        <ul class="list-disc pl-6 mb-6 text-muted space-y-2">
+          <li>Name and contact information (email address, phone number, mailing address)</li>
+          <li>Organization and job title</li>
+          <li>Communications you send to us</li>
+          <li>Information provided when requesting demos or documentation</li>
+        </ul>
+
+        <h2>Automatically Collected Information</h2>
+        <p>
+          When you access our website, we may automatically collect certain information, including:
+        </p>
+        <ul class="list-disc pl-6 mb-6 text-muted space-y-2">
+          <li>Device information (browser type, operating system)</li>
+          <li>IP address and approximate location</li>
+          <li>Pages visited and time spent on our website</li>
+          <li>Referring website addresses</li>
+        </ul>
+
+        <h2>How We Use Your Information</h2>
+        <p>
+          We use the information we collect to:
+        </p>
+        <ul class="list-disc pl-6 mb-6 text-muted space-y-2">
+          <li>Provide, maintain, and improve our services</li>
+          <li>Respond to your inquiries and requests</li>
+          <li>Send you technical notices and support messages</li>
+          <li>Communicate about products, services, and events</li>
+          <li>Monitor and analyze trends, usage, and activities</li>
+          <li>Detect, investigate, and prevent security incidents</li>
+        </ul>
+
+        <h2>Data Sovereignty</h2>
+        <p>
+          TrueLeap's infrastructure is designed with data sovereignty as a core principle. 
+          For our edge deployment products:
+        </p>
+        <ul class="list-disc pl-6 mb-6 text-muted space-y-2">
+          <li>Data processed by TrueLeap edge nodes remains within the deployment jurisdiction</li>
+          <li>No data is transmitted to external cloud services without explicit authorization</li>
+          <li>Deployment partners maintain full ownership and control of their data</li>
+          <li>Local data processing complies with regional data protection regulations</li>
+        </ul>
+
+        <h2>Information Sharing</h2>
+        <p>
+          We do not sell your personal information. We may share information with:
+        </p>
+        <ul class="list-disc pl-6 mb-6 text-muted space-y-2">
+          <li>Service providers who assist in our operations</li>
+          <li>Professional advisors (lawyers, accountants, auditors)</li>
+          <li>Authorities when required by law or to protect rights</li>
+          <li>Business partners with your consent</li>
+        </ul>
+
+        <h2>Data Security</h2>
+        <p>
+          We implement appropriate technical and organizational measures to protect your 
+          information against unauthorized access, alteration, disclosure, or destruction. 
+          This includes encryption, access controls, and regular security assessments.
+        </p>
+
+        <h2>Your Rights</h2>
+        <p>
+          Depending on your location, you may have certain rights regarding your personal information:
+        </p>
+        <ul class="list-disc pl-6 mb-6 text-muted space-y-2">
+          <li>Access and receive a copy of your data</li>
+          <li>Rectify inaccurate or incomplete information</li>
+          <li>Request deletion of your personal data</li>
+          <li>Object to or restrict certain processing</li>
+          <li>Data portability</li>
+          <li>Withdraw consent at any time</li>
+        </ul>
+
+        <h2>International Transfers</h2>
+        <p>
+          If we transfer your information outside your country of residence, we ensure 
+          appropriate safeguards are in place to protect your information in accordance 
+          with applicable data protection laws.
+        </p>
+
+        <h2>Children's Privacy</h2>
+        <p>
+          Our services are not directed to individuals under 16. We do not knowingly 
+          collect personal information from children. If we become aware of such collection, 
+          we will take steps to delete the information.
+        </p>
+
+        <h2>Changes to This Policy</h2>
+        <p>
+          We may update this Privacy Policy from time to time. We will notify you of 
+          any changes by posting the new policy on this page and updating the "Last updated" date.
+        </p>
+
+        <h2>Contact Us</h2>
+        <p>
+          If you have questions about this Privacy Policy or our privacy practices, please contact us at:
+        </p>
+        <p class="mt-4">
+          <strong>TrueLeap Inc.</strong><br />
+          Privacy Team<br />
+          Email: <a href="mailto:privacy@trueleapinc.com" class="text-primary hover:underline">privacy@trueleapinc.com</a>
+        </p>
+      </div>
+    </div>
+  </section>
+</Page>

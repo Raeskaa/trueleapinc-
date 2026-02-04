@@ -108,7 +108,7 @@ export function ContactForm({
             className="block font-mono text-xs uppercase tracking-wider mb-2"
           >
             {field.label}
-            {field.required && <span className="text-indigo ml-1">*</span>}
+            {field.required && <span className="text-primary ml-1">*</span>}
           </label>
           
           {field.type === 'textarea' ? (
@@ -120,8 +120,8 @@ export function ContactForm({
               placeholder={field.placeholder}
               rows={4}
               className={`w-full px-4 py-3 rounded-lg border bg-white transition-colors
-                ${errors[field.name] ? 'border-red-500' : 'border-border focus:border-indigo'}
-                focus:outline-none focus:ring-2 focus:ring-indigo/20`}
+                ${errors[field.name] ? 'border-error' : 'border-border focus:border-primary'}
+                focus:outline-none focus:ring-2 focus:ring-primary/20`}
             />
           ) : field.type === 'select' ? (
             <select
@@ -130,8 +130,8 @@ export function ContactForm({
               value={formData[field.name] || ''}
               onChange={(e) => handleChange(field.name, e.target.value)}
               className={`w-full px-4 py-3 rounded-lg border bg-white transition-colors
-                ${errors[field.name] ? 'border-red-500' : 'border-border focus:border-indigo'}
-                focus:outline-none focus:ring-2 focus:ring-indigo/20`}
+                ${errors[field.name] ? 'border-error' : 'border-border focus:border-primary'}
+                focus:outline-none focus:ring-2 focus:ring-primary/20`}
             >
               {field.options?.map((opt) => (
                 <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -146,13 +146,13 @@ export function ContactForm({
               onChange={(e) => handleChange(field.name, e.target.value)}
               placeholder={field.placeholder}
               className={`w-full px-4 py-3 rounded-lg border bg-white transition-colors
-                ${errors[field.name] ? 'border-red-500' : 'border-border focus:border-indigo'}
-                focus:outline-none focus:ring-2 focus:ring-indigo/20`}
+                ${errors[field.name] ? 'border-error' : 'border-border focus:border-primary'}
+                focus:outline-none focus:ring-2 focus:ring-primary/20`}
             />
           )}
           
           {errors[field.name] && (
-            <p className="mt-1 text-sm text-red-500">{errors[field.name]}</p>
+            <p className="mt-1 text-sm text-error">{errors[field.name]}</p>
           )}
         </div>
       ))}
@@ -166,7 +166,7 @@ export function ContactForm({
       </Button>
       
       {status === 'error' && (
-        <p className="text-sm text-red-500 text-center">
+        <p className="text-sm text-error text-center">
           Something went wrong. Please try again.
         </p>
       )}

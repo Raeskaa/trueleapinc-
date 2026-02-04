@@ -1,33 +1,170 @@
 ---
 import Page from '../../../layouts/Page.astro';
 const lang = 'en';
+
+const partnerCategories = [
+  {
+    name: 'Technology Partners',
+    description: 'Hardware and software providers that integrate with the TrueLeap stack.',
+    partners: [
+      { name: 'ARM Holdings', type: 'Chip Architecture', description: 'Custom silicon design for ultra-low-power edge computing' },
+      { name: 'SunPower', type: 'Solar Technology', description: 'High-efficiency solar panels optimized for tropical deployments' },
+      { name: 'Qualcomm', type: 'Connectivity', description: 'Next-gen mesh networking and 5G integration' },
+      { name: 'NVIDIA', type: 'AI Compute', description: 'Edge AI inference optimization and model compression' },
+    ]
+  },
+  {
+    name: 'Implementation Partners',
+    description: 'Regional experts who deploy and maintain TrueLeap infrastructure.',
+    partners: [
+      { name: 'Andela', type: 'Africa', description: 'Technical deployment and developer training across Sub-Saharan Africa' },
+      { name: 'Ayala Foundation', type: 'Southeast Asia', description: 'Community engagement and implementation in the Philippines and Indonesia' },
+      { name: 'Digital Green', type: 'South Asia', description: 'Agricultural extension and rural deployment in India and Bangladesh' },
+      { name: 'Fundación Telefónica', type: 'Latin America', description: 'Education technology deployment across Central and South America' },
+    ]
+  },
+  {
+    name: 'Institutional Partners',
+    description: 'Governments, multilaterals, and foundations advancing digital inclusion.',
+    partners: [
+      { name: 'World Bank', type: 'Multilateral', description: 'Digital Development Partnership and financing mechanisms' },
+      { name: 'USAID', type: 'Development', description: 'Digital Strategy implementation partner' },
+      { name: 'Gates Foundation', type: 'Foundation', description: 'Health systems digitization and agricultural data' },
+      { name: 'African Union', type: 'Regional Body', description: 'Digital Transformation Strategy for Africa 2020-2030' },
+    ]
+  },
+];
+
+const stats = [
+  { value: '47', label: 'Countries' },
+  { value: '120+', label: 'Partners' },
+  { value: '$340M', label: 'Joint Deployments' },
+  { value: '12M', label: 'People Reached' },
+];
 ---
 
 <Page title="Partners" lang={lang}>
-  <section class="pt-32 pb-20 bg-cream">
-    <div class="max-w-7xl mx-auto px-6">
-      <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Company / Partners</p>
-      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-tight text-charcoal mb-8">Our <em>Partners</em></h1>
-      <p class="text-xl text-charcoal/70 max-w-3xl">Working together to bridge the digital divide.</p>
+  <!-- Hero -->
+  <section class="pt-32 pb-20 bg-cream relative overflow-hidden">
+    <div class="absolute inset-0 grid-lines opacity-40"></div>
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      <span class="text-caption text-muted mb-4 block">Company</span>
+      <h1 class="text-display-xl text-charcoal mb-8">
+        Our <span class="display-serif">Partners</span>
+      </h1>
+      <p class="text-body-lg text-muted max-w-3xl">
+        TrueLeap's impact is made possible through partnerships with leading technology 
+        companies, implementation experts, and institutions committed to digital inclusion.
+      </p>
     </div>
   </section>
 
-  <section class="py-20 bg-white">
+  <!-- Stats Strip -->
+  <section class="py-12 bg-charcoal">
     <div class="max-w-7xl mx-auto px-6">
-      <h2 class="font-display text-3xl mb-8">Strategic Partners</h2>
-      <div class="grid md:grid-cols-4 gap-8 mb-16">
-        <div class="aspect-video bg-cream rounded-xl flex items-center justify-center">Logo</div>
-        <div class="aspect-video bg-cream rounded-xl flex items-center justify-center">Logo</div>
-        <div class="aspect-video bg-cream rounded-xl flex items-center justify-center">Logo</div>
-        <div class="aspect-video bg-cream rounded-xl flex items-center justify-center">Logo</div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        {stats.map((stat) => (
+          <div class="text-center">
+            <p class="text-3xl md:text-4xl font-medium text-white mb-1">{stat.value}</p>
+            <p class="text-sm text-white/60">{stat.label}</p>
+          </div>
+        ))}
       </div>
+    </div>
+  </section>
 
-      <h2 class="font-display text-3xl mb-8">Technology Partners</h2>
-      <div class="grid md:grid-cols-4 gap-8">
-        <div class="aspect-video bg-cream rounded-xl flex items-center justify-center">Logo</div>
-        <div class="aspect-video bg-cream rounded-xl flex items-center justify-center">Logo</div>
-        <div class="aspect-video bg-cream rounded-xl flex items-center justify-center">Logo</div>
-        <div class="aspect-video bg-cream rounded-xl flex items-center justify-center">Logo</div>
+  <!-- Partner Categories -->
+  {partnerCategories.map((category, categoryIndex) => (
+    <section class={`py-24 ${categoryIndex % 2 === 0 ? 'bg-white' : 'bg-cream'}`}>
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="max-w-3xl mb-12">
+          <span class="text-caption text-primary mb-4 block">{category.name}</span>
+          <p class="text-body-lg text-muted">{category.description}</p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+          {category.partners.map((partner) => (
+            <div class="card group hover:border-primary/20 transition-colors" style="transition-duration: var(--duration-normal);">
+              <div class="flex items-start gap-4">
+                <div class="w-16 h-16 flex-shrink-0 bg-gradient-to-br from-cream to-paper border border-border flex items-center justify-center">
+                  <span class="text-lg font-medium text-charcoal/40">{partner.name.split(' ').map(w => w[0]).join('').slice(0, 2)}</span>
+                </div>
+                <div class="flex-1">
+                  <h3 class="text-lg font-medium text-charcoal mb-1 group-hover:text-primary transition-colors" style="transition-duration: var(--duration-normal);">{partner.name}</h3>
+                  <p class="text-xs text-primary mb-2">{partner.type}</p>
+                  <p class="text-sm text-muted">{partner.description}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- Become a Partner -->
+  <section class="py-24 bg-charcoal text-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <span class="text-caption text-primary-light mb-4 block">Join Our Network</span>
+          <h2 class="text-display-md text-white mb-6">Become a Partner</h2>
+          <p class="text-body-lg text-white/70 mb-8">
+            We're always looking for organizations that share our commitment to 
+            digital inclusion. Whether you're a technology provider, implementation 
+            expert, or institutional partner, we'd love to explore how we can work together.
+          </p>
+          
+          <div class="space-y-4 mb-8">
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-primary-lighter/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-primary-light" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <p class="text-white/80">Access to TrueLeap's partner portal and technical resources</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-primary-lighter/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-primary-light" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <p class="text-white/80">Co-marketing and joint go-to-market opportunities</p>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-6 h-6 rounded-full bg-primary-lighter/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-primary-light" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <p class="text-white/80">Revenue sharing on joint deployments</p>
+            </div>
+          </div>
+          
+          <a href="mailto:partners@trueleapinc.com" class="btn bg-white text-charcoal hover:bg-white/90">
+            Contact Partnership Team
+          </a>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-4">
+          <div class="p-6 rounded-2xl bg-charcoal-light border border-border-dark">
+            <p class="text-3xl font-medium text-white mb-2">Technology</p>
+            <p class="text-sm text-white/60">Integrate your hardware or software with TrueLeap's platform</p>
+          </div>
+          <div class="p-6 rounded-2xl bg-charcoal-light border border-border-dark">
+            <p class="text-3xl font-medium text-white mb-2">Implementation</p>
+            <p class="text-sm text-white/60">Deploy and support TrueLeap solutions in your region</p>
+          </div>
+          <div class="p-6 rounded-2xl bg-charcoal-light border border-border-dark">
+            <p class="text-3xl font-medium text-white mb-2">Reseller</p>
+            <p class="text-sm text-white/60">Distribute TrueLeap products to your customer base</p>
+          </div>
+          <div class="p-6 rounded-2xl bg-charcoal-light border border-border-dark">
+            <p class="text-3xl font-medium text-white mb-2">Institutional</p>
+            <p class="text-sm text-white/60">Co-fund and co-design large-scale deployments</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>

@@ -80,3 +80,40 @@ Lighthouse CI with thresholds. Bundle size checks on PR. Core Web Vitals monitor
 - [ ] ARIA labels on interactive elements
 - [ ] Color not sole information carrier
 - [ ] Reduced motion respected
+
+## CSS Standards
+
+**Follow [CSS_RULES.md](./CSS_RULES.md) for all defensive CSS practices.**
+
+Key rules to always apply:
+
+### Layout
+- Always use `flex-wrap: wrap` on flex containers (unless single-line is intentional)
+- Set `min-width: 0` on flex/grid items containing text or images
+- Use `gap` instead of `justify-content: space-between` for consistent spacing
+- Prefer `auto-fill` over `auto-fit` in CSS Grid for consistent sizing
+- Wrap fixed grid values in media queries
+
+### Images
+- Always set `max-width: 100%` and `object-fit: cover` on images
+- Add fallback `background-color` for text-over-image sections
+- Use `background-repeat: no-repeat` on background images
+
+### Sizing
+- Use `min-height` instead of fixed `height` for flexible containers
+- Set `min-width: 90px` on buttons for touch targets
+- Use `overflow: auto` instead of `scroll` for conditional scrollbars
+
+### Responsive
+- Use `@media (hover: hover)` for hover-only effects (prevents touch issues)
+- Set `font-size: 16px` minimum on inputs (prevents iOS zoom)
+- Test layouts at various viewport heights, not just widths
+
+### Variables & Fallbacks
+- Always provide fallback values: `var(--color, #fallback)`
+- Never group vendor-prefixed selectors in the same rule
+
+### Scrolling
+- Use `overscroll-behavior-y: contain` on modals/nested scrollables
+- Use `scrollbar-gutter: stable` to prevent layout shift
+

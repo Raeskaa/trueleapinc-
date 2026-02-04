@@ -1,5 +1,8 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState, useCallback } from 'react';
+import React from 'react';
 import { GlobeFallback } from './GlobeFallback';
+import { InfoPanel } from './InfoPanel';
+import { type NetworkCluster, getClusterById } from './networkData';
 
 // Lazy load the heavy Three.js component
 const GlobeScene = lazy(() => 
@@ -13,9 +16,10 @@ interface GlobeProps {
 export function Globe({ className = '' }: GlobeProps) {
   const [shouldLoad, setShouldLoad] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const [selectedCluster, setSelectedCluster] = useState<NetworkCluster | null>(null);
 
   useEffect(() => {
-    // Only load if we're in the browser and have good connection
+    // Only load if we're in the browser
     if (typeof window === 'undefined') return;
     
     // Check for reduced motion preference
@@ -43,20 +47,48 @@ export function Globe({ className = '' }: GlobeProps) {
     return () => observer.disconnect();
   }, []);
 
+  const handleClusterClick = useCallback((cluster: NetworkCluster) => {
+    setSelectedCluster(cluster);
+  }, []);
+
+  const handleClosePanel = useCallback(() => {
+    setSelectedCluster(null);
+  }, []);
+
   if (hasError) {
-    return <GlobeFallback />;
+    return (
+      <div id="globe-container" className={`relative w-full h-full ${className}`}>
+        <GlobeFallback />
+      </div>
+    );
   }
 
   return (
-    <div id="globe-container" className={className}>
+    <div id="globe-container" className={`relative w-full h-full ${className}`}>
       {shouldLoad ? (
         <Suspense fallback={<GlobeFallback />}>
           <ErrorBoundary onError={() => setHasError(true)}>
-            <GlobeScene />
+            <GlobeScene 
+              onClusterClick={handleClusterClick}
+              selectedCluster={selectedCluster?.id || null}
+            />
           </ErrorBoundary>
         </Suspense>
       ) : (
         <GlobeFallback />
+      )}
+      
+      {/* Info Panel */}
+      <InfoPanel 
+        cluster={selectedCluster} 
+        onClose={handleClosePanel} 
+      />
+      
+      {/* Instructions overlay */}
+      {shouldLoad && !selectedCluster && (
+        <div className="absolute bottom-4 left-4 text-xs text-muted pointer-events-none">
+          <p>Drag to rotate • Scroll to zoom • Click a node for details</p>
+        </div>
       )}
     </div>
   );
@@ -93,5 +125,3 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     return this.props.children;
   }
 }
-
-import React from 'react';

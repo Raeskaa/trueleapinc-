@@ -1,78 +1,72 @@
 ---
 import Page from '../../layouts/Page.astro';
+import { AnimatedSection } from '../../components/ui/AnimatedSection';
+import { AnimatedHeadline } from '../../components/ui/AnimatedHeadline';
+import { TypingHeadline } from '../../components/ui/TypingHeadline';
+import { StaggerGrid } from '../../components/ui/StaggerGrid';
+import { ParallaxImage } from '../../components/ui/ParallaxImage';
+import { WireframePlaceholder } from '../../components/ui/WireframePlaceholder';
+import { NumberTicker } from '../../components/ui/NumberTicker';
+import { HorizontalScroll, HorizontalSlide } from '../../components/ui/HorizontalScroll';
+import { HeroWireframe } from '../../components/ui/HeroWireframe';
+import { PartnerLogos } from '../../components/ui/PartnerLogos';
+import { TestimonialMarquee, sampleTestimonials } from '../../components/ui/TestimonialMarquee';
 
 const lang = 'en';
 
-// Platform features
-const platformFeatures = [
+// Platform capabilities
+const capabilities = [
   {
     label: 'Infrastructure',
     title: 'Physical Layer',
-    description: 'Solar-powered edge nodes and mesh networking designed for remote, off-grid deployment. Built to survive harsh conditions.',
+    description: 'Solar-powered edge nodes designed for remote, off-grid deployment.',
     href: '/en/platform/infrastructure',
-    metric: '99.7%',
-    metricLabel: 'Uptime',
-    icon: 'server'
   },
   {
     label: 'Software',
     title: 'Digital Systems',
-    description: 'Leapspace collaboration, Digital Twin visualization, and Leapcast broadcasting - unified in one seamless platform.',
+    description: 'Offline-first collaboration, broadcasting, and visualization tools.',
     href: '/en/platform/digital-systems',
-    metric: '< 50ms',
-    metricLabel: 'Latency',
-    icon: 'code'
   },
   {
     label: 'Intelligence',
-    title: 'Edge AI Engine',
-    description: 'On-device machine learning that works offline. Process data locally, preserving sovereignty and privacy.',
+    title: 'Edge AI',
+    description: 'On-device machine learning that processes data locally.',
     href: '/en/platform/edge-ai',
-    metric: '0%',
-    metricLabel: 'Cloud dependency',
-    icon: 'cpu'
   }
 ];
 
-// Solutions by industry
-const solutions = [
-  { title: 'Governments', description: 'Digital sovereignty infrastructure for national digital transformation', href: '/en/solutions/industry/governments', icon: 'building' },
-  { title: 'Education', description: 'Connected learning platforms that work without internet', href: '/en/solutions/industry/education', icon: 'book' },
-  { title: 'NGOs', description: 'Humanitarian connectivity for crisis response and development', href: '/en/solutions/industry/ngos', icon: 'heart' },
-  { title: 'Enterprise', description: 'Edge computing solutions for distributed operations', href: '/en/solutions/industry/enterprise', icon: 'briefcase' },
-];
-
-// Impact metrics
-const impactMetrics = [
-  { value: '12M+', label: 'People Connected', description: 'Individuals with first-time digital access' },
-  { value: '47', label: 'Countries', description: 'Active deployments across 6 continents' },
-  { value: '2,400+', label: 'Edge Nodes', description: 'Solar-powered units in the field' },
-  { value: '< 2W', label: 'Power Draw', description: 'Average consumption per node' },
-];
-
-// Products/capabilities
+// Products for horizontal scroll
 const products = [
   {
     name: 'Leapspace',
     tagline: 'Offline-First Collaboration',
     description: 'A complete workspace that syncs when connectivity is available. Documents, messaging, and video calls that work anywhere.',
-    features: ['Real-time collaboration', 'Offline document editing', 'P2P video calls', 'End-to-end encryption'],
+    wireframe: 'dashboard' as const,
   },
   {
     name: 'Digital Twin',
     tagline: 'Infrastructure Visualization',
     description: 'Monitor and manage your entire deployment from a single dashboard. Real-time status, predictive maintenance, and remote diagnostics.',
-    features: ['3D network visualization', 'Predictive alerts', 'Remote configuration', 'Usage analytics'],
+    wireframe: 'dashboard' as const,
   },
   {
     name: 'Leapcast',
     tagline: 'One-to-Many Broadcasting',
     description: 'Stream content to thousands without bandwidth constraints. Perfect for education, public health, and government communications.',
-    features: ['Live streaming', 'On-demand content', 'Multi-language support', 'Offline caching'],
+    wireframe: 'mobile' as const,
   },
 ];
 
-// Case study highlights
+// Solutions
+const solutions = [
+  { title: 'Governments', href: '/en/solutions/industry/governments' },
+  { title: 'Education', href: '/en/solutions/industry/education' },
+  { title: 'NGOs', href: '/en/solutions/industry/ngos' },
+  { title: 'Enterprise', href: '/en/solutions/industry/enterprise' },
+];
+
+// Case studies for horizontal scroll
 const caseStudies = [
   {
     title: 'Rwanda Digital Schools Initiative',
@@ -96,514 +90,375 @@ const caseStudies = [
     tag: 'Enterprise'
   },
 ];
-
-// Partners
-const partners = [
-  { name: 'UNICEF', type: 'NGO' },
-  { name: 'World Bank', type: 'Development' },
-  { name: 'USAID', type: 'Government' },
-  { name: 'GIZ', type: 'Development' },
-  { name: 'African Development Bank', type: 'Finance' },
-  { name: 'Gates Foundation', type: 'Foundation' },
-];
 ---
 
 <Page title="Home" lang={lang}>
-  <!-- Hero Section -->
-  <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-cream">
-    <!-- Gradient Background -->
-    <div class="absolute inset-0 overflow-hidden">
-      <div class="absolute top-0 left-1/4 w-[600px] h-[600px] bg-gradient-to-br from-indigo-light/60 to-transparent rounded-full blur-3xl"></div>
-      <div class="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-gradient-to-tl from-violet-100/50 to-transparent rounded-full blur-3xl"></div>
-    </div>
-    
-    <!-- Content -->
-    <div class="relative z-10 text-center px-6 max-w-5xl mx-auto pt-32 pb-20">
-      <!-- Badge -->
-      <div class="mb-8">
-        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-charcoal/5 border border-charcoal/10 text-sm font-medium text-charcoal">
-          <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-          Series A — Now Hiring
-        </span>
-      </div>
-      
-      <!-- Main Headline -->
-      <h1 class="text-display-xl text-charcoal mb-8">
-        Infrastructure for the
-        <br />
-        <span class="display-serif text-gradient">next billion</span>
-      </h1>
-      
-      <!-- Subheadline -->
-      <p class="text-body-lg text-muted max-w-2xl mx-auto mb-12">
-        TrueLeap builds sovereign digital infrastructure that connects 
-        underserved communities to the global economy. No cloud dependency. 
-        No connectivity required.
-      </p>
-      
-      <!-- CTA Buttons -->
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-        <a href="/en/platform" class="btn btn-primary">
-          Explore the Platform
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </a>
-        <a href="/en/impact/network-map" class="btn btn-secondary">
-          View Live Network
-        </a>
-      </div>
-      
-      <!-- Hero Image/Product Preview -->
-      <div class="relative max-w-4xl mx-auto">
-        <div class="aspect-video rounded-2xl bg-white border border-border shadow-2xl shadow-charcoal/10 overflow-hidden">
-          <!-- Placeholder for product screenshot -->
-          <div class="w-full h-full bg-gradient-to-br from-cream to-white flex items-center justify-center">
-            <div class="text-center p-8">
-              <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-charcoal/5 flex items-center justify-center">
-                <svg class="w-8 h-8 text-charcoal/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
+  <!-- Hero -->
+  <section class="min-h-screen bg-cream relative overflow-hidden">
+    <!-- Subtle grid background -->
+    <div class="absolute inset-0 grid-lines opacity-40"></div>
+
+    <div class="relative z-10 pt-32 md:pt-40 pb-16">
+      <div class="max-w-7xl mx-auto px-6">
+        <!-- Hero content -->
+        <div class="max-w-4xl mx-auto text-center">
+          <!-- Eyebrow -->
+          <AnimatedSection client:visible delay={0} direction="up">
+            <p class="text-caption text-muted mb-6">Sovereign Digital Infrastructure</p>
+          </AnimatedSection>
+          
+          <!-- Main headline with typing effect -->
+          <TypingHeadline 
+            client:visible 
+            line1="Digital infrastructure"
+            line2="for the next billion"
+            typingDelay={50}
+            withSound={true}
+          />
+          
+          <!-- Subheadline -->
+          <AnimatedSection client:visible delay={0.3} direction="up">
+            <p class="text-body-lg text-muted max-w-2xl mx-auto mb-10">
+              Sovereign edge computing that works offline. Solar-powered nodes, 
+              local AI processing, and collaboration tools—connecting communities 
+              where traditional infrastructure can't reach.
+            </p>
+          </AnimatedSection>
+          
+          <!-- CTAs -->
+          <AnimatedSection client:visible delay={0.4} direction="up">
+            <div class="flex flex-wrap justify-center gap-4 mb-8">
+              <a href="/en/platform" class="btn btn-primary">
+                Explore Platform
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
+              </a>
+              <a href="/en/resources/docs" class="btn btn-secondary">
+                Documentation
+              </a>
+            </div>
+          </AnimatedSection>
+
+          <!-- Quick stats inline -->
+          <AnimatedSection client:visible delay={0.5} direction="up">
+            <div class="flex flex-wrap justify-center items-center gap-x-8 gap-y-3 text-sm">
+              <div class="flex items-center gap-2">
+                <span class="font-medium text-ink">47</span>
+                <span class="text-muted">countries</span>
               </div>
-              <p class="text-charcoal/40 text-sm">Digital Twin Dashboard Preview</p>
+              <div class="flex items-center gap-2">
+                <span class="font-medium text-ink">12M+</span>
+                <span class="text-muted">people connected</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="font-medium text-ink">&lt;2W</span>
+                <span class="text-muted">power per node</span>
+              </div>
             </div>
-          </div>
+          </AnimatedSection>
         </div>
-        <!-- Floating stats -->
-        <div class="absolute -bottom-6 left-8 bg-white rounded-xl shadow-lg border border-border p-4 hidden md:block">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
-              <span class="text-green-600 text-lg">↑</span>
-            </div>
-            <div>
-              <p class="text-sm font-medium text-charcoal">2,847 nodes online</p>
-              <p class="text-xs text-muted">99.7% uptime this month</p>
-            </div>
-          </div>
+
+        <!-- Hero wireframe with scroll animation -->
+        <div class="mt-16 md:mt-24 lg:mt-28">
+          <HeroWireframe client:visible className="max-w-6xl mx-auto" />
         </div>
-        <div class="absolute -bottom-6 right-8 bg-white rounded-xl shadow-lg border border-border p-4 hidden md:block">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-indigo-light flex items-center justify-center">
-              <span class="text-indigo text-lg">⚡</span>
-            </div>
-            <div>
-              <p class="text-sm font-medium text-charcoal">1.8W avg power</p>
-              <p class="text-xs text-muted">Solar-powered operation</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Scroll indicator -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2">
-      <div class="flex flex-col items-center gap-2 text-muted">
-        <span class="text-xs uppercase tracking-wider">Scroll</span>
-        <div class="w-6 h-10 rounded-full border-2 border-current/30 flex items-start justify-center p-1.5">
-          <div class="w-1 h-2 rounded-full bg-current animate-bounce"></div>
+
+        <!-- Partner logos -->
+        <div class="mt-20 md:mt-28">
+          <PartnerLogos 
+            client:visible 
+            title="Built on trusted technology" 
+          />
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Metrics Bar -->
-  <section class="py-12 bg-charcoal">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-        {impactMetrics.map((metric) => (
-          <div class="text-center">
-            <p class="text-3xl md:text-4xl font-medium text-white mb-1">{metric.value}</p>
-            <p class="text-sm text-white/60">{metric.label}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Mission Statement -->
-  <section class="py-24 md:py-32 bg-white">
+  <!-- Mission -->
+  <section class="py-32 bg-white">
     <div class="max-w-7xl mx-auto px-6">
       <div class="grid lg:grid-cols-2 gap-16 items-center">
-        <div>
-          <span class="text-caption text-indigo mb-4 block">Our Mission</span>
-          <h2 class="text-display-md text-charcoal mb-6">
+        <AnimatedSection client:visible direction="up">
+          <p class="text-caption text-muted mb-6">Our Mission</p>
+          <h2 class="text-display-md mb-6">
             Bridging the digital divide isn't charity.
             <span class="display-serif text-gradient"> It's infrastructure.</span>
           </h2>
           <p class="text-body-lg text-muted mb-6">
             3.7 billion people lack reliable internet access. Traditional approaches 
-            fail because they assume connectivity. We built a complete technology 
-            stack that works offline-first, solar-powered, and locally owned.
+            fail because they assume connectivity.
           </p>
           <p class="text-body text-muted mb-8">
-            Our mission is to ensure that geography is no longer destiny. Every person 
-            deserves access to digital tools that can transform their lives, regardless 
-            of where they live or the infrastructure around them.
+            We built a complete technology stack that works offline-first, 
+            solar-powered, and locally owned. Geography should not determine destiny.
           </p>
-          <a href="/en/company/mission" class="link-arrow text-charcoal font-medium">
+          <a href="/en/company/mission" class="link-arrow text-ink font-medium">
             Read our manifesto
           </a>
-        </div>
+        </AnimatedSection>
         
-        <div class="grid grid-cols-2 gap-4">
-          {impactMetrics.map((metric) => (
-            <div class="card text-center">
-              <p class="text-display-md text-charcoal mb-1">{metric.value}</p>
-              <p class="text-sm font-medium text-charcoal mb-1">{metric.label}</p>
-              <p class="text-xs text-muted">{metric.description}</p>
-            </div>
-          ))}
-        </div>
+        <AnimatedSection client:visible direction="left" delay={0.2}>
+          <ParallaxImage client:visible speed={-0.08} className="w-full">
+            <WireframePlaceholder 
+              variant="photo" 
+              aspect="4:3" 
+              label="Community deployment"
+              className="border border-border"
+            />
+          </ParallaxImage>
+        </AnimatedSection>
       </div>
     </div>
   </section>
 
-  <!-- Platform Section -->
-  <section class="py-24 md:py-32 bg-charcoal text-white relative overflow-hidden">
-    <!-- Glow effect -->
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-indigo/20 blur-[120px] rounded-full pointer-events-none"></div>
-    
-    <div class="max-w-7xl mx-auto px-6 relative z-10">
-      <div class="max-w-3xl mb-16">
-        <span class="text-caption text-indigo-light mb-4 block">Platform</span>
-        <h2 class="text-display-lg text-white mb-6">The Complete Stack</h2>
-        <p class="text-body-lg text-white/70">
-          End-to-end infrastructure designed for digital sovereignty. 
-          From hardware to software to AI — built to work at the edge.
+  <!-- Platform -->
+  <section class="py-32 bg-charcoal text-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <AnimatedSection client:visible direction="up">
+        <p class="text-caption text-primary-light mb-6">Platform</p>
+        <h2 class="text-display-lg text-white mb-4">The Complete Stack</h2>
+        <p class="text-body-lg text-white/60 max-w-2xl mb-16">
+          End-to-end infrastructure for digital sovereignty. 
+          From hardware to software to AI.
         </p>
-      </div>
+      </AnimatedSection>
       
-      <div class="grid lg:grid-cols-3 gap-6 mb-12">
-        {platformFeatures.map((feature) => (
-          <a href={feature.href} class="group block">
-            <div class="h-full rounded-2xl bg-charcoal-light border border-border-dark p-8 transition-all duration-500 hover:border-indigo hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo/10">
-              <div class="flex justify-between items-start mb-8">
-                <span class="inline-block px-3 py-1 rounded-full bg-white/10 text-xs font-medium text-white/80">
-                  {feature.label}
-                </span>
-                <div class="text-right">
-                  <p class="text-2xl font-medium text-indigo-light">{feature.metric}</p>
-                  <p class="text-xs text-white/50">{feature.metricLabel}</p>
-                </div>
-              </div>
-              
-              <h3 class="text-2xl font-medium text-white mb-3">{feature.title}</h3>
-              <p class="text-white/60 mb-6">{feature.description}</p>
-              
-              <span class="inline-flex items-center gap-2 text-indigo-light text-sm font-medium group-hover:gap-3 transition-all">
-                Learn more
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </span>
-            </div>
+      <StaggerGrid client:visible className="grid md:grid-cols-3 gap-px bg-white/5" stagger={0.15}>
+        {capabilities.map((cap) => (
+          <a href={cap.href} class="group bg-charcoal p-8 hover:bg-charcoal-light transition-colors" style="transition-duration: var(--duration-normal);">
+            <p class="text-caption text-white/70 mb-4">{cap.label}</p>
+            <h3 class="text-xl font-medium text-white mb-3">{cap.title}</h3>
+            <p class="text-white/60 mb-6">{cap.description}</p>
+            <span class="inline-flex items-center gap-2 text-primary-light text-sm font-medium group-hover:gap-3 transition-all" style="transition-duration: var(--duration-normal);">
+              Learn more
+              <span>→</span>
+            </span>
           </a>
         ))}
-      </div>
-      
-      <div class="text-center">
-        <a href="/en/platform/stack" class="btn bg-white/10 text-white border border-white/20 hover:bg-white hover:text-charcoal">
-          View Full Stack Overview
-        </a>
-      </div>
+      </StaggerGrid>
     </div>
   </section>
 
-  <!-- Products Section -->
-  <section class="py-24 md:py-32 bg-cream">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center max-w-3xl mx-auto mb-16">
-        <span class="text-caption text-indigo mb-4 block">Products</span>
-        <h2 class="text-display-lg text-charcoal mb-6">Software That Works Offline</h2>
-        <p class="text-body-lg text-muted">
+  <!-- Products - Horizontal Scroll -->
+  <section class="bg-cream">
+    <div class="py-16 max-w-7xl mx-auto px-6">
+      <AnimatedSection client:visible direction="up">
+        <p class="text-caption text-muted mb-6">Products</p>
+        <h2 class="text-display-lg mb-4">Software That Works Offline</h2>
+        <p class="text-body-lg text-muted max-w-2xl">
           Three integrated products designed from the ground up for 
-          low-connectivity environments. Sync when you can, work when you can't.
+          low-connectivity environments.
         </p>
-      </div>
-      
-      <div class="space-y-8">
-        {products.map((product, index) => (
-          <div class={`grid lg:grid-cols-2 gap-8 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
-            <div class={index % 2 === 1 ? 'lg:order-2' : ''}>
-              <span class="text-caption text-indigo mb-2 block">{product.tagline}</span>
-              <h3 class="text-display-md text-charcoal mb-4">{product.name}</h3>
-              <p class="text-body-lg text-muted mb-6">{product.description}</p>
-              <ul class="grid grid-cols-2 gap-3 mb-6">
-                {product.features.map((feature) => (
-                  <li class="flex items-center gap-2 text-sm text-charcoal">
-                    <svg class="w-4 h-4 text-indigo flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              <a href={`/en/platform/digital-systems#${product.name.toLowerCase()}`} class="link-arrow text-charcoal font-medium">
-                Explore {product.name}
-              </a>
-            </div>
-            
-            <div class={index % 2 === 1 ? 'lg:order-1' : ''}>
-              <!-- Product screenshot placeholder -->
-              <div class="aspect-[4/3] rounded-2xl bg-white border border-border shadow-xl overflow-hidden">
-                <div class="w-full h-full bg-gradient-to-br from-cream to-white flex items-center justify-center p-8">
-                  <div class="text-center">
-                    <div class="w-20 h-20 mx-auto mb-4 rounded-2xl bg-indigo-light/50 flex items-center justify-center">
-                      <span class="text-3xl font-display italic text-indigo">{product.name.charAt(0)}</span>
-                    </div>
-                    <p class="text-charcoal font-medium mb-1">{product.name}</p>
-                    <p class="text-sm text-muted">{product.tagline}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+      </AnimatedSection>
     </div>
+    
+    <HorizontalScroll client:visible className="gap-8" speed={1.2}>
+      {products.map((product, i) => (
+        <HorizontalSlide width="min(600px, 85vw)" className="py-8">
+          <div class="h-full bg-white p-8 border border-border">
+            <p class="text-caption text-muted mb-2">{product.tagline}</p>
+            <h3 class="text-display-md mb-4">{product.name}</h3>
+            <p class="text-muted mb-8">{product.description}</p>
+            <WireframePlaceholder 
+              variant={product.wireframe} 
+              aspect="16:9" 
+              label={`${product.name} Interface`}
+            />
+          </div>
+        </HorizontalSlide>
+      ))}
+      <HorizontalSlide width="min(400px, 70vw)" className="py-8 flex items-center">
+        <div class="text-center px-8">
+          <p class="text-muted mb-4">See all products</p>
+          <a href="/en/platform/digital-systems" class="btn btn-secondary">
+            Explore Digital Systems
+          </a>
+        </div>
+      </HorizontalSlide>
+    </HorizontalScroll>
   </section>
 
-  <!-- Solutions Section -->
-  <section class="py-24 md:py-32 bg-white">
+  <!-- Solutions -->
+  <section class="py-32 bg-white">
     <div class="max-w-7xl mx-auto px-6">
-      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16">
-        <div class="max-w-2xl">
-          <span class="text-caption text-indigo mb-4 block">Solutions</span>
-          <h2 class="text-display-lg text-charcoal">Built for Impact</h2>
-        </div>
-        <p class="text-body-lg text-muted max-w-md">
-          Tailored deployments for governments, education, NGOs, 
-          and enterprise — each designed for the specific needs of 
-          underserved communities.
-        </p>
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12">
+        <AnimatedSection client:visible direction="up">
+          <p class="text-caption text-muted mb-6">Solutions</p>
+          <h2 class="text-display-md">Built for Impact</h2>
+        </AnimatedSection>
+        <AnimatedSection client:visible direction="up" delay={0.1}>
+          <a href="/en/solutions" class="link-arrow text-ink font-medium">
+            All solutions
+          </a>
+        </AnimatedSection>
       </div>
       
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+      <StaggerGrid client:visible className="grid md:grid-cols-4 gap-px bg-border" stagger={0.1}>
         {solutions.map((solution) => (
-          <a href={solution.href} class="card group">
-            <div class="flex flex-col h-full">
-              <div class="w-12 h-12 rounded-xl bg-indigo-light/50 flex items-center justify-center mb-4 group-hover:bg-indigo group-hover:text-white transition-colors">
-                <svg class="w-6 h-6 text-indigo group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                </svg>
-              </div>
-              <h3 class="text-xl font-medium text-charcoal mb-2 group-hover:text-indigo transition-colors">
-                {solution.title}
-              </h3>
-              <p class="text-muted text-sm flex-grow">{solution.description}</p>
-              <div class="mt-6 pt-4 border-t border-border">
-                <span class="inline-flex items-center gap-2 text-sm font-medium text-charcoal group-hover:text-indigo group-hover:gap-3 transition-all">
-                  Explore
-                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </span>
-              </div>
-            </div>
+          <a href={solution.href} class="group bg-cream p-8 hover:bg-white transition-colors" style="transition-duration: var(--duration-normal);">
+            <h3 class="text-xl font-medium text-ink mb-4 group-hover:text-primary transition-colors" style="transition-duration: var(--duration-normal);">
+              {solution.title}
+            </h3>
+            <span class="inline-flex items-center gap-2 text-sm text-muted group-hover:text-ink group-hover:gap-3 transition-all" style="transition-duration: var(--duration-normal);">
+              Explore
+              <span>→</span>
+            </span>
           </a>
         ))}
-      </div>
-      
-      <!-- Featured solutions -->
-      <div class="grid lg:grid-cols-2 gap-8">
-        <a href="/en/solutions/outcome/digital-sovereignty" class="group relative rounded-2xl overflow-hidden bg-charcoal text-white p-8 lg:p-10">
-          <div class="absolute inset-0 bg-gradient-to-br from-indigo/20 to-transparent"></div>
-          <div class="relative z-10">
-            <span class="inline-block px-3 py-1 rounded-full bg-white/10 text-xs font-medium text-white/80 mb-4">
-              Featured
-            </span>
-            <h3 class="text-display-md text-white mb-4">
-              Digital Sovereignty
-            </h3>
-            <p class="text-white/70 mb-6 max-w-md">
-              Keep your data within your borders. Our infrastructure enables 
-              complete data sovereignty without sacrificing capability.
-            </p>
-            <span class="inline-flex items-center gap-2 text-white font-medium group-hover:gap-3 transition-all">
-              Learn how
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </span>
-          </div>
-        </a>
-        
-        <a href="/en/solutions/outcome/rural-connectivity" class="group relative rounded-2xl overflow-hidden bg-gradient-to-br from-indigo to-violet text-white p-8 lg:p-10">
-          <div class="relative z-10">
-            <span class="inline-block px-3 py-1 rounded-full bg-white/10 text-xs font-medium text-white/80 mb-4">
-              Featured
-            </span>
-            <h3 class="text-display-md text-white mb-4">
-              Rural Connectivity
-            </h3>
-            <p class="text-white/80 mb-6 max-w-md">
-              Reach the last mile with infrastructure designed for 
-              areas where traditional connectivity fails.
-            </p>
-            <span class="inline-flex items-center gap-2 text-white font-medium group-hover:gap-3 transition-all">
-              Explore solutions
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </span>
-          </div>
-        </a>
-      </div>
+      </StaggerGrid>
     </div>
   </section>
 
-  <!-- Case Studies Section -->
-  <section class="py-24 md:py-32 bg-cream">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16">
-        <div class="max-w-2xl">
-          <span class="text-caption text-indigo mb-4 block">Case Studies</span>
-          <h2 class="text-display-lg text-charcoal">Real Impact, Real Results</h2>
-        </div>
-        <a href="/en/impact/case-studies" class="link-arrow text-charcoal font-medium">
-          View all case studies
-        </a>
-      </div>
-      
-      <div class="grid md:grid-cols-3 gap-6">
-        {caseStudies.map((study) => (
-          <a href="/en/impact/case-studies" class="card group">
-            <!-- Image placeholder -->
-            <div class="aspect-video rounded-xl bg-gradient-to-br from-charcoal/5 to-charcoal/10 mb-4 flex items-center justify-center">
-              <span class="text-xs uppercase tracking-wider text-charcoal/40">{study.tag}</span>
-            </div>
-            
-            <span class="inline-block px-2 py-1 rounded bg-indigo-light text-xs font-medium text-indigo mb-3">
-              {study.tag}
-            </span>
-            
-            <h3 class="text-lg font-medium text-charcoal mb-2 group-hover:text-indigo transition-colors">
-              {study.title}
-            </h3>
-            
-            <p class="text-sm text-muted mb-4">{study.description}</p>
-            
+  <!-- Case Studies - Horizontal Scroll -->
+  <section class="bg-paper">
+    <div class="py-16 max-w-7xl mx-auto px-6">
+      <AnimatedSection client:visible direction="up">
+        <p class="text-caption text-muted mb-6">Case Studies</p>
+        <h2 class="text-display-lg mb-4">Real Impact, Real Results</h2>
+      </AnimatedSection>
+    </div>
+    
+    <HorizontalScroll client:visible className="gap-6" speed={1}>
+      {caseStudies.map((study) => (
+        <HorizontalSlide width="min(500px, 85vw)" className="py-4">
+          <div class="h-full bg-white p-6 border border-border">
+            <WireframePlaceholder 
+              variant="photo" 
+              aspect="16:9" 
+              label={study.tag}
+              className="mb-6"
+            />
+            <p class="text-caption text-muted mb-2">{study.tag}</p>
+            <h3 class="text-xl font-medium mb-3">{study.title}</h3>
+            <p class="text-muted text-sm mb-6">{study.description}</p>
             <div class="pt-4 border-t border-border">
-              <p class="text-2xl font-medium text-charcoal">{study.metric}</p>
+              <p class="text-2xl font-medium">{study.metric}</p>
               <p class="text-xs text-muted">{study.metricLabel}</p>
             </div>
+          </div>
+        </HorizontalSlide>
+      ))}
+      <HorizontalSlide width="min(300px, 60vw)" className="py-4 flex items-center">
+        <div class="text-center px-6">
+          <a href="/en/impact/case-studies" class="link-arrow text-ink font-medium">
+            View all case studies
           </a>
-        ))}
-      </div>
-    </div>
+        </div>
+      </HorizontalSlide>
+    </HorizontalScroll>
   </section>
 
-  <!-- Global Impact CTA -->
-  <section class="py-24 md:py-32 bg-charcoal text-white relative overflow-hidden">
-    <!-- Animated gradient orbs -->
-    <div class="absolute inset-0 overflow-hidden pointer-events-none">
-      <div class="absolute -top-1/4 -left-1/4 w-1/2 h-1/2 bg-indigo/30 rounded-full blur-[100px] animate-pulse" style="animation-duration: 8s;"></div>
-      <div class="absolute -bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-violet/20 rounded-full blur-[100px] animate-pulse" style="animation-duration: 12s; animation-delay: 2s;"></div>
-    </div>
-    
-    <div class="max-w-7xl mx-auto px-6 relative z-10">
+  <!-- Impact -->
+  <section class="py-32 bg-charcoal text-white">
+    <div class="max-w-7xl mx-auto px-6">
       <div class="grid lg:grid-cols-2 gap-16 items-center">
-        <div>
-          <span class="text-caption text-indigo-light mb-4 block">Global Presence</span>
-          <h2 class="text-display-lg text-white mb-6">
+        <AnimatedSection client:visible direction="up">
+          <p class="text-caption text-primary-light mb-6">Global Presence</p>
+          <h2 class="text-display-md text-white mb-6">
             See where we're
             <span class="display-serif"> making impact</span>
           </h2>
-          <p class="text-body-lg text-white/70 mb-8">
-            Real-time data from 2,400+ edge nodes across 47 countries. 
-            Track connectivity, power consumption, and community impact live.
+          <p class="text-body-lg text-white/60 mb-8">
+            Real-time data from edge nodes across 47 countries. 
+            Track connectivity and community impact.
           </p>
           
-          <div class="flex flex-col sm:flex-row gap-4">
-            <a href="/en/impact/network-map" class="btn bg-white text-charcoal hover:bg-white/90">
-              <span class="relative flex h-2 w-2 mr-2">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-              </span>
-              View Live Map
-            </a>
-            <a href="/en/impact/metrics" class="btn bg-white/10 text-white border border-white/20 hover:bg-white/20">
-              Impact Metrics
-            </a>
+          <a href="/en/impact/network-map" class="btn bg-white text-charcoal hover:bg-white/90">
+            View Live Map
+          </a>
+        </AnimatedSection>
+        
+        <!-- Map placeholder -->
+        <AnimatedSection client:visible direction="left" delay={0.2}>
+          <ParallaxImage client:visible speed={0.1} className="w-full">
+            <WireframePlaceholder 
+              variant="map" 
+              aspect="1:1" 
+              label="Interactive Globe"
+              dark={true}
+              className="border border-white/10"
+            />
+          </ParallaxImage>
+        </AnimatedSection>
+      </div>
+      
+      <!-- Metrics strip -->
+      <div class="mt-24 pt-8 border-t border-white/10">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div>
+            <p class="text-3xl font-medium text-white mb-1">
+              <NumberTicker client:visible value={12000000} format="compact" />+
+            </p>
+            <p class="text-sm text-white/70">people connected</p>
           </div>
+          <div>
+            <p class="text-3xl font-medium text-white mb-1">
+              <NumberTicker client:visible value={47} />
+            </p>
+            <p class="text-sm text-white/70">countries</p>
+          </div>
+          <div>
+            <p class="text-3xl font-medium text-white mb-1">
+              <NumberTicker client:visible value={2400} />+
+            </p>
+            <p class="text-sm text-white/70">edge nodes</p>
+          </div>
+          <div>
+            <p class="text-3xl font-medium text-white mb-1">
+              &lt; <NumberTicker client:visible value={2} />W
+            </p>
+            <p class="text-sm text-white/70">avg power draw</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="py-24 bg-paper overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 mb-12">
+      <AnimatedSection client:visible direction="up">
+        <p class="text-caption text-muted mb-6">What Partners Say</p>
+        <h2 class="text-display-md mb-4">Trusted by governments and NGOs worldwide</h2>
+      </AnimatedSection>
+    </div>
+    
+    <AnimatedSection client:visible direction="up" delay={0.2}>
+      <TestimonialMarquee 
+        client:visible 
+        items={sampleTestimonials} 
+        speed="slow"
+        pauseOnHover={true}
+      />
+    </AnimatedSection>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-32 bg-cream">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <AnimatedSection client:visible direction="up">
+        <h2 class="text-display-md mb-6">
+          Ready to bridge the divide?
+        </h2>
+        <p class="text-body-lg text-muted mb-10">
+          Whether you're a government, NGO, or enterprise, we can help you 
+          reach communities that traditional infrastructure can't.
+        </p>
+        
+        <div class="flex flex-wrap items-center justify-center gap-4 mb-8">
+          <a href="/en/resources/docs" class="btn btn-primary">
+            Documentation
+          </a>
+          <a href="/en/company/careers" class="btn btn-secondary">
+            Join Us
+          </a>
         </div>
         
-        <!-- Map preview placeholder -->
-        <div class="relative">
-          <div class="aspect-square rounded-2xl bg-charcoal-light border border-border-dark overflow-hidden">
-            <div class="w-full h-full flex items-center justify-center p-8">
-              <div class="text-center">
-                <div class="w-32 h-32 mx-auto mb-4 rounded-full bg-indigo/20 flex items-center justify-center">
-                  <svg class="w-16 h-16 text-indigo-light" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <p class="text-white/60 text-sm">Interactive Globe</p>
-                <p class="text-white/40 text-xs">Real-time node status</p>
-              </div>
-            </div>
-          </div>
-          <!-- Floating indicators -->
-          <div class="absolute top-4 right-4 bg-charcoal-light/90 backdrop-blur rounded-lg p-3 border border-border-dark">
-            <div class="flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-              <span class="text-xs text-white/80">2,847 online</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Partners Section -->
-  <section class="py-16 bg-white border-b border-border">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="text-center mb-12">
-        <span class="text-caption text-muted mb-4 block">Trusted By</span>
-        <p class="text-body text-charcoal">
-          Partnering with leading organizations worldwide
+        <p class="text-sm text-muted">
+          Or email <a href="mailto:hello@trueleapinc.com" class="text-primary hover:underline">hello@trueleapinc.com</a>
         </p>
-      </div>
-      
-      <div class="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
-        {partners.map((partner) => (
-          <div class="text-lg font-medium text-charcoal/30 hover:text-charcoal/60 transition-colors cursor-default">
-            {partner.name}
-          </div>
-        ))}
-      </div>
-      
-      <div class="mt-12 text-center">
-        <a href="/en/company/partners" class="link-arrow font-medium text-charcoal">
-          View all partners
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Final CTA -->
-  <section class="py-24 md:py-32 bg-cream">
-    <div class="max-w-3xl mx-auto px-6 text-center">
-      <h2 class="text-display-md text-charcoal mb-6">
-        Ready to bridge the divide?
-      </h2>
-      <p class="text-body-lg text-muted mb-10">
-        Whether you're a government, NGO, or enterprise, we can help you 
-        reach communities that traditional infrastructure can't.
-      </p>
-      
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-        <a href="/en/resources/docs" class="btn btn-primary">
-          Read Documentation
-        </a>
-        <a href="/en/company/careers" class="btn btn-secondary">
-          Join Our Team
-        </a>
-      </div>
-      
-      <p class="text-sm text-muted">
-        Or email us directly at <a href="mailto:hello@trueleapinc.com" class="text-indigo hover:underline">hello@trueleapinc.com</a>
-      </p>
+      </AnimatedSection>
     </div>
   </section>
 </Page>

@@ -50,7 +50,7 @@ export function NewsletterForm({
 
   if (status === 'success') {
     return (
-      <p className="text-center py-4 text-green-600 font-medium">
+      <p className="text-center py-4 text-success font-medium">
         Thanks for subscribing!
       </p>
     );
@@ -70,10 +70,10 @@ export function NewsletterForm({
           }}
           placeholder={placeholder}
           className={`w-full px-4 py-3 rounded-full border bg-white transition-colors
-            ${error ? 'border-red-500' : 'border-border focus:border-indigo'}
-            focus:outline-none focus:ring-2 focus:ring-indigo/20`}
+            ${error ? 'border-error' : 'border-border focus:border-primary'}
+            focus:outline-none focus:ring-2 focus:ring-primary/20`}
         />
-        {error && <p className="mt-1 text-sm text-red-500 px-4">{error}</p>}
+        {error && <p className="mt-1 text-sm text-error px-4">{error}</p>}
       </div>
       <Button 
         type="submit" 

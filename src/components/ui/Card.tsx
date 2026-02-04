@@ -10,8 +10,8 @@ export function Card({ children, className = '', hover = true }: CardProps) {
   return (
     <div
       className={`
-        relative rounded-2xl overflow-hidden bg-white border border-border
-        ${hover ? 'transition-all duration-500 hover:-translate-y-4 hover:shadow-xl hover:shadow-indigo/10' : ''}
+        relative rounded-lg overflow-hidden bg-white border border-border shadow-sm
+        ${hover ? 'transition-all duration-500 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5' : ''}
         ${className}
       `}
       style={{ transitionTimingFunction: 'var(--ease-premium)' }}

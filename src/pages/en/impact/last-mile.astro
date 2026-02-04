@@ -1,38 +1,258 @@
 ---
 import Page from '../../../layouts/Page.astro';
+
 const lang = 'en';
+
+const articles = [
+  {
+    type: 'Essay',
+    title: 'Why Digital Sovereignty Matters More Than Ever',
+    excerpt: 'In an era of geopolitical uncertainty and increasing digital dependence, the case for locally-controlled infrastructure has never been stronger. We explore why nations are rethinking their relationship with global cloud providers.',
+    author: 'Amara Okonkwo',
+    role: 'CEO',
+    readTime: '12 min read',
+    date: 'January 2026',
+    featured: true,
+  },
+  {
+    type: 'Research',
+    title: 'The Economics of Rural Connectivity',
+    excerpt: 'Traditional infrastructure approaches fail in low-density, low-income areas because the economics simply don\'t work. We present new models for sustainable last-mile infrastructure that can scale.',
+    author: 'Dr. Raj Mehta',
+    role: 'CTO',
+    readTime: '18 min read',
+    date: 'December 2025',
+    featured: true,
+  },
+  {
+    type: 'Perspective',
+    title: 'Beyond Connectivity: What Happens After You Build the Infrastructure?',
+    excerpt: 'Connecting a community is just the first step. The real work begins in building digital services that actually improve lives. Lessons from five years of deployments.',
+    author: 'Dr. Fatou Diallo',
+    role: 'Chief Impact Officer',
+    readTime: '10 min read',
+    date: 'November 2025',
+    featured: false,
+  },
+  {
+    type: 'Essay',
+    title: 'The Offline-First Imperative',
+    excerpt: 'Why every application designed for emerging markets should assume no connectivity as the default state, not the exception.',
+    author: 'Marcus Chen',
+    role: 'Chief Product Officer',
+    readTime: '8 min read',
+    date: 'October 2025',
+    featured: false,
+  },
+  {
+    type: 'Research',
+    title: 'Edge AI for Agriculture: A Framework for Implementation',
+    excerpt: 'How on-device machine learning is transforming agricultural extension services in low-connectivity environments. Results from our Ghana deployment.',
+    author: 'Dr. Raj Mehta',
+    role: 'CTO',
+    readTime: '15 min read',
+    date: 'September 2025',
+    featured: false,
+  },
+  {
+    type: 'Perspective',
+    title: 'The Hidden Cost of Cloud Dependency',
+    excerpt: 'When your infrastructure depends on services in another jurisdiction, you\'re not just paying for compute—you\'re paying with sovereignty.',
+    author: 'Amara Okonkwo',
+    role: 'CEO',
+    readTime: '7 min read',
+    date: 'August 2025',
+    featured: false,
+  },
+  {
+    type: 'Essay',
+    title: 'Designing for Dignity: User Experience in Resource-Constrained Environments',
+    excerpt: 'The principles that guide our product design, from first-time computer users to expert operators.',
+    author: 'Marcus Chen',
+    role: 'Chief Product Officer',
+    readTime: '11 min read',
+    date: 'July 2025',
+    featured: false,
+  },
+  {
+    type: 'Research',
+    title: 'Measuring Digital Inclusion: Beyond Connectivity Metrics',
+    excerpt: 'Connections don\'t equal impact. A new framework for measuring the real-world outcomes of digital infrastructure investments.',
+    author: 'Dr. Fatou Diallo',
+    role: 'Chief Impact Officer',
+    readTime: '14 min read',
+    date: 'June 2025',
+    featured: false,
+  },
+];
+
+const topics = ['All', 'Digital Sovereignty', 'Rural Connectivity', 'Edge Computing', 'Impact Measurement', 'Product Design'];
 ---
 
 <Page title="The Last Mile" lang={lang}>
-  <section class="pt-32 pb-20 bg-cream">
-    <div class="max-w-7xl mx-auto px-6">
-      <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Impact / Thought Leadership</p>
-      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-tight text-charcoal mb-8">The Last <em>Mile</em></h1>
-      <p class="text-xl text-charcoal/70 max-w-3xl">Insights and perspectives on bridging the digital divide.</p>
+  <!-- Hero -->
+  <section class="pt-32 pb-20 bg-cream relative overflow-hidden">
+    <div class="absolute inset-0 grid-lines opacity-40"></div>
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      <span class="text-caption text-muted mb-4 block">Impact / Thought Leadership</span>
+      <h1 class="text-display-xl text-charcoal mb-8">
+        The Last <span class="display-serif">Mile</span>
+      </h1>
+      <p class="text-body-lg text-muted max-w-3xl">
+        Insights and perspectives on bridging the digital divide. Essays, research, 
+        and lessons learned from building infrastructure for the world's most 
+        underserved communities.
+      </p>
     </div>
   </section>
 
-  <section class="py-20 bg-white">
+  <!-- Featured Articles -->
+  <section class="py-16 bg-charcoal">
     <div class="max-w-7xl mx-auto px-6">
-      <div class="max-w-3xl">
-        <article class="mb-16 pb-16 border-b border-border">
-          <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Essay</p>
-          <h2 class="font-display text-3xl mb-4">Why Digital Sovereignty Matters</h2>
-          <p class="text-charcoal/70 mb-4">The case for locally-controlled infrastructure in an era of digital dependence.</p>
-          <a href="#" class="text-indigo font-medium">Read more →</a>
-        </article>
-        <article class="mb-16 pb-16 border-b border-border">
-          <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Research</p>
-          <h2 class="font-display text-3xl mb-4">The Economics of Rural Connectivity</h2>
-          <p class="text-charcoal/70 mb-4">New models for sustainable last-mile infrastructure.</p>
-          <a href="#" class="text-indigo font-medium">Read more →</a>
-        </article>
-        <article>
-          <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Perspective</p>
-          <h2 class="font-display text-3xl mb-4">Beyond Connectivity</h2>
-          <p class="text-charcoal/70 mb-4">What happens after you build the infrastructure?</p>
-          <a href="#" class="text-indigo font-medium">Read more →</a>
-        </article>
+      <span class="text-caption text-primary-light mb-8 block">Featured</span>
+      <div class="grid md:grid-cols-2 gap-8">
+        {articles.filter(a => a.featured).map((article) => (
+          <article class="p-8 rounded-2xl bg-charcoal-light border border-border-dark group cursor-pointer hover:border-primary/30 transition-all" style="transition-duration: var(--duration-normal);">
+            <span class="inline-block px-3 py-1 rounded-full bg-primary text-white text-xs font-medium mb-4">
+              {article.type}
+            </span>
+            <h3 class="text-xl font-medium text-white mb-3 group-hover:text-primary-light transition-colors" style="transition-duration: var(--duration-normal);">
+              {article.title}
+            </h3>
+            <p class="text-white/70 text-sm mb-6">{article.excerpt}</p>
+            
+            <div class="flex items-center justify-between pt-4 border-t border-border-dark">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary-light to-primary flex items-center justify-center">
+                  <span class="text-sm font-display text-white">{article.author.split(' ').map(n => n[0]).join('')}</span>
+                </div>
+                <div>
+                  <p class="text-sm font-medium text-white">{article.author}</p>
+                  <p class="text-xs text-white/50">{article.role}</p>
+                </div>
+              </div>
+              <p class="text-xs text-white/50">{article.readTime}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Topic Filter -->
+  <section class="py-8 bg-white border-b border-border sticky top-20 z-30">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-wrap gap-2">
+        {topics.map((topic, i) => (
+          <button class={`px-4 py-2 text-sm font-medium transition-colors ${i === 0 ? 'bg-charcoal text-white' : 'bg-cream text-muted hover:bg-charcoal hover:text-white'}`}>
+            {topic}
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- All Articles -->
+  <section class="py-24 bg-white">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="space-y-0">
+        {articles.map((article, index) => (
+          <article 
+            class={`py-8 group cursor-pointer ${index < articles.length - 1 ? 'border-b border-border' : ''}`}
+          >
+            <div class="flex flex-col md:flex-row gap-6">
+              <div class="md:w-24 flex-shrink-0">
+                <span class="text-xs text-primary font-medium">{article.type}</span>
+                <p class="text-sm text-muted">{article.date}</p>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xl font-medium text-charcoal mb-2 group-hover:text-primary transition-colors" style="transition-duration: var(--duration-normal);">
+                  {article.title}
+                </h3>
+                <p class="text-muted mb-4">{article.excerpt}</p>
+                <div class="flex items-center gap-4">
+                  <div class="flex items-center gap-2">
+                    <div class="w-6 h-6 rounded-full bg-gradient-to-br from-primary-light to-cream flex items-center justify-center">
+                      <span class="text-xs font-display text-primary">{article.author.split(' ').map(n => n[0]).join('')}</span>
+                    </div>
+                    <p class="text-sm text-charcoal">{article.author}</p>
+                  </div>
+                  <span class="text-sm text-muted">·</span>
+                  <p class="text-sm text-muted">{article.readTime}</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="py-24 bg-cream">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <h2 class="text-display-md text-charcoal mb-6">Subscribe to The Last Mile</h2>
+      <p class="text-body-lg text-muted mb-8">
+        Get our latest essays and research delivered to your inbox. 
+        We publish 2-3 times per month.
+      </p>
+      <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+        <input 
+          type="email" 
+          placeholder="Enter your email"
+          class="flex-1 px-4 py-3 bg-white border border-border text-charcoal placeholder:text-muted focus:outline-none focus:border-primary"
+        />
+        <button type="submit" class="btn btn-primary whitespace-nowrap">
+          Subscribe
+        </button>
+      </form>
+      <p class="text-xs text-muted mt-4">
+        We respect your privacy. Unsubscribe at any time.
+      </p>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="py-24 bg-charcoal text-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <span class="text-caption text-primary-light mb-4 block">About The Last Mile</span>
+          <h2 class="text-display-md text-white mb-6">
+            Why we share what we learn
+          </h2>
+          <p class="text-body-lg text-white/70 mb-6">
+            The challenge of bridging the digital divide is too big for any one 
+            organization. We share our research, frameworks, and lessons learned 
+            because we believe open knowledge accelerates progress for everyone.
+          </p>
+          <p class="text-body text-white/70 mb-8">
+            The Last Mile is our platform for thinking out loud about the hardest 
+            problems in digital inclusion—and inviting others to think with us.
+          </p>
+          <a href="/en/company/mission" class="btn bg-white text-charcoal hover:bg-white/90">
+            Learn About Our Mission
+          </a>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-4">
+          <div class="p-6 rounded-2xl bg-charcoal-light border border-border-dark">
+            <p class="text-3xl font-medium text-white mb-2">50+</p>
+            <p class="text-sm text-white/60">Articles Published</p>
+          </div>
+          <div class="p-6 rounded-2xl bg-charcoal-light border border-border-dark">
+            <p class="text-3xl font-medium text-white mb-2">25K</p>
+            <p class="text-sm text-white/60">Newsletter Subscribers</p>
+          </div>
+          <div class="p-6 rounded-2xl bg-charcoal-light border border-border-dark">
+            <p class="text-3xl font-medium text-white mb-2">12</p>
+            <p class="text-sm text-white/60">Research Papers</p>
+          </div>
+          <div class="p-6 rounded-2xl bg-charcoal-light border border-border-dark">
+            <p class="text-3xl font-medium text-white mb-2">8</p>
+            <p class="text-sm text-white/60">Contributing Authors</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>

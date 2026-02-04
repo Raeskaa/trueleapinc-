@@ -1,173 +1,382 @@
-import { useRef, useMemo } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Sphere, OrbitControls } from '@react-three/drei';
-import type { Mesh, Points, BufferGeometry, PointsMaterial } from 'three';
+import { useRef, useMemo, useState, useCallback, useEffect } from 'react';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { OrbitControls, Line } from '@react-three/drei';
 import * as THREE from 'three';
+import { getWorldDots, latLngToVector3, getArcPoints } from './worldDots';
+import { 
+  networkClusters, 
+  networkConnections, 
+  getClusterById, 
+  getHeatIntensity,
+  type NetworkCluster 
+} from './networkData';
+import { colors } from '../../lib/theme';
 
-interface NetworkNode {
-  lat: number;
-  lng: number;
-  size?: number;
+const GLOBE_RADIUS = 2;
+const COLORS = colors.globe;
+
+interface GlobeSceneProps {
+  onClusterClick?: (cluster: NetworkCluster) => void;
+  selectedCluster?: string | null;
 }
 
-// Convert lat/lng to 3D position
-function latLngToVector3(lat: number, lng: number, radius: number): [number, number, number] {
-  const phi = (90 - lat) * (Math.PI / 180);
-  const theta = (lng + 180) * (Math.PI / 180);
+// Instanced mesh for world dots (performance optimization)
+function WorldDots() {
+  const meshRef = useRef<THREE.InstancedMesh>(null);
+  const dots = useMemo(() => getWorldDots(), []);
   
-  const x = -(radius * Math.sin(phi) * Math.cos(theta));
-  const y = radius * Math.cos(phi);
-  const z = radius * Math.sin(phi) * Math.sin(theta);
+  const dummy = useMemo(() => new THREE.Object3D(), []);
   
-  return [x, y, z];
-}
-
-// Sample network nodes
-const networkNodes: NetworkNode[] = [
-  { lat: 51.5, lng: -0.1, size: 1.2 },   // London
-  { lat: 40.7, lng: -74, size: 1 },      // NYC
-  { lat: -1.3, lng: 36.8, size: 1.5 },   // Nairobi
-  { lat: 28.6, lng: 77.2, size: 1.3 },   // Delhi
-  { lat: -23.5, lng: -46.6, size: 1 },   // Sao Paulo
-  { lat: 35.7, lng: 139.7, size: 0.8 },  // Tokyo
-  { lat: -33.9, lng: 18.4, size: 1.2 },  // Cape Town
-  { lat: 1.3, lng: 103.8, size: 0.9 },   // Singapore
-  { lat: 6.5, lng: 3.4, size: 1.4 },     // Lagos
-  { lat: -6.2, lng: 106.8, size: 1.1 },  // Jakarta
-];
-
-function Globe() {
-  const meshRef = useRef<Mesh>(null);
-  
-  useFrame((_, delta) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y += delta * 0.05;
-    }
-  });
+  useEffect(() => {
+    if (!meshRef.current) return;
+    
+    dots.forEach((dot, i) => {
+      const [x, y, z] = latLngToVector3(dot[0], dot[1], GLOBE_RADIUS);
+      dummy.position.set(x, y, z);
+      dummy.lookAt(0, 0, 0);
+      dummy.updateMatrix();
+      meshRef.current!.setMatrixAt(i, dummy.matrix);
+    });
+    
+    meshRef.current.instanceMatrix.needsUpdate = true;
+  }, [dots, dummy]);
 
   return (
-    <group>
-      {/* Main globe sphere */}
-      <Sphere ref={meshRef} args={[2, 64, 64]}>
-        <meshBasicMaterial 
-          color="#4338ca" 
-          wireframe 
-          transparent 
-          opacity={0.15}
-        />
-      </Sphere>
-      
-      {/* Inner glow sphere */}
-      <Sphere args={[1.98, 32, 32]}>
-        <meshBasicMaterial 
-          color="#4338ca" 
-          transparent 
-          opacity={0.05}
-        />
-      </Sphere>
+    <instancedMesh ref={meshRef} args={[undefined, undefined, dots.length]}>
+      <circleGeometry args={[0.015, 6]} />
+      <meshBasicMaterial color={COLORS.land} transparent opacity={0.6} side={THREE.DoubleSide} />
+    </instancedMesh>
+  );
+}
+
+// Network cluster points with glow effect
+function ClusterPoints({ 
+  onClusterClick, 
+  selectedCluster 
+}: { 
+  onClusterClick?: (cluster: NetworkCluster) => void;
+  selectedCluster?: string | null;
+}) {
+  const groupRef = useRef<THREE.Group>(null);
+  const [hovered, setHovered] = useState<string | null>(null);
+  const { camera } = useThree();
+  
+  useFrame((state) => {
+    if (!groupRef.current) return;
+    
+    // Pulse animation
+    groupRef.current.children.forEach((child, i) => {
+      if (child instanceof THREE.Mesh) {
+        const cluster = networkClusters[i];
+        const isSelected = cluster?.id === selectedCluster;
+        const isHovered = cluster?.id === hovered;
+        
+        const baseScale = 0.03 + getHeatIntensity(cluster?.nodes || 0) * 0.04;
+        const pulse = Math.sin(state.clock.elapsedTime * 2 + i * 0.5) * 0.005;
+        const scale = baseScale + pulse + (isHovered || isSelected ? 0.02 : 0);
+        
+        child.scale.setScalar(scale);
+      }
+    });
+  });
+  
+  const handleClick = useCallback((cluster: NetworkCluster) => {
+    onClusterClick?.(cluster);
+  }, [onClusterClick]);
+
+  return (
+    <group ref={groupRef}>
+      {networkClusters.map((cluster) => {
+        const [x, y, z] = latLngToVector3(cluster.lat, cluster.lng, GLOBE_RADIUS + 0.02);
+        const intensity = getHeatIntensity(cluster.nodes);
+        const isSelected = cluster.id === selectedCluster;
+        const isHovered = cluster.id === hovered;
+        
+        return (
+          <group key={cluster.id} position={[x, y, z]}>
+            {/* Glow ring */}
+            <mesh
+              scale={0.08 + intensity * 0.06}
+              onPointerOver={() => setHovered(cluster.id)}
+              onPointerOut={() => setHovered(null)}
+              onClick={() => handleClick(cluster)}
+            >
+              <ringGeometry args={[0.8, 1, 32]} />
+              <meshBasicMaterial 
+                color={COLORS.clusterBright} 
+                transparent 
+                opacity={(isHovered || isSelected ? 0.6 : 0.3) * intensity}
+                side={THREE.DoubleSide}
+              />
+            </mesh>
+            
+            {/* Core dot */}
+            <mesh
+              scale={0.03 + intensity * 0.04}
+              onPointerOver={() => setHovered(cluster.id)}
+              onPointerOut={() => setHovered(null)}
+              onClick={() => handleClick(cluster)}
+            >
+              <sphereGeometry args={[1, 16, 16]} />
+              <meshBasicMaterial 
+                color={isHovered || isSelected ? COLORS.clusterBright : COLORS.cluster}
+              />
+            </mesh>
+            
+            {/* Outer glow for large clusters */}
+            {intensity > 0.5 && (
+              <mesh scale={0.15 + intensity * 0.1}>
+                <sphereGeometry args={[1, 16, 16]} />
+                <meshBasicMaterial 
+                  color={COLORS.glow} 
+                  transparent 
+                  opacity={0.1 * intensity}
+                />
+              </mesh>
+            )}
+          </group>
+        );
+      })}
     </group>
   );
 }
 
-function NetworkPoints() {
-  const pointsRef = useRef<Points<BufferGeometry, PointsMaterial>>(null);
+// Animated connection arcs
+function ConnectionArcs() {
+  const arcsRef = useRef<THREE.Group>(null);
+  const [dashOffset, setDashOffset] = useState(0);
   
-  const positions = useMemo(() => {
-    const pos = new Float32Array(networkNodes.length * 3);
-    networkNodes.forEach((node, i) => {
-      const [x, y, z] = latLngToVector3(node.lat, node.lng, 2.05);
-      pos[i * 3] = x;
-      pos[i * 3 + 1] = y;
-      pos[i * 3 + 2] = z;
-    });
-    return pos;
+  useFrame((_, delta) => {
+    setDashOffset(prev => (prev + delta * 0.5) % 1);
+  });
+  
+  const arcs = useMemo(() => {
+    return networkConnections.map((conn) => {
+      const fromCluster = getClusterById(conn.from);
+      const toCluster = getClusterById(conn.to);
+      
+      if (!fromCluster || !toCluster) return null;
+      
+      const points = getArcPoints(
+        [fromCluster.lat, fromCluster.lng],
+        [toCluster.lat, toCluster.lng],
+        GLOBE_RADIUS + 0.01,
+        40
+      );
+      
+      return {
+        points: points.map(p => new THREE.Vector3(...p)),
+        traffic: conn.traffic,
+      };
+    }).filter(Boolean);
   }, []);
 
-  useFrame((state) => {
-    if (pointsRef.current) {
-      pointsRef.current.rotation.y = state.clock.elapsedTime * 0.05;
-    }
-  });
-
   return (
-    <points ref={pointsRef}>
-      <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          args={[positions, 3]}
-        />
-      </bufferGeometry>
-      <pointsMaterial 
-        color="#4338ca" 
-        size={0.08}
-        sizeAttenuation
+    <group ref={arcsRef}>
+      {arcs.map((arc, i) => {
+        if (!arc) return null;
+        
+        const opacity = arc.traffic === 'high' ? 0.6 : arc.traffic === 'medium' ? 0.4 : 0.2;
+        const lineWidth = arc.traffic === 'high' ? 1.5 : arc.traffic === 'medium' ? 1 : 0.5;
+        
+        return (
+          <Line
+            key={i}
+            points={arc.points}
+            color={COLORS.arc}
+            lineWidth={lineWidth}
+            transparent
+            opacity={opacity}
+            dashed
+            dashScale={50}
+            dashSize={0.1}
+            gapSize={0.05}
+            dashOffset={-dashOffset}
+          />
+        );
+      })}
+    </group>
+  );
+}
+
+// Atmosphere glow effect
+function Atmosphere() {
+  return (
+    <mesh scale={GLOBE_RADIUS * 1.15}>
+      <sphereGeometry args={[1, 64, 64]} />
+      <meshBasicMaterial
+        color={COLORS.atmosphere}
         transparent
-        opacity={0.8}
+        opacity={0.05}
+        side={THREE.BackSide}
       />
-    </points>
+    </mesh>
   );
 }
 
-function ConnectionLines() {
-  const linesRef = useRef<THREE.LineSegments>(null);
+// Globe base sphere (light mode)
+function GlobeBase() {
+  const meshRef = useRef<THREE.Mesh>(null);
   
-  const geometry = useMemo(() => {
-    const geo = new THREE.BufferGeometry();
-    const positions: number[] = [];
+  return (
+    <mesh ref={meshRef}>
+      <sphereGeometry args={[GLOBE_RADIUS - 0.01, 64, 64]} />
+      <meshBasicMaterial
+        color={COLORS.base}
+        transparent
+        opacity={1}
+      />
+    </mesh>
+  );
+}
+
+// Latitude/longitude grid lines
+function GridLines() {
+  const lines = useMemo(() => {
+    const result: THREE.Vector3[][] = [];
     
-    // Create connections between nearby nodes
-    networkNodes.forEach((node1, i) => {
-      networkNodes.forEach((node2, j) => {
-        if (i < j) {
-          const distance = Math.sqrt(
-            Math.pow(node1.lat - node2.lat, 2) + 
-            Math.pow(node1.lng - node2.lng, 2)
-          );
-          if (distance < 60) {
-            const [x1, y1, z1] = latLngToVector3(node1.lat, node1.lng, 2.05);
-            const [x2, y2, z2] = latLngToVector3(node2.lat, node2.lng, 2.05);
-            positions.push(x1, y1, z1, x2, y2, z2);
-          }
-        }
-      });
-    });
+    // Latitude lines
+    for (let lat = -60; lat <= 60; lat += 30) {
+      const points: THREE.Vector3[] = [];
+      for (let lng = -180; lng <= 180; lng += 5) {
+        const [x, y, z] = latLngToVector3(lat, lng, GLOBE_RADIUS + 0.001);
+        points.push(new THREE.Vector3(x, y, z));
+      }
+      result.push(points);
+    }
     
-    geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-    return geo;
+    // Longitude lines
+    for (let lng = -180; lng < 180; lng += 30) {
+      const points: THREE.Vector3[] = [];
+      for (let lat = -90; lat <= 90; lat += 5) {
+        const [x, y, z] = latLngToVector3(lat, lng, GLOBE_RADIUS + 0.001);
+        points.push(new THREE.Vector3(x, y, z));
+      }
+      result.push(points);
+    }
+    
+    return result;
   }, []);
 
-  useFrame((state) => {
-    if (linesRef.current) {
-      linesRef.current.rotation.y = state.clock.elapsedTime * 0.05;
+  return (
+    <group>
+      {lines.map((points, i) => (
+        <Line
+          key={i}
+          points={points}
+          color={COLORS.grid}
+          lineWidth={0.5}
+          transparent
+          opacity={0.3}
+        />
+      ))}
+    </group>
+  );
+}
+
+// Camera controller for zoom-to-cluster functionality
+function CameraController({ 
+  selectedCluster,
+  onAnimationComplete 
+}: { 
+  selectedCluster: string | null;
+  onAnimationComplete?: () => void;
+}) {
+  const { camera } = useThree();
+  const targetRef = useRef(new THREE.Vector3(0, 0, 5));
+  const isAnimating = useRef(false);
+  
+  useEffect(() => {
+    if (selectedCluster) {
+      const cluster = getClusterById(selectedCluster);
+      if (cluster) {
+        const [x, y, z] = latLngToVector3(cluster.lat, cluster.lng, GLOBE_RADIUS + 3);
+        targetRef.current.set(x, y, z);
+        isAnimating.current = true;
+      }
+    } else {
+      targetRef.current.set(0, 0, 5);
+      isAnimating.current = true;
+    }
+  }, [selectedCluster]);
+  
+  useFrame(() => {
+    if (isAnimating.current) {
+      camera.position.lerp(targetRef.current, 0.05);
+      camera.lookAt(0, 0, 0);
+      
+      if (camera.position.distanceTo(targetRef.current) < 0.1) {
+        isAnimating.current = false;
+        onAnimationComplete?.();
+      }
+    }
+  });
+  
+  return null;
+}
+
+// Main scene component
+function Scene({ onClusterClick, selectedCluster }: GlobeSceneProps) {
+  const groupRef = useRef<THREE.Group>(null);
+  
+  useFrame((_, delta) => {
+    // Slow auto-rotation when nothing is selected
+    if (groupRef.current && !selectedCluster) {
+      groupRef.current.rotation.y += delta * 0.05;
     }
   });
 
   return (
-    <lineSegments ref={linesRef} geometry={geometry}>
-      <lineBasicMaterial color="#4338ca" transparent opacity={0.2} />
-    </lineSegments>
+    <>
+      <ambientLight intensity={0.5} />
+      <pointLight position={[10, 10, 10]} intensity={0.5} />
+      
+      <group ref={groupRef}>
+        <GlobeBase />
+        <GridLines />
+        <WorldDots />
+        <ClusterPoints onClusterClick={onClusterClick} selectedCluster={selectedCluster} />
+        <ConnectionArcs />
+        <Atmosphere />
+      </group>
+      
+      <CameraController selectedCluster={selectedCluster} />
+      
+      <OrbitControls
+        enableZoom={true}
+        enablePan={false}
+        minDistance={3}
+        maxDistance={8}
+        minPolarAngle={Math.PI / 6}
+        maxPolarAngle={Math.PI - Math.PI / 6}
+        autoRotate={!selectedCluster}
+        autoRotateSpeed={0.3}
+      />
+    </>
   );
 }
 
-export function GlobeScene() {
+// Exported component
+export function GlobeScene({ onClusterClick, selectedCluster }: GlobeSceneProps = {}) {
   return (
-    <div className="w-full aspect-square max-w-lg mx-auto">
-      <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} intensity={1} />
-        
-        <Globe />
-        <NetworkPoints />
-        <ConnectionLines />
-        
-        <OrbitControls 
-          enableZoom={false}
-          enablePan={false}
-          autoRotate
-          autoRotateSpeed={0.5}
-          minPolarAngle={Math.PI / 3}
-          maxPolarAngle={Math.PI / 1.5}
-        />
+    <div className="w-full h-full" style={{ display: 'block' }}>
+      <Canvas
+        camera={{ position: [0, 0, 5], fov: 45 }}
+        gl={{ 
+          antialias: true, 
+          alpha: true,
+          powerPreference: 'high-performance',
+        }}
+        dpr={[1, 2]} // Handle DPI scaling: min 1, max 2 for Retina
+        style={{ 
+          background: 'transparent',
+          display: 'block', // Remove inline whitespace
+          width: '100%',
+          height: '100%',
+        }}
+        resize={{ scroll: false, debounce: { scroll: 50, resize: 0 } }}
+      >
+        <Scene onClusterClick={onClusterClick} selectedCluster={selectedCluster} />
       </Canvas>
     </div>
   );
