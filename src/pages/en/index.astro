@@ -1,0 +1,95 @@
+---
+import Page from '../../layouts/Page.astro';
+
+const lang = 'en';
+---
+
+<Page title="Home" lang={lang}>
+  <!-- Hero -->
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 bg-cream">
+      <div class="absolute inset-0 opacity-30">
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-light rounded-full blur-3xl animate-pulse" style="animation-duration: 8s;"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-200/40 rounded-full blur-3xl animate-pulse" style="animation-duration: 12s; animation-delay: 2s;"></div>
+      </div>
+    </div>
+    <div class="relative z-10 text-center px-6 max-w-5xl mx-auto pt-20">
+      <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-6">Digital Infrastructure</p>
+      <h1 class="font-display text-[clamp(2.5rem,11vw,9rem)] leading-[0.85] tracking-tight text-charcoal">
+        True<em class="font-normal">Leap</em>
+      </h1>
+      <p class="mt-8 text-lg md:text-xl text-charcoal/70 max-w-2xl mx-auto">
+        Bridging the digital divide through sovereign infrastructure for governments, education, and enterprise.
+      </p>
+      <div class="mt-10">
+        <a href="/en/platform" class="inline-flex items-center justify-center gap-2 rounded-full font-medium px-8 py-4 text-lg bg-indigo text-white hover:bg-indigo/90 transition-all duration-300">
+          Explore Platform
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Platform Overview -->
+  <section class="py-20 md:py-32 bg-cream">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="max-w-3xl mb-16">
+        <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Platform</p>
+        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl leading-tight text-charcoal">The Complete Stack</h2>
+        <p class="mt-6 text-lg text-charcoal/70">End-to-end infrastructure designed for digital sovereignty and last-mile connectivity.</p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-8">
+        <a href="/en/platform/infrastructure" class="group relative rounded-2xl overflow-hidden bg-white border border-border p-6 transition-all duration-500 hover:-translate-y-4 hover:shadow-xl hover:shadow-indigo/10">
+          <p class="font-mono uppercase tracking-[0.3em] text-xs text-indigo mb-2">Infrastructure</p>
+          <h3 class="font-display text-2xl mb-2 text-charcoal">Physical Layer</h3>
+          <p class="text-charcoal/70">Solar-powered edge nodes and mesh networking for remote deployment.</p>
+        </a>
+        <a href="/en/platform/digital-systems" class="group relative rounded-2xl overflow-hidden bg-white border border-border p-6 transition-all duration-500 hover:-translate-y-4 hover:shadow-xl hover:shadow-indigo/10">
+          <p class="font-mono uppercase tracking-[0.3em] text-xs text-indigo mb-2">Software</p>
+          <h3 class="font-display text-2xl mb-2 text-charcoal">Digital Systems</h3>
+          <p class="text-charcoal/70">Leapspace, Digital Twin, and Leapcast unified platform.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solutions -->
+  <section class="py-20 md:py-32 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="max-w-3xl mb-16">
+        <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Solutions</p>
+        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl leading-tight text-charcoal">Built for Impact</h2>
+        <p class="mt-6 text-lg text-charcoal/70">Tailored solutions for governments, education, NGOs, and enterprise.</p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <a href="/en/solutions/industry/governments" class="p-6 border border-border rounded-xl hover:border-indigo transition-colors">
+          <h3 class="font-display text-xl mb-2">Governments</h3>
+          <p class="text-sm text-charcoal/60">Digital sovereignty infrastructure</p>
+        </a>
+        <a href="/en/solutions/industry/education" class="p-6 border border-border rounded-xl hover:border-indigo transition-colors">
+          <h3 class="font-display text-xl mb-2">Education</h3>
+          <p class="text-sm text-charcoal/60">Connected learning platforms</p>
+        </a>
+        <a href="/en/solutions/industry/ngos" class="p-6 border border-border rounded-xl hover:border-indigo transition-colors">
+          <h3 class="font-display text-xl mb-2">NGOs</h3>
+          <p class="text-sm text-charcoal/60">Humanitarian connectivity</p>
+        </a>
+        <a href="/en/solutions/industry/enterprise" class="p-6 border border-border rounded-xl hover:border-indigo transition-colors">
+          <h3 class="font-display text-xl mb-2">Enterprise</h3>
+          <p class="text-sm text-charcoal/60">Edge computing solutions</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact CTA -->
+  <section class="py-20 md:py-32 bg-charcoal text-white">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <p class="font-mono uppercase tracking-[0.3em] text-xs text-white/60 mb-4">Global Impact</p>
+      <h2 class="font-display text-4xl md:text-5xl lg:text-6xl leading-tight mb-6">See Our Network</h2>
+      <p class="text-lg text-white/70 max-w-2xl mx-auto mb-10">Real-time metrics from deployments across the globe.</p>
+      <a href="/en/impact/network-map" class="inline-flex items-center justify-center gap-2 rounded-full font-medium px-8 py-4 text-lg bg-white text-charcoal hover:bg-white/90 transition-all duration-300">
+        View Live Map
+      </a>
+    </div>
+  </section>
+</Page>

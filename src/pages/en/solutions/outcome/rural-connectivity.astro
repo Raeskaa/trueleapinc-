@@ -1,0 +1,32 @@
+---
+import Page from '../../../../layouts/Page.astro';
+const lang = 'en';
+---
+
+<Page title="Rural Connectivity" lang={lang}>
+  <section class="pt-32 pb-20 bg-cream">
+    <div class="max-w-7xl mx-auto px-6">
+      <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Solutions / Outcome</p>
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-tight text-charcoal mb-8">Rural <em>Connectivity</em></h1>
+      <p class="text-xl text-charcoal/70 max-w-3xl">Bridging the last mile to connect underserved communities.</p>
+    </div>
+  </section>
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="p-8 border border-border rounded-2xl">
+          <h3 class="font-display text-2xl mb-4">Solar-Powered</h3>
+          <p class="text-charcoal/70">No grid required. Fully self-sufficient infrastructure.</p>
+        </div>
+        <div class="p-8 border border-border rounded-2xl">
+          <h3 class="font-display text-2xl mb-4">Community Networks</h3>
+          <p class="text-charcoal/70">Local ownership and sustainability models.</p>
+        </div>
+        <div class="p-8 border border-border rounded-2xl">
+          <h3 class="font-display text-2xl mb-4">Sustainable Economics</h3>
+          <p class="text-charcoal/70">Business models that work in low-income contexts.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Page>

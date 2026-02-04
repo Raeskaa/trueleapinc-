@@ -1,0 +1,32 @@
+---
+import Page from '../../../../layouts/Page.astro';
+const lang = 'en';
+---
+
+<Page title="Solutions for Enterprise" lang={lang}>
+  <section class="pt-32 pb-20 bg-cream">
+    <div class="max-w-7xl mx-auto px-6">
+      <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Solutions / Enterprise</p>
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-tight text-charcoal mb-8">Edge <em>Computing</em></h1>
+      <p class="text-xl text-charcoal/70 max-w-3xl">Distributed computing infrastructure for global operations.</p>
+    </div>
+  </section>
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="p-8 border border-border rounded-2xl">
+          <h3 class="font-display text-2xl mb-4">Remote Operations</h3>
+          <p class="text-charcoal/70">Connectivity for mining, energy, and agriculture.</p>
+        </div>
+        <div class="p-8 border border-border rounded-2xl">
+          <h3 class="font-display text-2xl mb-4">Edge Processing</h3>
+          <p class="text-charcoal/70">Low-latency compute at the source.</p>
+        </div>
+        <div class="p-8 border border-border rounded-2xl">
+          <h3 class="font-display text-2xl mb-4">Supply Chain</h3>
+          <p class="text-charcoal/70">End-to-end visibility and tracking.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Page>

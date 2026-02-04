@@ -1,0 +1,38 @@
+---
+import Page from '../../../layouts/Page.astro';
+const lang = 'en';
+---
+
+<Page title="Case Studies" lang={lang}>
+  <section class="pt-32 pb-20 bg-cream">
+    <div class="max-w-7xl mx-auto px-6">
+      <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Impact / Case Studies</p>
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-tight text-charcoal mb-8">Case <em>Studies</em></h1>
+      <p class="text-xl text-charcoal/70 max-w-3xl">Deep dives into our most impactful deployments.</p>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Placeholder case studies -->
+        <a href="#" class="group block">
+          <div class="aspect-video bg-cream rounded-2xl mb-6 overflow-hidden">
+            <div class="w-full h-full bg-gradient-to-br from-indigo/10 to-purple-200/20"></div>
+          </div>
+          <p class="font-mono uppercase tracking-[0.3em] text-xs text-indigo mb-2">Government</p>
+          <h3 class="font-display text-2xl mb-2 group-hover:text-indigo transition-colors">Ministry of Digital Affairs</h3>
+          <p class="text-charcoal/70">Connecting 500 rural schools to national education platform.</p>
+        </a>
+        <a href="#" class="group block">
+          <div class="aspect-video bg-cream rounded-2xl mb-6 overflow-hidden">
+            <div class="w-full h-full bg-gradient-to-br from-indigo/10 to-purple-200/20"></div>
+          </div>
+          <p class="font-mono uppercase tracking-[0.3em] text-xs text-indigo mb-2">NGO</p>
+          <h3 class="font-display text-2xl mb-2 group-hover:text-indigo transition-colors">Humanitarian Response</h3>
+          <p class="text-charcoal/70">Emergency connectivity for displaced communities.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+</Page>

@@ -1,0 +1,49 @@
+---
+import Page from '../../../layouts/Page.astro';
+const lang = 'en';
+---
+
+<Page title="Careers" lang={lang}>
+  <section class="pt-32 pb-20 bg-cream">
+    <div class="max-w-7xl mx-auto px-6">
+      <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Company / Careers</p>
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-tight text-charcoal mb-8">Join Our <em>Mission</em></h1>
+      <p class="text-xl text-charcoal/70 max-w-3xl">Build technology that matters.</p>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="font-display text-3xl mb-8">Open Positions</h2>
+      <div class="space-y-4">
+        <a href="#" class="block p-6 border border-border rounded-xl hover:border-indigo transition-colors">
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="font-display text-xl mb-1">Senior Infrastructure Engineer</h3>
+              <p class="text-charcoal/60">Engineering / Remote</p>
+            </div>
+            <span class="text-indigo">→</span>
+          </div>
+        </a>
+        <a href="#" class="block p-6 border border-border rounded-xl hover:border-indigo transition-colors">
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="font-display text-xl mb-1">Product Manager - Edge Platform</h3>
+              <p class="text-charcoal/60">Product / Hybrid</p>
+            </div>
+            <span class="text-indigo">→</span>
+          </div>
+        </a>
+        <a href="#" class="block p-6 border border-border rounded-xl hover:border-indigo transition-colors">
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="font-display text-xl mb-1">Field Operations Lead</h3>
+              <p class="text-charcoal/60">Operations / Various Locations</p>
+            </div>
+            <span class="text-indigo">→</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+</Page>

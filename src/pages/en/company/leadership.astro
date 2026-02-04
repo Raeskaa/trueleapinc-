@@ -1,0 +1,36 @@
+---
+import Page from '../../../layouts/Page.astro';
+const lang = 'en';
+---
+
+<Page title="Leadership" lang={lang}>
+  <section class="pt-32 pb-20 bg-cream">
+    <div class="max-w-7xl mx-auto px-6">
+      <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Company / Team</p>
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-tight text-charcoal mb-8">Our <em>Leadership</em></h1>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Placeholder team members -->
+        <div class="text-center">
+          <div class="w-32 h-32 mx-auto mb-4 bg-cream rounded-full"></div>
+          <h3 class="font-display text-xl">CEO Name</h3>
+          <p class="text-charcoal/60">Chief Executive Officer</p>
+        </div>
+        <div class="text-center">
+          <div class="w-32 h-32 mx-auto mb-4 bg-cream rounded-full"></div>
+          <h3 class="font-display text-xl">CTO Name</h3>
+          <p class="text-charcoal/60">Chief Technology Officer</p>
+        </div>
+        <div class="text-center">
+          <div class="w-32 h-32 mx-auto mb-4 bg-cream rounded-full"></div>
+          <h3 class="font-display text-xl">COO Name</h3>
+          <p class="text-charcoal/60">Chief Operating Officer</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Page>

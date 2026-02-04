@@ -1,0 +1,51 @@
+---
+import Page from '../../../layouts/Page.astro';
+const lang = 'en';
+---
+
+<Page title="Mission & Vision" lang={lang}>
+  <section class="pt-32 pb-20 bg-cream">
+    <div class="max-w-7xl mx-auto px-6">
+      <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Company / Mission</p>
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-tight text-charcoal mb-8">Mission & <em>Vision</em></h1>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="mb-16">
+        <h2 class="font-display text-3xl mb-6">Our Mission</h2>
+        <p class="text-xl text-charcoal/70 leading-relaxed">
+          To bridge the digital divide by building sovereign, sustainable infrastructure that connects underserved communities to opportunity.
+        </p>
+      </div>
+      <div class="mb-16">
+        <h2 class="font-display text-3xl mb-6">Our Vision</h2>
+        <p class="text-xl text-charcoal/70 leading-relaxed">
+          A world where connectivity is universal, where every community controls its own digital destiny, and where technology serves human flourishing.
+        </p>
+      </div>
+      <div>
+        <h2 class="font-display text-3xl mb-6">Our Values</h2>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div>
+            <h3 class="font-display text-xl mb-2">Sovereignty</h3>
+            <p class="text-charcoal/70">Communities and nations should control their own digital infrastructure.</p>
+          </div>
+          <div>
+            <h3 class="font-display text-xl mb-2">Sustainability</h3>
+            <p class="text-charcoal/70">Technology must work within environmental and economic constraints.</p>
+          </div>
+          <div>
+            <h3 class="font-display text-xl mb-2">Accessibility</h3>
+            <p class="text-charcoal/70">Digital services should be available to everyone, regardless of location.</p>
+          </div>
+          <div>
+            <h3 class="font-display text-xl mb-2">Impact</h3>
+            <p class="text-charcoal/70">We measure success by the real-world outcomes we enable.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Page>

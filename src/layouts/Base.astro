@@ -1,10 +1,11 @@
 ---
 import '../styles/global.css';
+import { isRtl, type Language } from '../lib/i18n';
 
 interface Props {
   title: string;
   description?: string;
-  lang?: string;
+  lang?: Language;
 }
 
 const { 
@@ -12,10 +13,12 @@ const {
   description = 'TrueLeap - Bridging the digital divide through sovereign infrastructure',
   lang = 'en' 
 } = Astro.props;
+
+const dir = isRtl(lang) ? 'rtl' : 'ltr';
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={lang} dir={dir}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

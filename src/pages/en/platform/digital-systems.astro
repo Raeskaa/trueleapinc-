@@ -1,0 +1,50 @@
+---
+import Page from '../../../layouts/Page.astro';
+
+const lang = 'en';
+---
+
+<Page title="Digital Systems" lang={lang}>
+  <section class="pt-32 pb-20 bg-cream">
+    <div class="max-w-7xl mx-auto px-6">
+      <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Platform / Digital Systems</p>
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-tight text-charcoal mb-8">
+        Digital <em>Systems</em>
+      </h1>
+      <p class="text-xl text-charcoal/70 max-w-3xl">
+        Three integrated platforms that work together to deliver comprehensive digital services.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6 space-y-16">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <p class="font-mono uppercase tracking-[0.3em] text-xs text-indigo mb-2">Collaboration</p>
+          <h2 class="font-display text-4xl mb-4">Leapspace</h2>
+          <p class="text-charcoal/70 text-lg">A sovereign collaboration platform with offline-first architecture. Video conferencing, document sharing, and team communication that works anywhere.</p>
+        </div>
+        <div class="aspect-video bg-cream rounded-2xl"></div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="order-2 md:order-1 aspect-video bg-cream rounded-2xl"></div>
+        <div class="order-1 md:order-2">
+          <p class="font-mono uppercase tracking-[0.3em] text-xs text-indigo mb-2">Monitoring</p>
+          <h2 class="font-display text-4xl mb-4">Digital Twin</h2>
+          <p class="text-charcoal/70 text-lg">Real-time visualization and monitoring of your entire network. Predictive maintenance, capacity planning, and incident response in one view.</p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <p class="font-mono uppercase tracking-[0.3em] text-xs text-indigo mb-2">Content</p>
+          <h2 class="font-display text-4xl mb-4">Leapcast</h2>
+          <p class="text-charcoal/70 text-lg">Content delivery and caching optimized for low-bandwidth environments. Educational content, government services, and media delivery.</p>
+        </div>
+        <div class="aspect-video bg-cream rounded-2xl"></div>
+      </div>
+    </div>
+  </section>
+</Page>

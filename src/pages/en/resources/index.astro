@@ -1,0 +1,32 @@
+---
+import Page from '../../../layouts/Page.astro';
+const lang = 'en';
+---
+
+<Page title="Resources" lang={lang}>
+  <section class="pt-32 pb-20 bg-cream">
+    <div class="max-w-7xl mx-auto px-6">
+      <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Resources</p>
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-tight text-charcoal mb-8"><em>Resources</em></h1>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-8">
+        <a href="/en/resources/trust-center" class="p-8 border border-border rounded-2xl hover:border-indigo hover:shadow-lg transition-all">
+          <h3 class="font-display text-2xl mb-4">Trust Center</h3>
+          <p class="text-charcoal/70">Security, compliance, and governance documentation.</p>
+        </a>
+        <a href="/en/resources/newsroom" class="p-8 border border-border rounded-2xl hover:border-indigo hover:shadow-lg transition-all">
+          <h3 class="font-display text-2xl mb-4">Newsroom</h3>
+          <p class="text-charcoal/70">Press releases and company announcements.</p>
+        </a>
+        <a href="/en/resources/docs" class="p-8 border border-border rounded-2xl hover:border-indigo hover:shadow-lg transition-all">
+          <h3 class="font-display text-2xl mb-4">Documentation</h3>
+          <p class="text-charcoal/70">Technical guides and API reference.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+</Page>

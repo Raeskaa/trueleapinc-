@@ -1,0 +1,45 @@
+---
+import Page from '../../../layouts/Page.astro';
+const lang = 'en';
+---
+
+<Page title="Documentation" lang={lang}>
+  <section class="pt-32 pb-20 bg-cream">
+    <div class="max-w-7xl mx-auto px-6">
+      <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Resources / Docs</p>
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-tight text-charcoal mb-8"><em>Documentation</em></h1>
+      <p class="text-xl text-charcoal/70 max-w-3xl">Technical guides, API reference, and integration documentation.</p>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <a href="#" class="p-6 border border-border rounded-xl hover:border-indigo transition-colors">
+          <h3 class="font-display text-xl mb-2">Getting Started</h3>
+          <p class="text-sm text-charcoal/60">Quick start guides and tutorials</p>
+        </a>
+        <a href="#" class="p-6 border border-border rounded-xl hover:border-indigo transition-colors">
+          <h3 class="font-display text-xl mb-2">API Reference</h3>
+          <p class="text-sm text-charcoal/60">Complete API documentation</p>
+        </a>
+        <a href="#" class="p-6 border border-border rounded-xl hover:border-indigo transition-colors">
+          <h3 class="font-display text-xl mb-2">Edge SDK</h3>
+          <p class="text-sm text-charcoal/60">Build on the edge platform</p>
+        </a>
+        <a href="#" class="p-6 border border-border rounded-xl hover:border-indigo transition-colors">
+          <h3 class="font-display text-xl mb-2">Deployment Guides</h3>
+          <p class="text-sm text-charcoal/60">Infrastructure setup and configuration</p>
+        </a>
+        <a href="#" class="p-6 border border-border rounded-xl hover:border-indigo transition-colors">
+          <h3 class="font-display text-xl mb-2">Integration Patterns</h3>
+          <p class="text-sm text-charcoal/60">Best practices for system integration</p>
+        </a>
+        <a href="#" class="p-6 border border-border rounded-xl hover:border-indigo transition-colors">
+          <h3 class="font-display text-xl mb-2">Release Notes</h3>
+          <p class="text-sm text-charcoal/60">What's new in each version</p>
+        </a>
+      </div>
+    </div>
+  </section>
+</Page>

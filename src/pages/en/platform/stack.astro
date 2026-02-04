@@ -1,0 +1,46 @@
+---
+import Page from '../../../layouts/Page.astro';
+
+const lang = 'en';
+---
+
+<Page title="The TrueLeap Stack" lang={lang}>
+  <section class="pt-32 pb-20 bg-cream">
+    <div class="max-w-7xl mx-auto px-6">
+      <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Platform / Stack</p>
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-tight text-charcoal mb-8">
+        The Complete <em>Stack</em>
+      </h1>
+      <p class="text-xl text-charcoal/70 max-w-3xl">
+        How physical infrastructure, digital systems, and edge AI integrate into a unified platform.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="space-y-8">
+        <div class="p-8 bg-indigo/5 border-l-4 border-indigo rounded-r-2xl">
+          <p class="font-mono uppercase tracking-[0.3em] text-xs text-indigo mb-2">Layer 4</p>
+          <h3 class="font-display text-2xl mb-2">Applications</h3>
+          <p class="text-charcoal/70">Leapspace, Digital Twin, Leapcast, and custom applications</p>
+        </div>
+        <div class="p-8 bg-indigo/5 border-l-4 border-indigo rounded-r-2xl">
+          <p class="font-mono uppercase tracking-[0.3em] text-xs text-indigo mb-2">Layer 3</p>
+          <h3 class="font-display text-2xl mb-2">Edge AI Engine</h3>
+          <p class="text-charcoal/70">Local processing, federated learning, offline intelligence</p>
+        </div>
+        <div class="p-8 bg-indigo/5 border-l-4 border-indigo rounded-r-2xl">
+          <p class="font-mono uppercase tracking-[0.3em] text-xs text-indigo mb-2">Layer 2</p>
+          <h3 class="font-display text-2xl mb-2">Network Layer</h3>
+          <p class="text-charcoal/70">Mesh networking, satellite backhaul, hybrid connectivity</p>
+        </div>
+        <div class="p-8 bg-indigo/5 border-l-4 border-indigo rounded-r-2xl">
+          <p class="font-mono uppercase tracking-[0.3em] text-xs text-indigo mb-2">Layer 1</p>
+          <h3 class="font-display text-2xl mb-2">Physical Infrastructure</h3>
+          <p class="text-charcoal/70">Edge nodes, solar power, ruggedized hardware</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Page>

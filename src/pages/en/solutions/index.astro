@@ -1,0 +1,59 @@
+---
+import Page from '../../../layouts/Page.astro';
+
+const lang = 'en';
+---
+
+<Page title="Solutions" lang={lang}>
+  <section class="pt-32 pb-20 bg-cream">
+    <div class="max-w-7xl mx-auto px-6">
+      <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Solutions</p>
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-tight text-charcoal mb-8">
+        Built for <em>Impact</em>
+      </h1>
+      <p class="text-xl text-charcoal/70 max-w-3xl">
+        Tailored solutions for your industry and desired outcomes.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="font-display text-3xl mb-8">By Industry</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <a href="/en/solutions/industry/governments" class="p-6 border border-border rounded-xl hover:border-indigo hover:shadow-lg transition-all">
+          <h3 class="font-display text-xl mb-2">Governments</h3>
+          <p class="text-sm text-charcoal/60">Digital sovereignty and citizen services</p>
+        </a>
+        <a href="/en/solutions/industry/education" class="p-6 border border-border rounded-xl hover:border-indigo hover:shadow-lg transition-all">
+          <h3 class="font-display text-xl mb-2">Education</h3>
+          <p class="text-sm text-charcoal/60">Connected learning for all</p>
+        </a>
+        <a href="/en/solutions/industry/ngos" class="p-6 border border-border rounded-xl hover:border-indigo hover:shadow-lg transition-all">
+          <h3 class="font-display text-xl mb-2">NGOs</h3>
+          <p class="text-sm text-charcoal/60">Humanitarian connectivity</p>
+        </a>
+        <a href="/en/solutions/industry/enterprise" class="p-6 border border-border rounded-xl hover:border-indigo hover:shadow-lg transition-all">
+          <h3 class="font-display text-xl mb-2">Enterprise</h3>
+          <p class="text-sm text-charcoal/60">Edge computing at scale</p>
+        </a>
+      </div>
+
+      <h2 class="font-display text-3xl mb-8">By Outcome</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <a href="/en/solutions/outcome/digital-sovereignty" class="p-6 border border-border rounded-xl hover:border-indigo hover:shadow-lg transition-all">
+          <h3 class="font-display text-xl mb-2">Digital Sovereignty</h3>
+          <p class="text-sm text-charcoal/60">Control your data and infrastructure</p>
+        </a>
+        <a href="/en/solutions/outcome/workforce-readiness" class="p-6 border border-border rounded-xl hover:border-indigo hover:shadow-lg transition-all">
+          <h3 class="font-display text-xl mb-2">Workforce Readiness</h3>
+          <p class="text-sm text-charcoal/60">Skills development and training</p>
+        </a>
+        <a href="/en/solutions/outcome/rural-connectivity" class="p-6 border border-border rounded-xl hover:border-indigo hover:shadow-lg transition-all">
+          <h3 class="font-display text-xl mb-2">Rural Connectivity</h3>
+          <p class="text-sm text-charcoal/60">Last-mile infrastructure</p>
+        </a>
+      </div>
+    </div>
+  </section>
+</Page>

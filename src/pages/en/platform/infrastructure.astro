@@ -1,0 +1,38 @@
+---
+import Page from '../../../layouts/Page.astro';
+
+const lang = 'en';
+---
+
+<Page title="Physical Infrastructure" lang={lang}>
+  <section class="pt-32 pb-20 bg-cream">
+    <div class="max-w-7xl mx-auto px-6">
+      <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Platform / Infrastructure</p>
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-tight text-charcoal mb-8">
+        Physical <em>Infrastructure</em>
+      </h1>
+      <p class="text-xl text-charcoal/70 max-w-3xl">
+        Ruggedized, solar-powered edge nodes designed for deployment in the most challenging environments.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="p-8 border border-border rounded-2xl">
+          <h3 class="font-display text-2xl mb-4">Edge Nodes</h3>
+          <p class="text-charcoal/70">Self-contained computing units with integrated solar power and battery backup for 72+ hours of operation.</p>
+        </div>
+        <div class="p-8 border border-border rounded-2xl">
+          <h3 class="font-display text-2xl mb-4">Mesh Networking</h3>
+          <p class="text-charcoal/70">Adaptive network topology that self-heals and optimizes for local conditions.</p>
+        </div>
+        <div class="p-8 border border-border rounded-2xl">
+          <h3 class="font-display text-2xl mb-4">Satellite Backhaul</h3>
+          <p class="text-charcoal/70">Multi-constellation support for reliable connectivity anywhere on Earth.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Page>

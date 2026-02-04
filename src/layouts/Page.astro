@@ -1,0 +1,20 @@
+---
+import Base from './Base.astro';
+import { Header } from '../components/layout/Header';
+import { Footer } from '../components/layout/Footer';
+import type { Language } from '../lib/i18n';
+
+interface Props {
+  title: string;
+  description?: string;
+  lang?: Language;
+}
+
+const { title, description, lang = 'en' } = Astro.props;
+---
+
+<Base title={title} description={description} lang={lang}>
+  <Header client:load lang={lang} />
+  <slot />
+  <Footer client:visible lang={lang} />
+</Base>

@@ -1,0 +1,37 @@
+---
+import Page from '../../../layouts/Page.astro';
+const lang = 'en';
+---
+
+<Page title="Global Impact" lang={lang}>
+  <section class="pt-32 pb-20 bg-cream">
+    <div class="max-w-7xl mx-auto px-6">
+      <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Impact</p>
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-tight text-charcoal mb-8">Global <em>Impact</em></h1>
+      <p class="text-xl text-charcoal/70 max-w-3xl">Real results from deployments around the world.</p>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        <a href="/en/impact/network-map" class="p-6 border border-border rounded-xl hover:border-indigo hover:shadow-lg transition-all text-center">
+          <h3 class="font-display text-xl mb-2">Live Network Map</h3>
+          <p class="text-sm text-charcoal/60">Interactive global view</p>
+        </a>
+        <a href="/en/impact/metrics" class="p-6 border border-border rounded-xl hover:border-indigo hover:shadow-lg transition-all text-center">
+          <h3 class="font-display text-xl mb-2">Impact Data</h3>
+          <p class="text-sm text-charcoal/60">Real-time metrics</p>
+        </a>
+        <a href="/en/impact/case-studies" class="p-6 border border-border rounded-xl hover:border-indigo hover:shadow-lg transition-all text-center">
+          <h3 class="font-display text-xl mb-2">Case Studies</h3>
+          <p class="text-sm text-charcoal/60">Deep dives</p>
+        </a>
+        <a href="/en/impact/last-mile" class="p-6 border border-border rounded-xl hover:border-indigo hover:shadow-lg transition-all text-center">
+          <h3 class="font-display text-xl mb-2">The Last Mile</h3>
+          <p class="text-sm text-charcoal/60">Thought leadership</p>
+        </a>
+      </div>
+    </div>
+  </section>
+</Page>

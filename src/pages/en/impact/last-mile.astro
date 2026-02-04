@@ -1,0 +1,39 @@
+---
+import Page from '../../../layouts/Page.astro';
+const lang = 'en';
+---
+
+<Page title="The Last Mile" lang={lang}>
+  <section class="pt-32 pb-20 bg-cream">
+    <div class="max-w-7xl mx-auto px-6">
+      <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Impact / Thought Leadership</p>
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-tight text-charcoal mb-8">The Last <em>Mile</em></h1>
+      <p class="text-xl text-charcoal/70 max-w-3xl">Insights and perspectives on bridging the digital divide.</p>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="max-w-3xl">
+        <article class="mb-16 pb-16 border-b border-border">
+          <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Essay</p>
+          <h2 class="font-display text-3xl mb-4">Why Digital Sovereignty Matters</h2>
+          <p class="text-charcoal/70 mb-4">The case for locally-controlled infrastructure in an era of digital dependence.</p>
+          <a href="#" class="text-indigo font-medium">Read more →</a>
+        </article>
+        <article class="mb-16 pb-16 border-b border-border">
+          <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Research</p>
+          <h2 class="font-display text-3xl mb-4">The Economics of Rural Connectivity</h2>
+          <p class="text-charcoal/70 mb-4">New models for sustainable last-mile infrastructure.</p>
+          <a href="#" class="text-indigo font-medium">Read more →</a>
+        </article>
+        <article>
+          <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Perspective</p>
+          <h2 class="font-display text-3xl mb-4">Beyond Connectivity</h2>
+          <p class="text-charcoal/70 mb-4">What happens after you build the infrastructure?</p>
+          <a href="#" class="text-indigo font-medium">Read more →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+</Page>

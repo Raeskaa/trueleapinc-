@@ -1,0 +1,36 @@
+---
+import Page from '../../../layouts/Page.astro';
+const lang = 'en';
+---
+
+<Page title="Newsroom" lang={lang}>
+  <section class="pt-32 pb-20 bg-cream">
+    <div class="max-w-7xl mx-auto px-6">
+      <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Resources / News</p>
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-tight text-charcoal mb-8"><em>Newsroom</em></h1>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-6">
+      <article class="mb-12 pb-12 border-b border-border">
+        <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-2">Press Release / Jan 2024</p>
+        <h2 class="font-display text-2xl mb-3">TrueLeap Announces Series B Funding</h2>
+        <p class="text-charcoal/70 mb-4">$50M round to accelerate global expansion and R&D.</p>
+        <a href="#" class="text-indigo font-medium">Read more →</a>
+      </article>
+      <article class="mb-12 pb-12 border-b border-border">
+        <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-2">Announcement / Dec 2023</p>
+        <h2 class="font-display text-2xl mb-3">Partnership with Ministry of Education</h2>
+        <p class="text-charcoal/70 mb-4">Connecting 500 schools in underserved regions.</p>
+        <a href="#" class="text-indigo font-medium">Read more →</a>
+      </article>
+      <article>
+        <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-2">Update / Nov 2023</p>
+        <h2 class="font-display text-2xl mb-3">Edge AI Engine 2.0 Released</h2>
+        <p class="text-charcoal/70 mb-4">New on-device capabilities for offline-first applications.</p>
+        <a href="#" class="text-indigo font-medium">Read more →</a>
+      </article>
+    </div>
+  </section>
+</Page>

@@ -1,0 +1,58 @@
+---
+import Page from '../../../../layouts/Page.astro';
+
+const lang = 'en';
+---
+
+<Page title="Solutions for Governments" lang={lang}>
+  <section class="pt-32 pb-20 bg-cream">
+    <div class="max-w-7xl mx-auto px-6">
+      <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Solutions / Governments</p>
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-tight text-charcoal mb-8">
+        Digital <em>Sovereignty</em>
+      </h1>
+      <p class="text-xl text-charcoal/70 max-w-3xl">
+        Infrastructure that keeps citizen data within your borders while delivering world-class digital services.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-12">
+        <div>
+          <h2 class="font-display text-3xl mb-6">Key Capabilities</h2>
+          <ul class="space-y-4">
+            <li class="flex gap-3">
+              <span class="text-indigo">✓</span>
+              <span>Data residency compliance by design</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="text-indigo">✓</span>
+              <span>Citizen services platform</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="text-indigo">✓</span>
+              <span>Secure communications infrastructure</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="text-indigo">✓</span>
+              <span>Emergency response connectivity</span>
+            </li>
+            <li class="flex gap-3">
+              <span class="text-indigo">✓</span>
+              <span>Rural and remote coverage</span>
+            </li>
+          </ul>
+        </div>
+        <div class="bg-cream rounded-2xl p-8">
+          <h3 class="font-display text-2xl mb-4">Request Briefing</h3>
+          <p class="text-charcoal/70 mb-6">Schedule a confidential briefing with our government solutions team.</p>
+          <a href="/en/resources/trust-center" class="inline-flex items-center gap-2 text-indigo font-medium">
+            View Trust Center →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Page>

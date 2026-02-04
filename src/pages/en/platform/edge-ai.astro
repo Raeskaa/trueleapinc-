@@ -1,0 +1,38 @@
+---
+import Page from '../../../layouts/Page.astro';
+
+const lang = 'en';
+---
+
+<Page title="Edge AI Engine" lang={lang}>
+  <section class="pt-32 pb-20 bg-cream">
+    <div class="max-w-7xl mx-auto px-6">
+      <p class="font-mono uppercase tracking-[0.3em] text-xs text-charcoal/60 mb-4">Platform / Edge AI</p>
+      <h1 class="font-display text-5xl md:text-6xl lg:text-7xl leading-tight text-charcoal mb-8">
+        Edge AI <em>Engine</em>
+      </h1>
+      <p class="text-xl text-charcoal/70 max-w-3xl">
+        On-device intelligence that processes data locally, ensuring privacy and enabling offline-first applications.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="p-8 border border-border rounded-2xl">
+          <h3 class="font-display text-2xl mb-4">Local Processing</h3>
+          <p class="text-charcoal/70">Data never leaves the device unless explicitly authorized. Full GDPR and data sovereignty compliance.</p>
+        </div>
+        <div class="p-8 border border-border rounded-2xl">
+          <h3 class="font-display text-2xl mb-4">Offline Intelligence</h3>
+          <p class="text-charcoal/70">AI models that work without connectivity. Translation, document analysis, and decision support anywhere.</p>
+        </div>
+        <div class="p-8 border border-border rounded-2xl">
+          <h3 class="font-display text-2xl mb-4">Federated Learning</h3>
+          <p class="text-charcoal/70">Models improve across the network while keeping data local. Collective intelligence without data centralization.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Page>
