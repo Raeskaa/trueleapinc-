@@ -1,6 +1,6 @@
 {
 	"main": "dist/_worker.js/index.js",
-	"name": "trueleap-site",
+	"name": "trueleapinc",
   "compatibility_date": "2026-02-04",
   "compatibility_flags": [
     "nodejs_compat",
