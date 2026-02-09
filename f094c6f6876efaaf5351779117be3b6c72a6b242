@@ -1,0 +1,42 @@
+src/middleware.ts
+  6ae4b26496fcfd34 3-10,12-16,18-22,27,37,42-44,49-50,54
+src/pages/api/admin/delete-branch.ts
+  6ae4b26496fcfd34 1-88
+src/pages/admin/index.astro
+  6ae4b26496fcfd34 1-698
+src/pages/api/admin/create-branch.ts
+  6ae4b26496fcfd34 1-82
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.0.42",
+  "base_commit_sha": "f094c6f6876efaaf5351779117be3b6c72a6b242",
+  "prompts": {
+    "6ae4b26496fcfd34": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "49a208f4-98e9-45b6-aba6-d8bdb2965a94",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Bikash Phukan <bphkns@gmail.com>",
+      "messages": [],
+      "total_additions": 898,
+      "total_deletions": 174,
+      "accepted_lines": 898,
+      "overriden_lines": 0
+    },
+    "c53fc0470b09febe": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5f24576a-9cb7-46b0-9972-95873a7ec41f",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Bikash Phukan <bphkns@gmail.com>",
+      "messages": [],
+      "total_additions": 129,
+      "total_deletions": 39,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    }
+  }
+}
