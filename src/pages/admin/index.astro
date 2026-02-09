@@ -511,7 +511,11 @@ const draftBranches = branches.filter((b) => !b.pr);
               </div>
             </div>
             <div class="card-actions">
+              <a href={b.previewUrl} target="_blank" rel="noopener" class="btn btn-ghost btn-sm">Preview</a>
               <a href={b.keystaticlUrl} class="btn btn-ghost btn-sm">Edit in CMS</a>
+              <button class="btn btn-primary btn-sm" data-branch={b.name} onclick="submitForReview(this)">
+                Submit for Review
+              </button>
               <button class="btn btn-danger btn-sm" data-branch={b.name} onclick="confirmDelete(this)">
                 Delete Branch
               </button>
@@ -681,6 +685,27 @@ const draftBranches = branches.filter((b) => !b.pr);
         showToast(e.message, true);
         btn.disabled = false;
         btn.textContent = 'Delete Branch';
+      }
+    }
+
+    async function submitForReview(btn) {
+      var branch = btn.dataset.branch;
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Creating PR...';
+      try {
+        var res = await fetch('/api/admin/create-pr', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ branch: branch }),
+        });
+        var data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Failed to create PR');
+        showToast('PR #' + data.prNumber + ' created!');
+        setTimeout(function() { location.reload(); }, 800);
+      } catch (e) {
+        showToast(e.message, true);
+        btn.disabled = false;
+        btn.textContent = 'Submit for Review';
       }
     }
 
