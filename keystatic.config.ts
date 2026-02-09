@@ -172,8 +172,8 @@ export default config({
     jobs: collection({
       label: 'Job Openings',
       slugField: 'title',
-      path: 'src/content/jobs/*',
-      format: { data: 'json' },
+      path: 'src/content/jobs/*/',
+      format: { contentField: 'body' },
       schema: {
         title: fields.slug({ name: { label: 'Title' } }),
         department: fields.select({
@@ -197,9 +197,10 @@ export default config({
           ],
           defaultValue: 'Full-time',
         }),
-        description: fields.text({ label: 'Description', multiline: true }),
+        summary: fields.text({ label: 'Summary (for card listing)', multiline: true }),
         active: fields.checkbox({ label: 'Active', defaultValue: true }),
         order: fields.number({ label: 'Display Order', defaultValue: 0 }),
+        body: fields.mdx({ label: 'Full Description' }),
       },
     }),
 
