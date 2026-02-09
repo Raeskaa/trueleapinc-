@@ -1,15 +1,30 @@
 {
   "hero": {
-    "eyebrow": "Sovereign Digital Infrastructure",
+    "eyebrow": " Digital Infrastructure",
     "line1": "Digital infrastructure",
     "line2": "for the next billion",
     "subheadline": "Sovereign edge computing that works offline. Solar-powered nodes, local AI processing, and collaboration tools—connecting communities where traditional infrastructure can't reach.",
-    "ctaPrimary": { "text": "Explore Platform", "href": "/en/platform" },
-    "ctaSecondary": { "text": "Documentation", "href": "/en/resources/docs" },
+    "ctaPrimary": {
+      "text": "Explore Platform",
+      "href": "/en/platform"
+    },
+    "ctaSecondary": {
+      "text": "Documentation",
+      "href": "/en/resources/docs"
+    },
     "stats": [
-      { "value": "47", "label": "countries" },
-      { "value": "12M+", "label": "people connected" },
-      { "value": "<2W", "label": "power per node" }
+      {
+        "value": "47",
+        "label": "countries"
+      },
+      {
+        "value": "12M+",
+        "label": "people connected"
+      },
+      {
+        "value": "<2W",
+        "label": "power per node"
+      }
     ],
     "partnerLogosTitle": "Built on trusted technology"
   },
@@ -78,10 +93,22 @@
     "linkText": "All solutions",
     "linkHref": "/en/solutions",
     "items": [
-      { "title": "Governments", "href": "/en/solutions/industry/governments" },
-      { "title": "Education", "href": "/en/solutions/industry/education" },
-      { "title": "NGOs", "href": "/en/solutions/industry/ngos" },
-      { "title": "Enterprise", "href": "/en/solutions/industry/enterprise" }
+      {
+        "title": "Governments",
+        "href": "/en/solutions/industry/governments"
+      },
+      {
+        "title": "Education",
+        "href": "/en/solutions/industry/education"
+      },
+      {
+        "title": "NGOs",
+        "href": "/en/solutions/industry/ngos"
+      },
+      {
+        "title": "Enterprise",
+        "href": "/en/solutions/industry/enterprise"
+      }
     ]
   },
   "caseStudies": {
@@ -119,10 +146,30 @@
     "ctaText": "View Live Map",
     "ctaHref": "/en/impact/network-map",
     "metrics": [
-      { "value": 12000000, "suffix": "+", "prefix": "", "label": "people connected", "format": "compact" },
-      { "value": 47, "suffix": "", "prefix": "", "label": "countries", "format": "number" },
-      { "value": 2400, "suffix": "+", "prefix": "", "label": "edge nodes", "format": "number" },
-      { "value": 2, "suffix": "W", "prefix": "< ", "label": "avg power draw", "format": "number" }
+      {
+        "value": 12000000,
+        "suffix": "+",
+        "label": "people connected",
+        "format": "compact"
+      },
+      {
+        "value": 47,
+        "label": "countries",
+        "format": "number"
+      },
+      {
+        "value": 2400,
+        "suffix": "+",
+        "label": "edge nodes",
+        "format": "number"
+      },
+      {
+        "value": 2,
+        "suffix": "W",
+        "prefix": "< ",
+        "label": "avg power draw",
+        "format": "number"
+      }
     ]
   },
   "testimonials": {
@@ -132,8 +179,14 @@
   "cta": {
     "headline": "Ready to bridge the divide?",
     "description": "Whether you're a government, NGO, or enterprise, we can help you reach communities that traditional infrastructure can't.",
-    "primaryCta": { "text": "Documentation", "href": "/en/resources/docs" },
-    "secondaryCta": { "text": "Join Us", "href": "/en/company/careers" },
+    "primaryCta": {
+      "text": "Documentation",
+      "href": "/en/resources/docs"
+    },
+    "secondaryCta": {
+      "text": "Join Us",
+      "href": "/en/company/careers"
+    },
     "contactEmail": "hello@trueleapinc.com"
   }
 }
