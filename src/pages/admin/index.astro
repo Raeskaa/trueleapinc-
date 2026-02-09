@@ -83,7 +83,7 @@ if (!GITHUB_TOKEN) {
               user: pr.user?.login ?? 'unknown',
             }
           : null,
-        previewUrl: `https://${slug}.trueleap-inc.pages.dev`,
+        previewUrl: `https://${slug}.trueleap-preview.pages.dev`,
         keystaticlUrl: `/keystatic/branch/${b.name.replace(/\//g, '%2F')}`,
       };
     });
@@ -335,6 +335,14 @@ const draftBranches = branches.filter((b) => !b.pr);
       font-size: 1.25rem;
       color: #52525b;
     }
+    .card-hint {
+      font-size: 0.6875rem;
+      color: #52525b;
+      margin-top: 0.625rem;
+      padding-left: 0.125rem;
+      font-style: italic;
+    }
+
     .empty p { margin-bottom: 0.5rem; font-size: 0.875rem; }
     .empty .hint { font-size: 0.75rem; color: #52525b; }
 
@@ -511,7 +519,6 @@ const draftBranches = branches.filter((b) => !b.pr);
               </div>
             </div>
             <div class="card-actions">
-              <a href={b.previewUrl} target="_blank" rel="noopener" class="btn btn-ghost btn-sm">Preview</a>
               <a href={b.keystaticlUrl} class="btn btn-ghost btn-sm">Edit in CMS</a>
               <button class="btn btn-primary btn-sm" data-branch={b.name} onclick="submitForReview(this)">
                 Submit for Review
@@ -520,6 +527,7 @@ const draftBranches = branches.filter((b) => !b.pr);
                 Delete Branch
               </button>
             </div>
+            <div class="card-hint">Preview will be available once you submit for review.</div>
           </div>
         ))}
       </div>

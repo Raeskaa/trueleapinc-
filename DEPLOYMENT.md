@@ -196,6 +196,7 @@ A single Cloudflare Access application protects all admin and CMS routes across 
 | `/api/admin/delete-branch` | POST | Delete a `content/*` branch (rejects if open PR) |
 | `/api/admin/merge-pr` | POST | Merge a PR (squash merge) |
 | `/api/admin/rebase-pr` | POST | Rebase a PR branch onto main |
+| `/api/admin/create-pr` | POST | Create a PR from a `content/*` branch to main |
 | `/api/keystatic/*` | SSR | Keystatic API (GitHub proxy) |
 
 ### Middleware (`src/middleware.ts`)
@@ -203,6 +204,7 @@ A single Cloudflare Access application protects all admin and CMS routes across 
 1. **Cookie Injection:** Sets `keystatic-gh-access-token` cookie from `GITHUB_TOKEN` env var on all `/keystatic` and `/api/keystatic` routes — enables Keystatic GitHub auth without user login
 2. **Redirect:** `/keystatic` or `/keystatic/` → 302 to `/admin`
 3. **Read-Only Main:** `/keystatic/branch/main*` → injects CSS banner + full-page shield overlay (blocks pointer events; GitHub branch protection is the real enforcement)
+4. **Admin Nav:** `/keystatic/branch/*` (non-main) → injects floating "Admin" button (bottom-right) linking back to `/admin`
 
 ### Keystatic Branch URL Encoding
 
