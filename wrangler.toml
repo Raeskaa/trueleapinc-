@@ -1,4 +1,6 @@
 name = "trueleap-inc"
+account_id = "b01357b51e0ceb9e37e2bdf82bbcbc34"
+main = "./dist/_worker.js/index.js"
 compatibility_date = "2026-02-04"
 compatibility_flags = ["nodejs_compat"]
 
@@ -12,3 +14,21 @@ bucket_name = "trueleap-images"
 
 [observability]
 enabled = true
+
+# Dev: dev.trueleapinc.com
+[env.dev]
+routes = [
+  { pattern = "dev.trueleapinc.com/*", zone_name = "trueleapinc.com" },
+]
+[[env.dev.r2_buckets]]
+binding = "IMAGES_BUCKET"
+bucket_name = "trueleap-images"
+
+# Preview: dev-preview.trueleapinc.com
+[env.preview]
+routes = [
+  { pattern = "dev-preview.trueleapinc.com/*", zone_name = "trueleapinc.com" },
+]
+[[env.preview.r2_buckets]]
+binding = "IMAGES_BUCKET"
+bucket_name = "trueleap-images"
