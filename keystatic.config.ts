@@ -200,7 +200,7 @@ export default config({
         summary: fields.text({ label: 'Summary (for card listing)', multiline: true }),
         active: fields.checkbox({ label: 'Active', defaultValue: true }),
         order: fields.number({ label: 'Display Order', defaultValue: 0 }),
-        pdfUrl: fields.text({ label: 'Source PDF (R2 key)', description: 'Auto-filled when importing from PDF' }),
+        sourcePdf: fields.file({ label: 'Upload Job Description PDF' }),
         body: fields.mdx({ label: 'Full Description' }),
       },
     }),

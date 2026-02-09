@@ -92,36 +92,19 @@ const ADMIN_NAV_BUTTON = `
 
 const PDF_IMPORT_INJECTION = `
 <style>
-  .ks-pdf-zone {
-    border: 2px dashed #d1d5db; border-radius: 0.5rem; padding: 1.25rem;
-    text-align: center; cursor: pointer; transition: all 0.15s;
-    background: #faf5ff; margin-top: 0.5rem;
-  }
-  .ks-pdf-zone:hover, .ks-pdf-zone.dragover { border-color: #8b5cf6; background: #f3e8ff; }
-  .ks-pdf-zone input[type="file"] { display: none; }
-  .ks-pdf-zone p { margin: 0.25rem 0; }
-  .ks-pdf-zone .ks-pdf-icon { font-size: 24px; margin-bottom: 0.25rem; }
-  .ks-pdf-zone .ks-pdf-label {
-    font: 600 14px/1.4 -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    color: #7c3aed;
-  }
-  .ks-pdf-zone .ks-pdf-hint {
-    font: 400 12px/1.4 -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    color: #9ca3af;
-  }
   .ks-pdf-status {
     margin-top: 0.5rem; padding: 0.75rem; border-radius: 0.375rem;
     font: 400 13px/1.5 -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     display: none;
   }
-  .ks-pdf-status.loading { display: block; background: #f0fdf4; color: #15803d; }
+  .ks-pdf-status.loading { display: block; background: #eff6ff; color: #1d4ed8; }
   .ks-pdf-status.error { display: block; background: #fef2f2; color: #dc2626; }
   .ks-pdf-status.success { display: block; background: #f0fdf4; color: #15803d; }
-  .ks-pdf-filled-badge {
-    display: inline-flex; align-items: center; gap: 0.25rem;
-    padding: 0.125rem 0.5rem; border-radius: 9999px;
-    font: 500 11px/1.4 -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: #dbeafe; color: #1d4ed8;
+  .ks-pdf-body-preview {
+    width: 100%; min-height: 120px; margin-top: 0.5rem;
+    font: 12px/1.5 'SF Mono', Monaco, monospace;
+    border: 1px solid #d1d5db; border-radius: 0.375rem; padding: 0.5rem;
+    resize: vertical; box-sizing: border-box;
   }
 </style>
 <script>
@@ -129,171 +112,182 @@ const PDF_IMPORT_INJECTION = `
   var nativeSet = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set;
   var nativeTextSet = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value').set;
 
-  function setInputValue(input, val) {
-    if (input.tagName === 'TEXTAREA') {
-      nativeTextSet.call(input, val);
-    } else {
-      nativeSet.call(input, val);
-    }
-    input.dispatchEvent(new Event('input', { bubbles: true }));
-    input.dispatchEvent(new Event('change', { bubbles: true }));
+  // ── Helpers: set values on React-controlled inputs ──
+  function setInput(el, val) {
+    if (!el) return;
+    var setter = el.tagName === 'TEXTAREA' ? nativeTextSet : nativeSet;
+    setter.call(el, val);
+    el.dispatchEvent(new Event('input', { bubbles: true }));
+    el.dispatchEvent(new Event('change', { bubbles: true }));
   }
 
-  function findFieldByLabel(labelText) {
-    var labels = document.querySelectorAll('label, span');
-    for (var i = 0; i < labels.length; i++) {
-      if (labels[i].textContent.trim() === labelText) {
-        var container = labels[i].closest('[data-field], fieldset, [class]');
-        if (!container) container = labels[i].parentElement;
-        // Walk up a few levels to find the field group
-        for (var el = labels[i]; el && el !== document.body; el = el.parentElement) {
-          var input = el.querySelector('input, textarea, select');
-          if (input) return input;
+  // Find a Keystatic field group by its label text.
+  // Returns the field group container element (walks up from the label).
+  function findFieldGroup(labelText) {
+    var els = document.querySelectorAll('label, span');
+    for (var i = 0; i < els.length; i++) {
+      var t = els[i].textContent.trim();
+      if (t === labelText && els[i].children.length === 0) {
+        // Walk up to the field group container
+        var el = els[i];
+        for (var j = 0; j < 8 && el.parentElement; j++) {
+          el = el.parentElement;
+          // Keystatic field groups use Flex with direction="column"
+          var inputs = el.querySelectorAll('input, textarea');
+          if (inputs.length > 0 && el.querySelectorAll('label, span[id]').length > 0) {
+            return el;
+          }
         }
       }
     }
     return null;
   }
 
-  function setSelectValue(selectEl, val) {
-    for (var i = 0; i < selectEl.options.length; i++) {
-      if (selectEl.options[i].value === val || selectEl.options[i].text === val) {
-        selectEl.selectedIndex = i;
-        selectEl.dispatchEvent(new Event('change', { bubbles: true }));
-        return true;
-      }
-    }
-    return false;
-  }
-
-  function fillField(labelText, value, isSelect) {
+  // ── Fill a text/textarea field by label ──
+  function fillTextField(labelText, value) {
     if (!value) return;
-    var el = findFieldByLabel(labelText);
-    if (!el) return;
-    if (isSelect && el.tagName === 'SELECT') {
-      setSelectValue(el, value);
-    } else if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-      setInputValue(el, value);
+    var group = findFieldGroup(labelText);
+    if (!group) return;
+    // For multiline fields, prefer textarea; else first text input
+    var el = group.querySelector('textarea') || group.querySelector('input[type="text"], input:not([type])');
+    if (el) setInput(el, value);
+  }
+
+  // ── Fill the slug field (Title) ──
+  // Slug field has two text inputs: name (first) and slug (second).
+  function fillSlugField(value) {
+    if (!value) return;
+    var group = findFieldGroup('Title');
+    if (!group) return;
+    var inputs = group.querySelectorAll('input[type="text"], input:not([type])');
+    if (inputs.length >= 1) {
+      setInput(inputs[0], value); // Set the name input
     }
   }
 
-  function injectUploadZone() {
-    // Find the pdfUrl field by its label text
-    var labels = document.querySelectorAll('label, span');
-    var pdfLabel = null;
-    for (var i = 0; i < labels.length; i++) {
-      if (labels[i].textContent.trim() === 'Source PDF (R2 key)') {
-        pdfLabel = labels[i];
-        break;
+  // ── Fill a Keystatic Picker/Combobox (select) field ──
+  // Keystatic renders selects as custom Picker components with a trigger button.
+  // Strategy: click the trigger to open the listbox, then click the matching option.
+  function fillPickerField(labelText, value) {
+    if (!value) return;
+    var group = findFieldGroup(labelText);
+    if (!group) return;
+    // The picker trigger is a button inside the field group
+    var trigger = group.querySelector('button[type="button"]');
+    if (!trigger) return;
+    trigger.click();
+    // Wait for the listbox popover to appear
+    setTimeout(function() {
+      var listbox = document.querySelector('[role="listbox"]');
+      if (!listbox) return;
+      var options = listbox.querySelectorAll('[role="option"]');
+      for (var i = 0; i < options.length; i++) {
+        if (options[i].textContent.trim() === value) {
+          options[i].click();
+          return;
+        }
       }
-    }
-    if (!pdfLabel) return false;
+      // Close if no match found — press Escape
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+    }, 150);
+  }
 
-    // Find the field container (walk up to the field group)
-    var fieldContainer = pdfLabel;
-    for (var j = 0; j < 5; j++) {
-      if (fieldContainer.parentElement) fieldContainer = fieldContainer.parentElement;
-    }
+  // ── Intercept the file field's "Choose file" button ──
+  function setup() {
+    var group = findFieldGroup('Upload Job Description PDF');
+    if (!group) return false;
+    if (group.dataset.pdfHooked) return true; // Already set up
+    group.dataset.pdfHooked = '1';
 
-    // Don't inject twice
-    if (fieldContainer.querySelector('.ks-pdf-zone')) return true;
-
-    // Find the existing text input and hide it
-    var existingInput = fieldContainer.querySelector('input[type="text"]');
-    if (existingInput) existingInput.style.display = 'none';
-    // Also hide the description text
-    var desc = fieldContainer.querySelector('span');
-    if (desc && desc.textContent.includes('Auto-filled')) desc.style.display = 'none';
-
-    // Create upload zone
-    var zone = document.createElement('div');
-    zone.className = 'ks-pdf-zone';
-    zone.innerHTML = '<div class="ks-pdf-icon">&#128196;</div>'
-      + '<p class="ks-pdf-label">Upload Job Description PDF</p>'
-      + '<p class="ks-pdf-hint">Click or drag &amp; drop &#183; Max 20 MB &#183; All fields will be auto-filled</p>'
-      + '<input type="file" accept=".pdf,application/pdf" />';
-    fieldContainer.appendChild(zone);
-
+    // Add status element after the field group
     var status = document.createElement('div');
     status.className = 'ks-pdf-status';
-    fieldContainer.appendChild(status);
+    group.appendChild(status);
 
-    var fileInput = zone.querySelector('input[type="file"]');
-    zone.addEventListener('click', function(e) { if (e.target !== fileInput) fileInput.click(); });
-    zone.addEventListener('dragover', function(e) { e.preventDefault(); zone.classList.add('dragover'); });
-    zone.addEventListener('dragleave', function() { zone.classList.remove('dragover'); });
-    zone.addEventListener('drop', function(e) {
-      e.preventDefault(); zone.classList.remove('dragover');
-      if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0], zone, status, existingInput);
-    });
+    // Find the "Choose file" button and intercept clicks
+    var chooseBtn = group.querySelector('button');
+    if (!chooseBtn) return true;
+
+    // Create a hidden file input we control
+    var fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = '.pdf,application/pdf';
+    fileInput.style.display = 'none';
+    group.appendChild(fileInput);
+
+    // Intercept the Choose file button click
+    chooseBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      fileInput.click();
+    }, true); // Use capture to fire before Keystatic's handler
+
     fileInput.addEventListener('change', function() {
-      if (fileInput.files.length) handleFile(fileInput.files[0], zone, status, existingInput);
+      if (!fileInput.files.length) return;
+      var file = fileInput.files[0];
+      if (file.type !== 'application/pdf') {
+        showStatus(status, 'error', 'Please select a PDF file.');
+        fileInput.value = '';
+        return;
+      }
+      if (file.size > 20 * 1024 * 1024) {
+        showStatus(status, 'error', 'File exceeds 20 MB limit.');
+        fileInput.value = '';
+        return;
+      }
+      showStatus(status, 'loading', 'Extracting text from PDF — this takes 10-20 seconds...');
+
+      var form = new FormData();
+      form.append('file', file);
+      fetch('/api/jobs/extract-pdf', { method: 'POST', body: form })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (data.error) {
+            showStatus(status, 'error', data.error);
+            return;
+          }
+
+          // Fill all structured fields
+          var f = data.fields || {};
+          fillSlugField(f.title);
+          // Fill pickers sequentially (each opens a popover)
+          setTimeout(function() {
+            fillPickerField('Department', f.department);
+            setTimeout(function() {
+              fillPickerField('Type', f.type);
+              setTimeout(function() {
+                fillTextField('Location', f.location);
+                fillTextField('Summary (for card listing)', f.summary);
+
+                // Copy markdown body to clipboard
+                if (data.markdown) {
+                  navigator.clipboard.writeText(data.markdown).then(function() {
+                    showStatus(status, 'success',
+                      'Fields filled from "' + file.name + '". Body markdown copied to clipboard \\u2014 paste (Ctrl+V) into the Full Description editor below.');
+                  }).catch(function() {
+                    showStatus(status, 'success',
+                      'Fields filled from "' + file.name + '". Copy the body text below:');
+                    var ta = document.createElement('textarea');
+                    ta.className = 'ks-pdf-body-preview';
+                    ta.value = data.markdown;
+                    ta.readOnly = true;
+                    status.after(ta);
+                  });
+                } else {
+                  showStatus(status, 'success', 'Fields filled from "' + file.name + '".');
+                }
+              }, 200);
+            }, 300);
+          }, 200);
+        })
+        .catch(function(err) {
+          showStatus(status, 'error', 'Upload failed: ' + err.message);
+        });
+
+      fileInput.value = '';
     });
 
     return true;
-  }
-
-  function handleFile(file, zone, status, pdfInput) {
-    if (file.type !== 'application/pdf') {
-      showStatus(status, 'error', 'Please select a PDF file.');
-      return;
-    }
-    if (file.size > 20 * 1024 * 1024) {
-      showStatus(status, 'error', 'File exceeds 20 MB limit.');
-      return;
-    }
-    zone.style.display = 'none';
-    showStatus(status, 'loading', 'Uploading and extracting — this takes 10-20 seconds...');
-
-    var form = new FormData();
-    form.append('file', file);
-    fetch('/api/jobs/extract-pdf', { method: 'POST', body: form })
-      .then(function(r) { return r.json(); })
-      .then(function(data) {
-        if (data.error) {
-          showStatus(status, 'error', data.error);
-          zone.style.display = '';
-          return;
-        }
-
-        // Fill the pdfUrl hidden field
-        if (data.pdfKey && pdfInput) {
-          setInputValue(pdfInput, data.pdfKey);
-        }
-
-        // Fill structured fields
-        var f = data.fields || {};
-        fillField('Title', f.title, false);
-        fillField('Department', f.department, true);
-        fillField('Location', f.location, false);
-        fillField('Type', f.type, true);
-        fillField('Summary (for card listing)', f.summary, false);
-
-        // Copy markdown to clipboard for pasting into body
-        var bodyMsg = '';
-        if (data.markdown) {
-          navigator.clipboard.writeText(data.markdown).then(function() {
-            showStatus(status, 'success',
-              'All fields filled from "' + file.name + '". Body markdown copied to clipboard — paste it into the Full Description field below.');
-          }).catch(function() {
-            showStatus(status, 'success',
-              'All fields filled from "' + file.name + '". Copy the body text manually from the text area below.');
-            // Show a textarea fallback for the markdown
-            var ta = document.createElement('textarea');
-            ta.value = data.markdown;
-            ta.readOnly = true;
-            ta.style.cssText = 'width:100%;min-height:120px;margin-top:0.5rem;font:12px/1.5 monospace;border:1px solid #d1d5db;border-radius:0.375rem;padding:0.5rem;';
-            status.parentElement.appendChild(ta);
-          });
-          return;
-        }
-
-        showStatus(status, 'success', 'Fields filled from "' + file.name + '".');
-      })
-      .catch(function(err) {
-        showStatus(status, 'error', 'Upload failed: ' + err.message);
-        zone.style.display = '';
-      });
   }
 
   function showStatus(el, type, msg) {
@@ -301,19 +295,14 @@ const PDF_IMPORT_INJECTION = `
     el.textContent = msg;
   }
 
-  // Use MutationObserver to wait for Keystatic to render the field
-  var injected = false;
-  function tryInject() {
-    if (injected) return;
-    if (injectUploadZone()) injected = true;
-  }
-  // Try immediately and watch for DOM changes
-  tryInject();
-  var obs = new MutationObserver(function() { tryInject(); });
+  // Wait for Keystatic to render the form, then set up
+  var ready = false;
+  function trySetup() { if (!ready && setup()) ready = true; }
+  trySetup();
+  var obs = new MutationObserver(trySetup);
   obs.observe(document.body, { childList: true, subtree: true });
-  // Stop observing once injected (cleanup)
-  var checkInterval = setInterval(function() {
-    if (injected) { obs.disconnect(); clearInterval(checkInterval); }
+  var cleanup = setInterval(function() {
+    if (ready) { obs.disconnect(); clearInterval(cleanup); }
   }, 2000);
 })();
 </script>`;

@@ -21,15 +21,8 @@ If a field cannot be determined, use an empty string. For department, pick the c
 
 export const POST: APIRoute = async ({ locals, request }) => {
   const runtime = (locals as any).runtime;
-  const bucket = runtime?.env?.IMAGES_BUCKET as R2Bucket | undefined;
   const ai = runtime?.env?.AI;
 
-  if (!bucket) {
-    return new Response(JSON.stringify({ error: 'R2 bucket not configured' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
   if (!ai) {
     return new Response(JSON.stringify({ error: 'AI binding not configured' }), {
       status: 500,
@@ -62,13 +55,7 @@ export const POST: APIRoute = async ({ locals, request }) => {
 
   const arrayBuffer = await file.arrayBuffer();
 
-  // Upload PDF to R2
-  const pdfKey = `job-pdfs/${Date.now()}-${crypto.randomUUID().slice(0, 8)}.pdf`;
-  await bucket.put(pdfKey, arrayBuffer, {
-    httpMetadata: { contentType: 'application/pdf' },
-  });
-
-  // Extract markdown using Workers AI
+  // Extract markdown from PDF
   let markdown = '';
   try {
     const result = await ai.toMarkdown([{
@@ -107,7 +94,7 @@ export const POST: APIRoute = async ({ locals, request }) => {
     // Fields extraction is best-effort; fields stay empty
   }
 
-  return new Response(JSON.stringify({ ok: true, markdown, pdfKey, fields }), {
+  return new Response(JSON.stringify({ ok: true, markdown, fields }), {
     status: 200,
     headers: { 'Content-Type': 'application/json' },
   });
