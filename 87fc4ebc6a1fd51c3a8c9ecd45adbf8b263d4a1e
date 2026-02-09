@@ -1,0 +1,35 @@
+src/pages/api/admin/merge-pr.ts
+  e7d86ce9a618c417 7-8,10,12-14,16-17,20,25,34-36,38,40-45,50,57-60,66,68-70
+src/pages/api/admin/create-pr.ts
+  e7d86ce9a618c417 7-8,10,12-14,16-17,20,25,42-43,48,60-63,65,67-78
+src/pages/api/admin/create-branch.ts
+  e7d86ce9a618c417 7-8,10,12-17,20,22,24-25,27-30,34-48,51-55,57-60
+src/pages/api/admin/rebase-pr.ts
+  e7d86ce9a618c417 7-8,10,12-17,20,22,25,27,33,36-37,39-42,47,50-53,55-57
+src/pages/api/admin/preview-status.ts
+  e7d86ce9a618c417 1-75
+src/pages/admin/index.astro
+  e7d86ce9a618c417 526-549,686-688,965-1029
+src/middleware.ts
+  e7d86ce9a618c417 210-220,227-232,236-245
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.0.42",
+  "base_commit_sha": "87fc4ebc6a1fd51c3a8c9ecd45adbf8b263d4a1e",
+  "prompts": {
+    "e7d86ce9a618c417": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8fba02dc-efae-4bc2-a8af-60884ff4636f",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Bikash Phukan <bphkns@gmail.com>",
+      "messages": [],
+      "total_additions": 426,
+      "total_deletions": 320,
+      "accepted_lines": 337,
+      "overriden_lines": 0
+    }
+  }
+}
