@@ -1,0 +1,23 @@
+src/middleware.ts
+  c53fc0470b09febe 9-13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.0.42",
+  "base_commit_sha": "8e6c2400284bfdbe5c20acd702d14a9e4f24e14c",
+  "prompts": {
+    "c53fc0470b09febe": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5f24576a-9cb7-46b0-9972-95873a7ec41f",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Bikash Phukan <bphkns@gmail.com>",
+      "messages": [],
+      "total_additions": 5,
+      "total_deletions": 1,
+      "accepted_lines": 5,
+      "overriden_lines": 0
+    }
+  }
+}
