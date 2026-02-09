@@ -1,0 +1,25 @@
+src/pages/api/jobs/extract-pdf.ts
+  f6b5614d5c2696ee 7-21,71-72,80,85-94,96-107,109-110
+src/middleware.ts
+  f6b5614d5c2696ee 93,95-98,100-106,108-110,112-115,117-124,129-130,132-139,142-156,158-167,169-178,180-190,192-233,236,238,242,245-246,254-255,258-261,263-288,290-291,294-295,299-301,304-317,368,370
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.0.42",
+  "base_commit_sha": "dfce6261c0f7ffb5875c168338674619171d48ad",
+  "prompts": {
+    "f6b5614d5c2696ee": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dd1f00d6-7e12-4154-9452-afc16e4b61e4",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Bikash Phukan <bphkns@gmail.com>",
+      "messages": [],
+      "total_additions": 241,
+      "total_deletions": 167,
+      "accepted_lines": 237,
+      "overriden_lines": 0
+    }
+  }
+}
