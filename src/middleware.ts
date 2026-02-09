@@ -2,24 +2,25 @@ import { defineMiddleware } from 'astro:middleware';
 
 const READ_ONLY_BANNER = `
 <style>
-  body { padding-top: 40px !important; }
+  body { padding-top: 44px !important; }
   .ks-readonly-banner {
     position: fixed; top: 0; left: 0; right: 0; z-index: 2147483647;
-    background: #d97706; color: #000; padding: 8px 16px;
+    background: #d97706; color: #000; padding: 10px 16px;
     font: 600 13px/1.4 -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.3);
   }
   .ks-readonly-banner a { color: #000; text-decoration: underline; margin-left: 8px; }
-  /* Disable mutation buttons via CSS — branch protection is the real enforcement */
-  button[aria-label*="Create"], button[aria-label*="Save"], button[aria-label*="Delete"],
-  button[aria-label*="create"], button[aria-label*="save"], button[aria-label*="delete"] {
-    opacity: 0.4 !important; pointer-events: none !important;
+  /* Block all interaction below the banner — branch protection is the real enforcement */
+  .ks-readonly-shield {
+    position: fixed; top: 44px; left: 0; right: 0; bottom: 0;
+    z-index: 2147483646; cursor: not-allowed;
   }
 </style>
 <div class="ks-readonly-banner">
-  READ-ONLY — You are viewing main.
+  READ-ONLY &#8212; You are viewing main. Editing is disabled.
   <a href="/admin">Go to Admin Dashboard</a>
-</div>`;
+</div>
+<div class="ks-readonly-shield"></div>`;
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const { pathname } = context.url;
