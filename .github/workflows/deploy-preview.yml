@@ -31,6 +31,14 @@ jobs:
       - run: npm ci
       - run: npm run build
 
+      - name: Create Pages project (first run only)
+        uses: cloudflare/wrangler-action@v3
+        continue-on-error: true
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: b01357b51e0ceb9e37e2bdf82bbcbc34
+          command: pages project create trueleap-preview --production-branch=main
+
       - name: Deploy preview to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
