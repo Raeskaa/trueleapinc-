@@ -1,0 +1,49 @@
+AGENTS.md
+  c53fc0470b09febe 36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.0.42",
+  "base_commit_sha": "2ebf3a5fc054b61b5df4cc5219418ef54f4ca09e",
+  "prompts": {
+    "5868d7a322b0b76a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3bfd2905-bab5-477b-ad3b-aefc1aef5a38",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Bikash Phukan <bphkns@gmail.com>",
+      "messages": [],
+      "total_additions": 120,
+      "total_deletions": 6,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "c53fc0470b09febe": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5f24576a-9cb7-46b0-9972-95873a7ec41f",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Bikash Phukan <bphkns@gmail.com>",
+      "messages": [],
+      "total_additions": 1005,
+      "total_deletions": 24,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    },
+    "e8f561bc6f352968": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7651686d-35fb-461e-86cf-9b8789dbf87e",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Bikash Phukan <bphkns@gmail.com>",
+      "messages": [],
+      "total_additions": 4192,
+      "total_deletions": 2355,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    }
+  }
+}
