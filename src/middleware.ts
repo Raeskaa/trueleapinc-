@@ -101,9 +101,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
     const contentType = response.headers.get('content-type');
     if (contentType?.includes('text/html')) {
       const html = await response.text();
-      const modified = html.includes('</head>')
-        ? html.replace('</head>', BRANCH_GUARD_SCRIPT + '</head>')
-        : html.replace('</body>', BRANCH_GUARD_SCRIPT + '</body>');
+      const modified = html + BRANCH_GUARD_SCRIPT;
       return new Response(modified, {
         status: response.status,
         headers: response.headers,
