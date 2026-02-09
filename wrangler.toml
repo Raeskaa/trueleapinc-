@@ -14,3 +14,21 @@ bucket_name = "trueleap-images"
 
 [observability]
 enabled = true
+
+# Dev: dev.trueleapinc.com
+[env.dev]
+routes = [
+  { pattern = "dev.trueleapinc.com/*", zone_name = "trueleapinc.com" },
+]
+[[env.dev.r2_buckets]]
+binding = "IMAGES_BUCKET"
+bucket_name = "trueleap-images"
+
+# Preview: dev-preview.trueleapinc.com
+[env.preview]
+routes = [
+  { pattern = "dev-preview.trueleapinc.com/*", zone_name = "trueleapinc.com" },
+]
+[[env.preview.r2_buckets]]
+binding = "IMAGES_BUCKET"
+bucket_name = "trueleap-images"
