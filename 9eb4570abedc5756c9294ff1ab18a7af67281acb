@@ -1,0 +1,27 @@
+src/pages/admin/index.astro
+  6ae4b26496fcfd34 87
+src/pages/api/admin/create-branch.ts
+  6ae4b26496fcfd34 76
+.github/workflows/preview-comment.yml
+  6ae4b26496fcfd34 21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.0.42",
+  "base_commit_sha": "9eb4570abedc5756c9294ff1ab18a7af67281acb",
+  "prompts": {
+    "6ae4b26496fcfd34": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "49a208f4-98e9-45b6-aba6-d8bdb2965a94",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Bikash Phukan <bphkns@gmail.com>",
+      "messages": [],
+      "total_additions": 3,
+      "total_deletions": 3,
+      "accepted_lines": 3,
+      "overriden_lines": 0
+    }
+  }
+}
