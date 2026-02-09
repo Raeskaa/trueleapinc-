@@ -6,7 +6,11 @@ const BRANCH_GUARD_SCRIPT = `
   var dismissed = false;
 
   function isOnMain() {
-    return !window.location.pathname.includes('/branch/');
+    var p = window.location.pathname;
+    // No /branch/ in URL = default (main), or explicitly /branch/main
+    if (!p.includes('/branch/')) return true;
+    if (p.includes('/branch/main')) return true;
+    return false;
   }
 
   function getOrCreate(id) {
