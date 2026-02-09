@@ -1,0 +1,23 @@
+.github/workflows/content-pr.yml
+  40f9a1df57e0c647 19,27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.0.42",
+  "base_commit_sha": "2e1e8e6c4a0bf221a0a23d67c2b211db781b59a1",
+  "prompts": {
+    "40f9a1df57e0c647": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9bc462de-601d-40f4-a162-45ff5b156126",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Bikash Phukan <bphkns@gmail.com>",
+      "messages": [],
+      "total_additions": 2,
+      "total_deletions": 2,
+      "accepted_lines": 2,
+      "overriden_lines": 0
+    }
+  }
+}
