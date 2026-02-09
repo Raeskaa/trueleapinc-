@@ -12,6 +12,9 @@ directory = "./dist"
 binding = "IMAGES_BUCKET"
 bucket_name = "trueleap-images"
 
+[ai]
+binding = "AI"
+
 [observability]
 enabled = true
 
@@ -23,6 +26,8 @@ routes = [
 [[env.dev.r2_buckets]]
 binding = "IMAGES_BUCKET"
 bucket_name = "trueleap-images"
+[env.dev.ai]
+binding = "AI"
 
 # Preview: dev-preview.trueleapinc.com
 [env.preview]
@@ -32,3 +37,5 @@ routes = [
 [[env.preview.r2_buckets]]
 binding = "IMAGES_BUCKET"
 bucket_name = "trueleap-images"
+[env.preview.ai]
+binding = "AI"
