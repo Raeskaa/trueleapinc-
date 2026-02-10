@@ -7,12 +7,13 @@ on:
   repository_dispatch:
     types:
       - payload-publish
+  workflow_dispatch:
 
 jobs:
-  # ── CMS Worker (only on push, only when trueleap-cms/ changes) ──
+  # ── CMS Worker (on push when trueleap-cms/ changes, or manual trigger) ──
   deploy-cms:
     name: Deploy CMS
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -24,7 +25,9 @@ jobs:
       - name: Check for CMS changes
         id: changes
         run: |
-          if git diff --name-only HEAD~1 HEAD | grep -q '^trueleap-cms/'; then
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "cms=true" >> "$GITHUB_OUTPUT"
+          elif git diff --name-only HEAD~1 HEAD | grep -q '^trueleap-cms/'; then
             echo "cms=true" >> "$GITHUB_OUTPUT"
           else
             echo "cms=false" >> "$GITHUB_OUTPUT"
