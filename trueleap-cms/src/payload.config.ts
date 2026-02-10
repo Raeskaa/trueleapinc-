@@ -107,9 +107,12 @@ const draftVersions = {
 const triggerDeployOnPublish = async (req: { payload: { logger: { info: Function; error: Function } } }) => {
   const GITHUB_TOKEN = process.env.GITHUB_TOKEN ?? ''
   const GITHUB_REPO = process.env.GITHUB_REPO ?? 'Trueleap/trueleap-inc'
-  if (!GITHUB_TOKEN) return
+  if (!GITHUB_TOKEN) {
+    req.payload.logger.error('GITHUB_TOKEN not set — cannot trigger deploy')
+    return
+  }
   try {
-    await fetch(`https://api.github.com/repos/${GITHUB_REPO}/dispatches`, {
+    const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/dispatches`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${GITHUB_TOKEN}`,
@@ -119,21 +122,26 @@ const triggerDeployOnPublish = async (req: { payload: { logger: { info: Function
       },
       body: JSON.stringify({ event_type: 'payload-publish' }),
     })
-    req.payload.logger.info('Deploy triggered after publish')
+    if (res.ok || res.status === 204) {
+      req.payload.logger.info('Deploy triggered after publish')
+    } else {
+      const text = await res.text()
+      req.payload.logger.error(`Deploy trigger failed: ${res.status} ${text}`)
+    }
   } catch (e) {
-    req.payload.logger.error('Failed to trigger deploy after publish')
+    req.payload.logger.error(`Failed to trigger deploy after publish: ${e}`)
   }
 }
 
-const collectionAfterChangeHook: CollectionAfterChangeHook = async ({ doc, previousDoc, req }) => {
-  if (doc._status === 'published' && previousDoc?._status !== 'published') {
+const collectionAfterChangeHook: CollectionAfterChangeHook = async ({ doc, req, operation }) => {
+  if (doc._status === 'published') {
     await triggerDeployOnPublish(req)
   }
   return doc
 }
 
-const globalAfterChangeHook: GlobalAfterChangeHook = async ({ doc, previousDoc, req }) => {
-  if (doc._status === 'published' && previousDoc?._status !== 'published') {
+const globalAfterChangeHook: GlobalAfterChangeHook = async ({ doc, req }) => {
+  if (doc._status === 'published') {
     await triggerDeployOnPublish(req)
   }
   return doc
