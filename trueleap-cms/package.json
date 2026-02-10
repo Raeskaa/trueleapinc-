@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@ai-stack/payloadcms": "^3.2.26",
+    "@cfworker/json-schema": "^4.1.1",
     "@opennextjs/cloudflare": "^1.11.0",
     "@payloadcms/db-d1-sqlite": "3.75.0",
     "@payloadcms/next": "3.75.0",
@@ -30,6 +31,7 @@
     "cross-env": "^7.0.3",
     "dotenv": "16.4.7",
     "graphql": "^16.8.1",
+    "mustache": "^4.2.0",
     "next": "15.4.11",
     "payload": "3.75.0",
     "react": "19.2.1",
@@ -52,6 +54,9 @@
       "esbuild",
       "unrs-resolver",
       "workerd"
-    ]
+    ],
+    "patchedDependencies": {
+      "@ai-stack/payloadcms@3.2.26": "patches/@ai-stack__payloadcms@3.2.26.patch"
+    }
   }
 }
