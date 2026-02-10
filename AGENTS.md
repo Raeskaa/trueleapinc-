@@ -33,11 +33,29 @@ Core content works without JS. Interactivity enhances, never gates. The globe is
 All user-facing strings externalized. Route structure supports `/[lang]/` prefix. RTL consideration in layouts.
 
 ### 4. CMS-Driven Content
-Content schemas define structure. Payload CMS (at `cms.trueleapinc.com`) stores content in Cloudflare D1 (SQLite) with media in R2. The same Astro codebase is deployed twice:
-- **Customer site** (`dev.trueleapinc.com`): prerendered, fetches published content at build time
-- **Preview site** (`dev-preview.trueleapinc.com`): SSR with `DRAFT_MODE=true`, fetches draft content on every request
+Content is managed in **Payload CMS 3.75** at `cms.trueleapinc.com`. Three deployable units exist:
 
-Publishing triggers a GitHub Actions rebuild of both sites via `repository_dispatch` webhook. The CMS live preview iframe points to the preview site for instant draft feedback.
+| Worker | URL | Deploy method |
+|--------|-----|---------------|
+| **CMS** (`trueleap-cms-dev`) | `cms.trueleapinc.com` | Manual: `cd trueleap-cms && CLOUDFLARE_ENV=dev npx next build && npx opennextjs-cloudflare build && npx wrangler deploy --env dev` |
+| **Customer site** (`trueleap-inc-dev`) | `dev.trueleapinc.com` | Auto: GitHub Actions on push to `main` or `repository_dispatch` |
+| **Preview site** (`trueleap-inc-preview`) | `dev-preview.trueleapinc.com` | Auto: GitHub Actions on push to `main` or `repository_dispatch` |
+
+**CMS infrastructure:**
+- D1 SQLite database (`trueleap-cms`, ID: `c41e33b8-a35d-41e6-a695-c31bdab7c96f`)
+- R2 bucket (`trueleap-images`) for media storage
+- Workers AI for PDF extraction (toMarkdown + Llama 3.3 70B)
+- OpenNext adapter (`@opennextjs/cloudflare`) wraps Next.js for CF Workers
+- Cloudflare Access protects `/admin` path and preview site
+
+**Content flow:**
+1. Editors create/edit content in Payload admin → saved as drafts in D1
+2. DraftBanner shows unpublished count, batch-publishes selected items
+3. Publish triggers `repository_dispatch` webhook → GitHub Actions rebuilds both sites
+4. Customer site fetches published content via `PAYLOAD_URL` + `PAYLOAD_API_KEY`
+5. Preview site uses Service Binding (`CMS` → `trueleap-cms-dev`) to avoid 522 timeouts
+
+Preview opens in a new tab (no inline iframe).
 
 ### 5. Component Composition
 Prefer composition over configuration. Components should be combinable, not configurable with boolean props.
