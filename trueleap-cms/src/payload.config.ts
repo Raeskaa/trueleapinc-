@@ -10,7 +10,7 @@ import { getCloudflareContext } from '@opennextjs/cloudflare'
 import type { GetPlatformProxyOptions } from 'wrangler'
 import { r2Storage } from '@payloadcms/storage-r2'
 
-import type { CollectionConfig, GlobalConfig } from 'payload'
+import type { CollectionConfig, GlobalConfig, CollectionAfterChangeHook, GlobalAfterChangeHook } from 'payload'
 
 import {
   Users,
@@ -103,10 +103,50 @@ const draftVersions = {
   drafts: true,
 }
 
+/** Trigger a site rebuild when content is published via Payload's native publish button */
+const triggerDeployOnPublish = async (req: { payload: { logger: { info: Function; error: Function } } }) => {
+  const GITHUB_TOKEN = process.env.GITHUB_TOKEN ?? ''
+  const GITHUB_REPO = process.env.GITHUB_REPO ?? 'Trueleap/trueleap-inc'
+  if (!GITHUB_TOKEN) return
+  try {
+    await fetch(`https://api.github.com/repos/${GITHUB_REPO}/dispatches`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${GITHUB_TOKEN}`,
+        Accept: 'application/vnd.github+json',
+        'User-Agent': 'trueleap-cms',
+        'X-GitHub-Api-Version': '2022-11-28',
+      },
+      body: JSON.stringify({ event_type: 'payload-publish' }),
+    })
+    req.payload.logger.info('Deploy triggered after publish')
+  } catch (e) {
+    req.payload.logger.error('Failed to trigger deploy after publish')
+  }
+}
+
+const collectionAfterChangeHook: CollectionAfterChangeHook = async ({ doc, previousDoc, req }) => {
+  if (doc._status === 'published' && previousDoc?._status !== 'published') {
+    await triggerDeployOnPublish(req)
+  }
+  return doc
+}
+
+const globalAfterChangeHook: GlobalAfterChangeHook = async ({ doc, previousDoc, req }) => {
+  if (doc._status === 'published' && previousDoc?._status !== 'published') {
+    await triggerDeployOnPublish(req)
+  }
+  return doc
+}
+
 const groupGlobals = (group: string, globals: GlobalConfig[]): GlobalConfig[] =>
   globals.map((g) => ({
     ...g,
     versions: draftVersions,
+    hooks: {
+      ...(g.hooks ?? {}),
+      afterChange: [...(g.hooks?.afterChange ?? []), globalAfterChangeHook],
+    },
     admin: {
       ...(g.admin ?? {}),
       group,
@@ -121,6 +161,10 @@ const groupCollections = (group: string, collections: CollectionConfig[]): Colle
   collections.map((c) => ({
     ...c,
     versions: draftVersions,
+    hooks: {
+      ...(c.hooks ?? {}),
+      afterChange: [...(c.hooks?.afterChange ?? []), collectionAfterChangeHook],
+    },
     admin: {
       ...(c.admin ?? {}),
       group,

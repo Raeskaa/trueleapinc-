@@ -168,6 +168,14 @@
   overflow: hidden;
 }
 
+/* Ensure Payload's header/action bar doesn't clip our fixed-position modal overlay */
+.app-header,
+header,
+[class*="AppHeader"],
+[class*="actions_"] {
+  overflow: visible !important;
+}
+
 .publish-modal--confirm {
   max-width: 440px;
 }
