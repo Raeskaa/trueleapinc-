@@ -124,6 +124,19 @@
   color: var(--tl-badge-err-text);
 }
 
+.deploy-banner--clickable {
+  cursor: pointer;
+  border: none;
+  font-family: var(--tl-font);
+  font-size: 12px;
+  font-weight: 600;
+
+  &:hover {
+    box-shadow: var(--tl-shadow-sm);
+    filter: brightness(0.97);
+  }
+}
+
 .deploy-banner__dot {
   width: 7px;
   height: 7px;
@@ -370,6 +383,79 @@ a.publish-modal__item-info {
     cursor: not-allowed;
     box-shadow: none;
   }
+}
+
+
+/* ═══════════════════════════════════════════
+   Deploy History — publish deployment list
+   ═══════════════════════════════════════════ */
+.deploy-history__loading,
+.deploy-history__empty {
+  padding: 24px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--tl-text-subtle);
+}
+
+.deploy-history__row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 24px;
+  text-decoration: none;
+  transition: background var(--tl-transition);
+
+  &:hover {
+    background: var(--tl-surface-hover);
+  }
+}
+
+.deploy-history__status {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.deploy-history__status--success {
+  background: var(--tl-badge-ok-bg);
+  color: var(--tl-badge-ok-text);
+}
+
+.deploy-history__status--failure {
+  background: var(--tl-badge-err-bg);
+  color: var(--tl-badge-err-text);
+}
+
+.deploy-history__status--in_progress,
+.deploy-history__status--queued {
+  background: var(--tl-surface-active);
+  color: var(--tl-text-muted);
+  animation: tl-pulse 1.5s ease-in-out infinite;
+}
+
+.deploy-history__info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.deploy-history__label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--tl-text);
+}
+
+.deploy-history__time {
+  font-size: 11px;
+  color: var(--tl-text-subtle);
 }
 
 

@@ -10,6 +10,13 @@ interface DraftItem {
   title?: string
 }
 
+interface DeployRun {
+  id: number
+  status: string
+  created_at: string
+  url: string
+}
+
 type DeployStatus = 'idle' | 'deploying' | 'success' | 'failure'
 type PublishPhase = 'idle' | 'publishing' | 'deploying'
 
@@ -58,6 +65,9 @@ const DraftBanner: React.FC = () => {
   const [publishPhase, setPublishPhase] = useState<PublishPhase>('idle')
   const [selected, setSelected] = useState<Set<string>>(new Set())
   const [deployStatus, setDeployStatus] = useState<DeployStatus>('idle')
+  const [deployHistory, setDeployHistory] = useState<DeployRun[]>([])
+  const [showHistory, setShowHistory] = useState(false)
+  const [historyLoading, setHistoryLoading] = useState(false)
 
   const fetchDrafts = useCallback(async (silent = false) => {
     if (!silent) setLoading(true)
@@ -171,6 +181,23 @@ const DraftBanner: React.FC = () => {
     }
   }
 
+  const fetchDeployHistory = useCallback(async () => {
+    setHistoryLoading(true)
+    try {
+      const res = await fetch('/api/deploy/history')
+      const data = await res.json()
+      setDeployHistory(data.runs ?? [])
+    } catch {
+      setDeployHistory([])
+    }
+    setHistoryLoading(false)
+  }, [])
+
+  const openHistory = useCallback(() => {
+    setShowHistory(true)
+    fetchDeployHistory()
+  }, [fetchDeployHistory])
+
   const triggerDeploy = async () => {
     try {
       const res = await fetch('/api/deploy/trigger', { method: 'POST' })
@@ -196,22 +223,26 @@ const DraftBanner: React.FC = () => {
   const confirmPublishAndDeploy = async () => {
     setPublishPhase('publishing')
     const toPublish = drafts.filter((d) => selected.has(itemKey(d)))
+    let successCount = 0
 
     for (const item of toPublish) {
       try {
+        let res: Response
         if (item.type === 'global') {
-          await fetch(`/api/globals/${item.slug}?publishAllLocales=true`, {
+          res = await fetch(`/api/globals/${item.slug}?publishAllLocales=true`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ _status: 'published' }),
           })
         } else {
-          await fetch(`/api/${item.slug}/${item.id}?publishAllLocales=true`, {
+          res = await fetch(`/api/${item.slug}/${item.id}?publishAllLocales=true`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ _status: 'published' }),
           })
         }
+        if (res.ok) successCount++
+        else console.error(`Failed to publish ${itemKey(item)}: HTTP ${res.status}`)
       } catch (e) {
         console.error(`Failed to publish ${itemKey(item)}:`, e)
       }
@@ -221,8 +252,10 @@ const DraftBanner: React.FC = () => {
     await new Promise((r) => setTimeout(r, 500))
     await fetchDrafts()
 
-    setPublishPhase('deploying')
-    await triggerDeploy()
+    if (successCount > 0) {
+      setPublishPhase('deploying')
+      await triggerDeploy()
+    }
 
     setPublishPhase('idle')
     setShowConfirm(false)
@@ -231,19 +264,29 @@ const DraftBanner: React.FC = () => {
   if (loading) return null
 
   const selectedCount = selected.size
+
   const deployIndicator = () => {
     if (deployStatus === 'idle') return null
+
     if (deployStatus === 'deploying')
       return (
-        <span className="deploy-banner deploy-banner--building">
+        <button type="button" className="deploy-banner deploy-banner--building deploy-banner--clickable" onClick={openHistory}>
           <span className="deploy-banner__dot" />
           Deploying...
-        </span>
+        </button>
       )
     if (deployStatus === 'success')
-      return <span className="deploy-banner deploy-banner--success">Deployed</span>
+      return (
+        <button type="button" className="deploy-banner deploy-banner--success deploy-banner--clickable" onClick={openHistory}>
+          Deployed
+        </button>
+      )
     if (deployStatus === 'failure')
-      return <span className="deploy-banner deploy-banner--failure">Deploy failed</span>
+      return (
+        <button type="button" className="deploy-banner deploy-banner--failure deploy-banner--clickable" onClick={openHistory}>
+          Deploy failed
+        </button>
+      )
     return null
   }
 
@@ -383,6 +426,65 @@ const DraftBanner: React.FC = () => {
                   : publishPhase === 'deploying'
                     ? 'Triggering deploy...'
                     : 'Publish & Deploy'}
+              </button>
+            </div>
+          </div>
+        </div>,
+        document.body,
+      )}
+
+      {/* ── Deploy history dialog (portaled to body) ── */}
+      {showHistory && createPortal(
+        <div className="publish-modal-overlay" onClick={() => setShowHistory(false)}>
+          <div className="publish-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="publish-modal__header">
+              <h2>Publish Deployments</h2>
+              <button
+                type="button"
+                className="publish-modal__close"
+                onClick={() => setShowHistory(false)}
+              >
+                &times;
+              </button>
+            </div>
+
+            <div className="publish-modal__list">
+              {historyLoading && (
+                <div className="deploy-history__loading">Loading...</div>
+              )}
+              {!historyLoading && deployHistory.length === 0 && (
+                <div className="deploy-history__empty">No publish deployments yet</div>
+              )}
+              {deployHistory.map((run) => (
+                <a
+                  key={run.id}
+                  className="deploy-history__row"
+                  href={run.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className={`deploy-history__status deploy-history__status--${run.status}`}>
+                    {run.status === 'success' ? '\u2713' : run.status === 'failure' ? '\u2717' : run.status === 'in_progress' || run.status === 'queued' ? '\u25CB' : '\u2014'}
+                  </span>
+                  <span className="deploy-history__info">
+                    <span className="deploy-history__label">
+                      {run.status === 'success' ? 'Deployed' : run.status === 'failure' ? 'Failed' : run.status === 'in_progress' ? 'Deploying' : run.status === 'queued' ? 'Queued' : run.status}
+                    </span>
+                    <span className="deploy-history__time">
+                      {new Date(run.created_at).toLocaleString()}
+                    </span>
+                  </span>
+                </a>
+              ))}
+            </div>
+
+            <div className="publish-modal__footer">
+              <button
+                type="button"
+                className="publish-modal__cancel"
+                onClick={() => setShowHistory(false)}
+              >
+                Close
               </button>
             </div>
           </div>
