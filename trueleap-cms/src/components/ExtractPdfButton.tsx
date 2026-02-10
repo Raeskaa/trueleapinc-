@@ -1,6 +1,6 @@
 'use client'
 import React, { useCallback, useState } from 'react'
-import { useField } from '@payloadcms/ui'
+import { useField, useAllFormFields } from '@payloadcms/ui'
 
 type Status = 'idle' | 'extracting' | 'success' | 'error'
 
@@ -11,7 +11,7 @@ const ExtractPdfButton: React.FC = () => {
   const locationField = useField<string>({ path: 'location' })
   const typeField = useField<string>({ path: 'type' })
   const summaryField = useField<string>({ path: 'summary' })
-  const bodyField = useField<any>({ path: 'body' })
+  const [, dispatchFields] = useAllFormFields()
 
   const [status, setStatus] = useState<Status>('idle')
   const [errorMsg, setErrorMsg] = useState('')
@@ -52,7 +52,17 @@ const ExtractPdfButton: React.FC = () => {
       if (fields.location) locationField.setValue(fields.location)
       if (fields.type) typeField.setValue(fields.type)
       if (fields.summary) summaryField.setValue(fields.summary)
-      if (lexicalBody) bodyField.setValue(lexicalBody)
+
+      // Lexical richText fields need dispatchFields to trigger editor re-mount
+      if (lexicalBody) {
+        dispatchFields({
+          type: 'UPDATE',
+          path: 'body',
+          value: lexicalBody,
+          initialValue: lexicalBody,
+          valid: true,
+        })
+      }
 
       setStatus('success')
       setTimeout(() => setStatus('idle'), 3000)
@@ -61,7 +71,7 @@ const ExtractPdfButton: React.FC = () => {
       setStatus('error')
       setTimeout(() => setStatus('idle'), 5000)
     }
-  }, [mediaId, titleField, departmentField, locationField, typeField, summaryField, bodyField])
+  }, [mediaId, titleField, departmentField, locationField, typeField, summaryField, dispatchFields])
 
   const handleClick = useCallback(() => {
     if (hasExistingValues) {

@@ -203,8 +203,8 @@ export async function POST(req: Request) {
     const payloadConfig = await config
     const editorConfig = await editorConfigFactory.default({ config: payloadConfig })
     lexicalBody = convertMarkdownToLexical({ editorConfig, markdown })
-  } catch {
-    // Body conversion failed — fields are still useful
+  } catch (err: any) {
+    console.error('Lexical conversion failed:', err?.message || err)
   }
 
   return NextResponse.json({ ok: true, fields, lexicalBody, markdown })
