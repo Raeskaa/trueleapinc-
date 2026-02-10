@@ -1,0 +1,132 @@
+src/pages/en/index.astro
+  ad3689478131cfe7 14
+src/pages/en/impact/metrics.astro
+  ad3689478131cfe7 5,8
+src/pages/en/resources/trust-center.astro
+  ad3689478131cfe7 4,7
+scripts/migrate-globals.ts
+  e3ca863cf014c40b 84-85
+DEPLOYMENT.md
+  e3ca863cf014c40b 67-73,101,146,149-163,221-223,229,231-232,298-310
+src/pages/en/company/index.astro
+  ad3689478131cfe7 3
+trueleap-cms/src/components/DraftBanner.tsx
+  e3ca863cf014c40b 13,57,61-62,104,107-108,111,120,129,180,203-205,207-211,328,334,338,354,357,362,365,367-368
+trueleap-cms/src/payload.config.ts
+  e3ca863cf014c40b 156
+src/pages/en/solutions/index.astro
+  ad3689478131cfe7 3,6
+src/pages/index.astro
+  ad3689478131cfe7 14
+src/pages/en/privacy.astro
+  ad3689478131cfe7 3,6
+src/lib/payload.ts
+  e3ca863cf014c40b 4-9,33-50,53-54,65-66,69-72,75-76,83,85-88,95,100,109,115,126,132,140-141,145,149,151,153,159-163,165-168,170-174
+src/pages/en/platform/digital-systems.astro
+  ad3689478131cfe7 4,7
+trueleap-cms/src/components/ExtractPdfButton.tsx
+  1d59cd97b13af15d 1-130
+trueleap-cms/src/app/api/extract-job-pdf/route.ts
+  1d59cd97b13af15d 1-42,44-145,147-148,165-211
+  e3ca863cf014c40b 43,146,149-164
+trueleap-cms/wrangler.jsonc
+  1d59cd97b13af15d 21,32-34,46,56-59
+src/pages/en/impact/case-studies.astro
+  ad3689478131cfe7 3,6
+trueleap-cms/cloudflare-env.d.ts
+  1d59cd97b13af15d 6
+scripts/migrate-collections.ts
+  e3ca863cf014c40b 150
+src/pages/en/platform/infrastructure.astro
+  ad3689478131cfe7 3,6
+trueleap-cms/src/collections/Jobs.ts
+  1d59cd97b13af15d 8-12
+src/pages/en/company/partners.astro
+  ad3689478131cfe7 3,6
+src/pages/en/platform/index.astro
+  ad3689478131cfe7 3,6
+src/layouts/Page.astro
+  ad3689478131cfe7 5,15
+src/pages/en/solutions/industry/[slug].astro
+  e3ca863cf014c40b 7,15
+  ad3689478131cfe7 4,8,23
+src/pages/en/platform/stack.astro
+  ad3689478131cfe7 4,7
+src/pages/en/impact/network-map.astro
+  ad3689478131cfe7 6,9
+src/pages/en/solutions/outcome/[slug].astro
+  ad3689478131cfe7 4,8,23
+  e3ca863cf014c40b 7,15
+wrangler.toml
+  e3ca863cf014c40b 39,44-46
+src/pages/en/company/mission.astro
+  ad3689478131cfe7 4
+src/pages/en/resources/docs.astro
+  ad3689478131cfe7 3,6
+src/pages/en/impact/index.astro
+  ad3689478131cfe7 3
+src/pages/en/company/careers.astro
+  ad3689478131cfe7 3
+src/pages/en/terms.astro
+  ad3689478131cfe7 3,6
+trueleap-cms/src/app/(payload)/custom.scss
+  1d59cd97b13af15d 316-378
+src/pages/en/resources/index.astro
+  ad3689478131cfe7 3,6
+src/pages/en/resources/newsroom.astro
+  ad3689478131cfe7 3,6
+src/pages/en/company/leadership.astro
+  ad3689478131cfe7 3,6
+src/pages/en/impact/last-mile.astro
+  ad3689478131cfe7 3
+scripts/migrate-mdx-globals.ts
+  e3ca863cf014c40b 1-232
+src/pages/en/platform/edge-ai.astro
+  ad3689478131cfe7 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.0.42",
+  "base_commit_sha": "fb76881636ab727c789ac7175f8c1892fdcbd841",
+  "prompts": {
+    "1d59cd97b13af15d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_3ba3061bbffeI3cHHkEw59kfXV",
+        "model": "anthropic/claude-opus-4-6"
+      },
+      "human_author": "Bikash Phukan <bphkns@gmail.com>",
+      "messages": [],
+      "total_additions": 438,
+      "total_deletions": 51,
+      "accepted_lines": 401,
+      "overriden_lines": 0
+    },
+    "ad3689478131cfe7": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_3b99adca4ffeFHpllUOWZoq6TY",
+        "model": "anthropic/claude-opus-4-6"
+      },
+      "human_author": "Bikash Phukan <bphkns@gmail.com>",
+      "messages": [],
+      "total_additions": 52,
+      "total_deletions": 48,
+      "accepted_lines": 48,
+      "overriden_lines": 0
+    },
+    "e3ca863cf014c40b": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_3b9d0f75effe2Ef4KXwR8zUUsf",
+        "model": "anthropic/claude-opus-4-6"
+      },
+      "human_author": "Bikash Phukan <bphkns@gmail.com>",
+      "messages": [],
+      "total_additions": 424,
+      "total_deletions": 112,
+      "accepted_lines": 402,
+      "overriden_lines": 0
+    }
+  }
+}
