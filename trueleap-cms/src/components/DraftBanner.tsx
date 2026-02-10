@@ -10,7 +10,7 @@ interface DraftItem {
   title?: string
 }
 
-type DeployStatus = 'idle' | 'triggering' | 'deploying' | 'success' | 'failure'
+type DeployStatus = 'idle' | 'deploying' | 'success' | 'failure'
 type PublishPhase = 'idle' | 'publishing' | 'deploying'
 
 const GLOBAL_LABELS: Record<string, string> = {
@@ -109,25 +109,42 @@ const DraftBanner: React.FC = () => {
     return () => clearInterval(interval)
   }, [fetchDrafts])
 
-  // Poll deploy status when deploying; refresh drafts on success
+  // Always poll deploy status to show when any deployment is in progress
   useEffect(() => {
-    if (deployStatus !== 'deploying') return
-    const poll = setInterval(async () => {
+    const checkDeployStatus = async () => {
       try {
         const res = await fetch('/api/deploy/status')
         const data = await res.json()
-        if (data.status === 'success') {
-          setDeployStatus('success')
-          fetchDrafts(true)
-          setTimeout(() => setDeployStatus('idle'), 5000)
+        if (data.status === 'queued' || data.status === 'in_progress') {
+          setDeployStatus('deploying')
+        } else if (data.status === 'success') {
+          setDeployStatus((prev) => {
+            if (prev === 'deploying') {
+              fetchDrafts(true)
+              setTimeout(() => setDeployStatus('idle'), 5000)
+              return 'success'
+            }
+            return prev
+          })
         } else if (data.status === 'failure') {
-          setDeployStatus('failure')
-          setTimeout(() => setDeployStatus('idle'), 8000)
+          setDeployStatus((prev) => {
+            if (prev === 'deploying') {
+              setTimeout(() => setDeployStatus('idle'), 8000)
+              return 'failure'
+            }
+            return prev
+          })
+        } else {
+          // completed/cancelled/unknown — no active deploy
+          setDeployStatus((prev) => (prev === 'deploying' ? 'idle' : prev))
         }
       } catch {}
-    }, 10000)
+    }
+
+    checkDeployStatus()
+    const poll = setInterval(checkDeployStatus, 10_000)
     return () => clearInterval(poll)
-  }, [deployStatus, fetchDrafts])
+  }, [fetchDrafts])
 
   const itemKey = (d: DraftItem) =>
     d.type === 'global' ? `global:${d.slug}` : `collection:${d.slug}:${d.id}`
@@ -155,7 +172,6 @@ const DraftBanner: React.FC = () => {
   }
 
   const triggerDeploy = async () => {
-    setDeployStatus('triggering')
     try {
       const res = await fetch('/api/deploy/trigger', { method: 'POST' })
       if (res.ok) {
@@ -217,8 +233,6 @@ const DraftBanner: React.FC = () => {
   const selectedCount = selected.size
   const deployIndicator = () => {
     if (deployStatus === 'idle') return null
-    if (deployStatus === 'triggering')
-      return <span className="deploy-banner deploy-banner--building">Triggering build...</span>
     if (deployStatus === 'deploying')
       return (
         <span className="deploy-banner deploy-banner--building">
