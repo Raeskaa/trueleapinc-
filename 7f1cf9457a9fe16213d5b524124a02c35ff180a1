@@ -1,0 +1,25 @@
+trueleap-cms/src/app/api/deploy/status/route.ts
+  e3ca863cf014c40b 17
+trueleap-cms/src/components/DraftBanner.tsx
+  e3ca863cf014c40b 112,114,118-122,124-128,130-139,143-145
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.1",
+  "base_commit_sha": "7f1cf9457a9fe16213d5b524124a02c35ff180a1",
+  "prompts": {
+    "e3ca863cf014c40b": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_3b9d0f75effe2Ef4KXwR8zUUsf",
+        "model": "anthropic/claude-opus-4-6"
+      },
+      "human_author": "Bikash Phukan <bphkns@gmail.com>",
+      "messages": [],
+      "total_additions": 30,
+      "total_deletions": 15,
+      "accepted_lines": 26,
+      "overriden_lines": 0
+    }
+  }
+}
