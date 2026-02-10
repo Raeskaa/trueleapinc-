@@ -9,6 +9,63 @@ on:
       - payload-publish
 
 jobs:
+  # ── CMS Worker (only on push, only when trueleap-cms/ changes) ──
+  deploy-cms:
+    name: Deploy CMS
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Check for CMS changes
+        id: changes
+        run: |
+          if git diff --name-only HEAD~1 HEAD | grep -q '^trueleap-cms/'; then
+            echo "cms=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "cms=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: pnpm/action-setup@v4
+        if: steps.changes.outputs.cms == 'true'
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        if: steps.changes.outputs.cms == 'true'
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: trueleap-cms/pnpm-lock.yaml
+
+      - name: Install CMS dependencies
+        if: steps.changes.outputs.cms == 'true'
+        run: pnpm install --frozen-lockfile
+        working-directory: trueleap-cms
+
+      - name: Build Next.js
+        if: steps.changes.outputs.cms == 'true'
+        run: CLOUDFLARE_ENV=dev pnpm run build
+        working-directory: trueleap-cms
+
+      - name: Build OpenNext
+        if: steps.changes.outputs.cms == 'true'
+        run: npx opennextjs-cloudflare build
+        working-directory: trueleap-cms
+
+      - name: Deploy CMS Worker
+        if: steps.changes.outputs.cms == 'true'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          command: deploy --env dev
+          workingDirectory: trueleap-cms
+
+  # ── Customer site (static, prerendered) ──
   deploy-dev:
     name: Deploy customer site (dev)
     runs-on: ubuntu-latest
@@ -36,6 +93,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           command: deploy --env dev
 
+  # ── Preview site (SSR, draft content) ──
   deploy-preview:
     name: Deploy preview site
     runs-on: ubuntu-latest
