@@ -18,7 +18,7 @@ jobs:
   deploy-cms:
     name: Deploy CMS
     if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
     steps:
@@ -67,7 +67,7 @@ jobs:
   # ── Customer site (static, prerendered) ──
   deploy-dev:
     name: Deploy customer site (dev)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
       deployments: write
@@ -95,7 +95,7 @@ jobs:
   # ── Preview site (SSR, draft content) ──
   deploy-preview:
     name: Deploy preview site
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
       deployments: write
