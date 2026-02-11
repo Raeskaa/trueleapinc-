@@ -254,7 +254,7 @@ export default buildConfig({
   editor: lexicalEditor({
     features: ({ rootFeatures }) => [
       ...rootFeatures,
-      PayloadAiPluginLexicalEditorFeature(),
+      // PayloadAiPluginLexicalEditorFeature(), // temporarily disabled to test heading registration
     ],
   }),
   secret: process.env.PAYLOAD_SECRET || '',
